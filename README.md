@@ -1,3 +1,3 @@
 Scala 3
 -------
->Feature tests. ***WARNING*** Not working at this time!
+>Feature tests. ***WARNING*** Metals support is currently unavailable! Nor does Sbt work!
