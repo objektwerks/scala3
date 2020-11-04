@@ -3,7 +3,9 @@ organization := "objektwerks"
 version := "0.1-SNAPSHOT"
 scalaVersion := dottyLatestNightlyBuild.get
 libraryDependencies ++= {
+  val scalaTestVersion = "3.2.2"
   Seq(
-    ("org.scalatest" %% "scalatest" % "3.2.2" % Test).withDottyCompat(scalaVersion.value)
+    ("org.scalactic" %% "scalactic" % scalaTestVersion % Test).withDottyCompat(scalaVersion.value),
+    ("org.scalatest" %% "scalatest" % scalaTestVersion % Test).withDottyCompat(scalaVersion.value)
   )
 }
