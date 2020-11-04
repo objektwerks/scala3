@@ -1,8 +1,7 @@
 Scala 3
 -------
->Feature tests. ***WARNING*** Metals and Sbt support is currently unavailable!
+>Feature tests.
 
-Python 3
---------
->Scala 3 is being quasi-morphed into Python 3 ( https://blog.rockthejvm.com/scala-3-indentation/ )
->Space indentation in one thing. But the ***end*** statement is an absolute show-stooper!
+Warning
+-------
+>Metals and Sbt support is currently incomplete (2020.11.4).
