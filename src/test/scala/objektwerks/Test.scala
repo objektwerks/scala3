@@ -1,8 +1,8 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
+import munit._
 
-class Test extends AnyFunSuite {
+class Test extends FunSuite {
   test("test") {
     assert(App.title.nonEmpty)
   }
