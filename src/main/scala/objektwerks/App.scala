@@ -1,9 +1,9 @@
 package objektwerks
 
 object App {
-  val title = "App"
+  val title = "Scala3"
 
   def main(args: Array[String]): Unit = {
-    println(s"*** App main args [${args.length}]: ${args.foreach(println)}")
+    println(s"*** App [$title] main args [${args.length}]: ${args.foreach(println)}")
   }
 }
