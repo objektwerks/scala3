@@ -2,23 +2,23 @@ package objektwerks
 
 import munit._
 
-trait Salutation(val addresee: String) {
-  def address(message: String): String = s"$addresee, $message"
+trait Salutation(val addresee: Addresee) {
+  def address(message: Message): String = s"$addresee, $message"
 }
 
-object Addresee {
-  val sir = "Sir"
-  val madam = "Madam"
+enum Addresee(value: String) {
+  case sir extends Addresee("Sir")
+  case madam extends Addresee("Madam")
 }
 
-object Message {
-  val goodMorning = "I bid you good morning."
-  val goodEvening = "I bid you good evening"
+enum Message(value: String) {
+  case goodMorning extends Message("I bid you good morning.")
+  case goodEvening extends Message("I bid you good evening")
 }
 
 import Addresee._
-case class MaleHonorific(message: String) extends Salutation(sir)
-case class FemaleHonorific(message: String) extends Salutation(madam)
+case class MaleHonorific(message: Message) extends Salutation(sir)
+case class FemaleHonorific(message: Message) extends Salutation(madam)
 
 class TraitTest extends FunSuite {
   test("trait") {
