@@ -4,7 +4,7 @@ Scala 3
 
 Warning
 -------
->Scala 3 is a new language that is insanely complex, which become apparent when you explore it.
+>Scala 3 is a new language that is insanely complex, which becomes apparent when you explore it in depth.
 
 Note
 ----
