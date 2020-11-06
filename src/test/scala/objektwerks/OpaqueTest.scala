@@ -14,7 +14,7 @@ class OpaqueTest extends FunSuite {
   test("opaque") {
     import Names._
 
-    val fredFlintstone: Name = Name("Fred Flintstone")
+    val fredFlintstone = Name("Fred Flintstone")
     assert( fredFlintstone == Name("Fred Flintstone") )
   }
 }
