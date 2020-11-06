@@ -2,8 +2,8 @@ package objektwerks
 
 import munit._
 
-class Test extends FunSuite { 
-  test("test") {
+class AppTest extends FunSuite { 
+  test("app") {
     assert(App.title.nonEmpty)
   }
 }
