@@ -14,11 +14,10 @@ trait Beer {
 case class Lager(name: String) extends Beer
 case class Pilsner(name: String) extends Beer
 
-def drink(beer: Lager | Pilsner): Beer =
-  beer match {
-    case lager @ Lager(name) => lager.drink
-    case pilsner @ Pilsner(name) => pilsner.drink
-  }
+def drink(beer: Lager | Pilsner): Beer = beer match {
+  case lager @ Lager(name) => lager.drink
+  case pilsner @ Pilsner(name) => pilsner.drink
+}
 
 class UnionTypeTest extends FunSuite {
   test("union") {
