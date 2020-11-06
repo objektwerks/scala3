@@ -11,16 +11,23 @@ object Addresee {
   val madam = "Madam"
 }
 
+object Message {
+  val goodMorning = "I bid you good morning."
+  val goodEvening = "I bid you good evening"
+}
+
 import Addresee._
 case class MaleHonorific(message: String) extends Salutation(sir)
 case class FemaleHonorific(message: String) extends Salutation(madam)
 
 class TraitTest extends FunSuite {
   test("trait") {
-    val maleHonorific = MaleHonorific("I bid you good morning.")
+    import Message._
+
+    val maleHonorific = MaleHonorific(goodMorning)
     assert( maleHonorific.address(maleHonorific.message) == s"${maleHonorific.addresee}, ${maleHonorific.message}" )
 
-    val femaleHonorific = FemaleHonorific("I bid you good evening.")
+    val femaleHonorific = FemaleHonorific(goodEvening)
     assert( femaleHonorific.address(femaleHonorific.message) == s"${femaleHonorific.addresee}, ${femaleHonorific.message}" )
   }
 }
