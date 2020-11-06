@@ -3,11 +3,11 @@ package objektwerks
 import munit._
 
 trait Camera {
-    def takePhoto(): Boolean = true
+  def takePhoto(): Boolean = true
 }
 
 trait Phone {
-    def makeCall(): Boolean = true
+  def makeCall(): Boolean = true
 }
 
 class MobilePhone extends Camera with Phone
