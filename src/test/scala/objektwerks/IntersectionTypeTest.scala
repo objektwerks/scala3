@@ -12,9 +12,7 @@ trait Phone {
 
 class MobilePhone extends Camera with Phone
 
-def useDevice(device: Camera & Phone): (Boolean, Boolean) = {
-    ( device.takePhoto(), device.makeCall() )
-}
+def useDevice(device: Camera & Phone): (Boolean, Boolean) = ( device.takePhoto(), device.makeCall() )
 
 class IntersectionTypeTest extends FunSuite {
   test("intersection") {
