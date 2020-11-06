@@ -5,14 +5,16 @@ import munit._
 object Names {
   opaque type Name = String
 
-  def toName(value: String): Name = value
+  object Name {
+    def apply(value: String): Name = value
+  }
 }
 
 class OpaqueTest extends FunSuite {
   test("opaque") {
     import Names._
 
-    val fredFlintstone: Name = toName("Fred Flintstone")
-    assert( fredFlintstone == toName("Fred Flintstone") )
+    val fredFlintstone: Name = Name("Fred Flintstone")
+    assert( fredFlintstone == Name("Fred Flintstone") )
   }
 }
