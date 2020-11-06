@@ -6,7 +6,7 @@ object Names {
   opaque type Name = String
 
   object Name {
-    def apply(value: String): Name = value
+    def apply(name: String): Name = name
   }
 }
 
