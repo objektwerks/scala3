@@ -2,7 +2,7 @@ package objektwerks
 
 import munit._
 
-trait Salutation(val addresee: Addresee) {
+sealed trait Salutation(val addresee: Addresee) {
   def address(message: Message): String = s"$addresee, $message"
 }
 
@@ -17,8 +17,8 @@ enum Message(value: String) {
 }
 
 import Addresee._
-case class MaleHonorific(message: Message) extends Salutation(sir)
-case class FemaleHonorific(message: Message) extends Salutation(madam)
+final case class MaleHonorific(message: Message) extends Salutation(sir)
+final case class FemaleHonorific(message: Message) extends Salutation(madam)
 
 class TraitTest extends FunSuite {
   test("trait") {
