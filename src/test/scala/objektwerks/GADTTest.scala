@@ -2,13 +2,13 @@ package objektwerks
 
 import munit._
 
-trait Expr[T]
-case class IntExpr(i: Int) extends Expr[Int]
-case class BoolExpr(b: Boolean) extends Expr[Boolean]
+sealed trait Expression[T]
+final case class IntExpr(i: Int) extends Expression[Int]
+final case class BoolExpr(b: Boolean) extends Expression[Boolean]
 
-def eval[T](e: Expr[T]): T = e match {
-  case IntExpr(i) => i
-  case BoolExpr(b) => b
+def eval[T](expression: Expression[T]): T = expression match {
+  case IntExpr(int) => int
+  case BoolExpr(boolean) => boolean
 }
 
 class GADTTest extends FunSuite {
