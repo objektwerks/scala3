@@ -2,11 +2,11 @@ package objektwerks
 
 import munit._
 
-trait Camera {
+sealed trait Camera {
   def takePhoto(): Boolean = true
 }
 
-trait Phone {
+sealed trait Phone {
   def makeCall(): Boolean = true
 }
 
