@@ -1,10 +1,7 @@
 Scala 3
 -------
->Feature tests.
-
-Warning
--------
->Scala 3 is a new language that is insanely complex, which becomes apparent when you explore it in depth.
+>Scala 3 is, in effect, a new language that comes with its own complexity,
+>which becomes apparent when you explore it in depth.
 
 Note
 ----
