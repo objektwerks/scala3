@@ -2,12 +2,13 @@ package objektwerks
 
 import munit._
 
-object NumberType {
-  inline val negative = "negative"
-  inline val positive = "positive"
-  inline val zero = "zero"
+enum NumberType {
+  case negative extends NumberType
+  case positive extends NumberType
+  case zero extends NumberType
 }
-def typeOfNumber(number: Int): String = {
+
+def typeOfNumber(number: Int): NumberType = {
   import NumberType._
 
   if number < 0 then
