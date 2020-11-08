@@ -1,9 +1,9 @@
 package objektwerks
 
 object App {
-  val title = "Scala3"
+  val title = "Scala3 Main Method App"
 
-  def main(args: Array[String]): Unit = {
-    println(s"*** App [$title] main args [${args.length}]: ${args.foreach(println)}")
+  @main def greeting(name: String): Unit = {
+    println(s"*** $title : Greetings, $name! ***")
   }
 }
