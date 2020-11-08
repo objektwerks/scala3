@@ -25,6 +25,10 @@ class ControlTest extends FunSuite {
     assert( typeOfNumber(-1) == negative)
     assert( typeOfNumber(0) == zero)
     assert( typeOfNumber(1) == positive)
+
+    val x = 1
+    val result = if x < 0 then -x else x
+    assert( result == x )
   }
 
   test("for > yield") {
