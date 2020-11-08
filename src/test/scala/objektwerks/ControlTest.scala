@@ -8,16 +8,14 @@ enum NumberType {
   case zero extends NumberType
 }
 
-def typeOfNumber(number: Int): NumberType = {
-  import NumberType._
-
+import NumberType._
+def typeOfNumber(number: Int): NumberType =
   if number < 0 then
     negative
   else if number == 0 then
     zero
   else
     positive
-}
 
 class ControlTest extends FunSuite {
   test("if then else") {
