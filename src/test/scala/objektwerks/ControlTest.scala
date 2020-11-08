@@ -26,7 +26,7 @@ class ControlTest extends FunSuite {
     assert( typeOfNumber(0) == zero)
     assert( typeOfNumber(1) == positive)
 
-    val x = 1
+    inline val x = 1
     val result = if x < 0 then -x else x
     assert( result == x )
   }
@@ -36,5 +36,16 @@ class ControlTest extends FunSuite {
     val result = for x <- xs if x > 0
     yield x * x
     assert( result.sum == 14 )
+  }
+
+  test("for > do") {
+    val xs = 1 to 3
+    val ys = 4 to 6
+    val result = for
+      x <- xs
+      y <- ys
+    do
+      val sum = x + y
+      assert( sum >= 5 && sum <= 9)
   }
 }
