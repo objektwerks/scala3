@@ -19,6 +19,6 @@ def combineList[T](list: List[T])(using combiner: Combiner[T]): T = combiner.com
 class GivenUsingTest extends FunSuite {
   test("given > using") {
     assert( combineList( List(1, 2, 3) ) == 6 )
-    assert( combineList( List("Scala ", "is ", "awesome!") ) == "Scala is awesome!" )
+    assert( combineList( List("Scala3 ", "is a ", "new language!") ) == "Scala3 is a new language!" )
   }
 }
