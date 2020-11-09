@@ -1,6 +1,6 @@
 Scala 3
 -------
->Feature tests.
+>Feature tests for the ***new*** Scala3 language.
 
 Documentation
 -------------
