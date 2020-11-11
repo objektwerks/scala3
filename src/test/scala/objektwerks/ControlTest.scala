@@ -40,21 +40,18 @@ class ControlTest extends FunSuite {
   test("for > do") {
     val xs = 1 to 3
     val ys = 4 to 6
-    val result = for
+    for
       x <- xs
       y <- ys
+      z = x + y
     do
-      val sum = x + y
-      assert( sum >= 5 && sum <= 9)
+      assert( z >= 5 && z <= 9)
   }
 
   test("while > do") {
     var x = 3
-    var count = 0
     while x > 0
-    do 
-      count = count + 1
-      x = x - 1
-    assert( count == 3 )
+    do x = x - 1
+    assert( x == 0 )
   }
 }
