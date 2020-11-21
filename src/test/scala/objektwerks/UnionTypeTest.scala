@@ -13,10 +13,13 @@ def drink(beer: Lager | Pilsner): Beer = beer match {
 
 class UnionTypeTest extends FunSuite {
   test("union") {
-    assert( drink( Lager("Son of Joy") ).isInstanceOf[Lager] )
-    assert( drink( Lager("Song of Joy") ).name == "Song of Joy" )
+    val lager = Lager("Song of Joy")
+    val pilsner = Pilsner("Poetica 2")
 
-    assert( drink( Pilsner("Poetica 2") ).isInstanceOf[Pilsner] )
-    assert( drink( Lager("Poetica 2") ).name == "Poetica 2" )
+    assert( drink( lager ).isInstanceOf[Lager] )
+    assert( drink( lager ).name == "Song of Joy" )
+
+    assert( drink( pilsner ).isInstanceOf[Pilsner] )
+    assert( drink( pilsner ).name == "Poetica 2" )
   }
 }
