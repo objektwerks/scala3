@@ -4,9 +4,9 @@ import munit._
 
 import scala.reflect.Selectable._
 
-class Record(elems: (String, Any)*) extends Selectable {
-  private val fields = elems.toMap
-  def selectDynamic(name: String): Any = fields(name)
+class Record(fields: (String, Any)*) extends Selectable {
+  private val columns = fields.toMap
+  def selectDynamic(column: String): Any = columns(column)
 }
 
 type Car = Record {
