@@ -9,8 +9,8 @@ given firstNameOrdering as Ordering[Name] = Ordering.by(_.first)
 
 class OrderingTest extends FunSuite {
   test("ordering") {
-    val aName = Name("alast", "zfirst")
-    val zName = Name("zlast", "afirst")
+    val aName = Name(last = "alast", first = "zfirst")
+    val zName = Name(last = "zlast", first = "afirst")
     val names = Seq( aName, zName )
 
     val lastNameSorted = names.sorted[Name](using lastNameOrdering)
