@@ -22,6 +22,12 @@ def reverse[A](list: List[A], acc: List[A] = List.empty[A]): List[A] = list matc
   case head :: tail => reverse(tail, head :: acc)
 }
 
+@tailrec
+final def factorial(n: Int, acc: Int = 1): Int = n match {
+  case i if i < 1 => acc
+  case _ => factorial(n - 1, acc * n)
+}
+
 class RecursionTest extends FunSuite {
   test("sum") {
     assert( sum( List(1, 2, 3) ) == 6 )
@@ -33,5 +39,9 @@ class RecursionTest extends FunSuite {
 
   test("reverse") {
     assert( reverse( List(1, 2, 3) ) == List(3, 2, 1) )
+  }
+
+  test("factorial") {
+    assert( factorial(3) == 6 )
   }
 }
