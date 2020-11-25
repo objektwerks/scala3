@@ -2,13 +2,11 @@ package objektwerks
 
 import munit._
 
-import scala.annotation.infix
-
 case class Amount(value: Double) {
   def +(other: Amount): Amount = Amount(value + other.value)
   def -(other: Amount): Amount = Amount(value - other.value)
-  @infix def add(other: Amount): Amount = this + other
-  @infix def subtract(other: Amount): Amount = this - other
+  infix def add(other: Amount): Amount = this + other
+  infix def subtract(other: Amount): Amount = this - other
 }
 
 extension (amount: Amount) {
