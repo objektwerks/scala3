@@ -3,27 +3,27 @@ package objektwerks
 import munit._
 
 trait SemiGroup[T]:
-  extension (x: T) def combine (y: T): T
+  extension (a: T) def join (b: T): T
 
 trait Monoid[T] extends SemiGroup[T]:
   def unit: T
 
 given Monoid[String]:
-  extension (x: String) def combine (y: String): String = x.concat(y)
+  extension (a: String) def join (b: String): String = a.concat(b)
   def unit: String = ""
 
 given Monoid[Int]:
-  extension (x: Int) def combine (y: Int): Int = x + y
+  extension (a: Int) def join (b: Int): Int = a + b
   def unit: Int = 0
 
-def combineAll[T: Monoid](xs: List[T]): T = xs.foldLeft( summon[Monoid[T]].unit )( _.combine(_) )
+def joinAll[T: Monoid](ts: List[T]): T = ts.foldLeft( summon[Monoid[T]].unit )( _.join(_) )
 
 class TypeClassTest extends FunSuite {
   test("type class") {
     val strings = List("This ", "is ", "insane!")
-    assert( combineAll(strings) == "This is insane!" )
+    assert( joinAll(strings) == "This is insane!" )
 
     val ints = List(1, 2, 3)
-    assert( combineAll(ints) == 6 )
+    assert( joinAll(ints) == 6 )
   }
 }
