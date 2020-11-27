@@ -12,8 +12,12 @@ enum Greeting(greeting: String) {
   case goodEvening extends Greeting("I bid you good evening")
 }
 
-sealed trait Salutation(val honorific: Honorific) {
-  def greet(greeting: Greeting): String = s"$honorific, $greeting"
+transparent trait SalutationBuilder {
+  def build(honorific: Honorific, greeting: Greeting): String = s"$honorific, $greeting"
+}
+
+sealed trait Salutation(val honorific: Honorific) extends SalutationBuilder {
+  def greet(greeting: Greeting): String = build(honorific, greeting)
 }
 
 final case class MaleGreeting(greeting: Greeting) extends Salutation(Honorific.sir)
