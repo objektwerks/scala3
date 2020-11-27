@@ -16,21 +16,21 @@ transparent trait SalutationBuilder {
   def build(honorific: Honorific, greeting: Greeting): String = s"$honorific, $greeting"
 }
 
-sealed trait Salutation(val honorific: Honorific) extends SalutationBuilder {
-  def greet(greeting: Greeting): String = build(honorific, greeting)
+sealed trait Salutation(val honorific: Honorific, val greeting: Greeting) extends SalutationBuilder {
+  def greet(): String = build(honorific, greeting)
 }
 
-final case class MaleGreeting(greeting: Greeting) extends Salutation(Honorific.sir)
-final case class FemaleGreeting(greeting: Greeting) extends Salutation(Honorific.madam)
+class Greetor(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
 
 class TraitTest extends FunSuite {
   test("trait") {
+    import Honorific._
     import Greeting._
 
-    val maleGreeting = MaleGreeting(goodMorning)
-    assert( maleGreeting.greet(maleGreeting.greeting) == s"${maleGreeting.honorific}, ${maleGreeting.greeting}" )
+    val maleGreetor = Greetor(sir, goodMorning)
+    assert( maleGreetor.greet() == s"${maleGreetor.honorific}, ${maleGreetor.greeting}" )
 
-    val femaleGreeting = FemaleGreeting(goodEvening)
-    assert( femaleGreeting.greet(femaleGreeting.greeting) == s"${femaleGreeting.honorific}, ${femaleGreeting.greeting}" )
+    val femaleGreetor = Greetor(madam, goodEvening)
+    assert( femaleGreetor.greet() == s"${femaleGreetor.honorific}, ${femaleGreetor.greeting}" )
   }
 }
