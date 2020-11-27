@@ -2,7 +2,7 @@ package objektwerks
 
 import munit._
 
-case class Circle(x: Double, y: Double, radius: Double)
+open case class Circle(x: Double, y: Double, radius: Double)
 
 extension (circle: Circle) {
   def circumference: Double = circle.radius * math.Pi * 2
