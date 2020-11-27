@@ -2,7 +2,7 @@ package objektwerks
 
 import munit._
 
-sealed trait Combiner[T] {
+trait Combiner[T] {
   def combine(list: List[T]): T
 }
 
