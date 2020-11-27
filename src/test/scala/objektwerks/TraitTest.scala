@@ -2,12 +2,12 @@ package objektwerks
 
 import munit._
 
-enum Honorific(value: String) {
+enum Honorific(honorific: String) {
   case sir extends Honorific("Sir")
   case madam extends Honorific("Madam")
 }
 
-enum Greeting(value: String) {
+enum Greeting(greeting: String) {
   case goodMorning extends Greeting("I bid you good morning.")
   case goodEvening extends Greeting("I bid you good evening")
 }
