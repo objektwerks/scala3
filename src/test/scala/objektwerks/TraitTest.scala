@@ -2,32 +2,32 @@ package objektwerks
 
 import munit._
 
-sealed trait Salutation(val addresee: Addresee) {
-  def address(message: Message): String = s"$addresee, $message"
+sealed trait Salutation(val honorific: Honorific) {
+  def greet(greeting: Greeting): String = s"$honorific, $greeting"
 }
 
-enum Addresee(value: String) {
-  case sir extends Addresee("Sir")
-  case madam extends Addresee("Madam")
+enum Honorific(value: String) {
+  case sir extends Honorific("Sir")
+  case madam extends Honorific("Madam")
 }
 
-enum Message(value: String) {
-  case goodMorning extends Message("I bid you good morning.")
-  case goodEvening extends Message("I bid you good evening")
+enum Greeting(value: String) {
+  case goodMorning extends Greeting("I bid you good morning.")
+  case goodEvening extends Greeting("I bid you good evening")
 }
 
-import Addresee._
-final case class MaleHonorific(message: Message) extends Salutation(sir)
-final case class FemaleHonorific(message: Message) extends Salutation(madam)
+import Honorific._
+final case class MaleGreeting(greeting: Greeting) extends Salutation(sir)
+final case class FemaleGreeting(greeting: Greeting) extends Salutation(madam)
 
 class TraitTest extends FunSuite {
   test("trait") {
-    import Message._
+    import Greeting._
 
-    val maleHonorific = MaleHonorific(goodMorning)
-    assert( maleHonorific.address(maleHonorific.message) == s"${maleHonorific.addresee}, ${maleHonorific.message}" )
+    val maleGreeting = MaleGreeting(goodMorning)
+    assert( maleGreeting.greet(maleGreeting.greeting) == s"${maleGreeting.honorific}, ${maleGreeting.greeting}" )
 
-    val femaleHonorific = FemaleHonorific(goodEvening)
-    assert( femaleHonorific.address(femaleHonorific.message) == s"${femaleHonorific.addresee}, ${femaleHonorific.message}" )
+    val femaleGreeting = FemaleGreeting(goodEvening)
+    assert( femaleGreeting.greet(femaleGreeting.greeting) == s"${femaleGreeting.honorific}, ${femaleGreeting.greeting}" )
   }
 }
