@@ -16,14 +16,14 @@ given Monoid[Int]:
   extension (a: Int) def join (b: Int): Int = a + b
   def unit: Int = 0
 
-def joinAll[T: Monoid](ts: List[T]): T = ts.foldLeft( summon[Monoid[T]].unit )( _.join(_) )
+def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].unit )( _.join(_) )
 
 class TypeClassTest extends FunSuite {
   test("type class") {
-    val strings = List("This ", "is ", "insane!")
+    val strings = Seq("This ", "is ", "insane!")
     assert( joinAll(strings) == "This is insane!" )
 
-    val ints = List(1, 2, 3)
+    val ints = Seq(1, 2, 3)
     assert( joinAll(ints) == 6 )
   }
 }
