@@ -27,10 +27,10 @@ class TraitTest extends FunSuite {
     import Honorific._
     import Greeting._
 
-    val maleGreetor = Greetor(sir, goodMorning)
-    assert( maleGreetor.greet() == s"${maleGreetor.honorific}, ${maleGreetor.greeting}" )
+    val sirGoodMorningGreetor = Greetor(sir, goodMorning)
+    assert( sirGoodMorningGreetor.greet() == s"${sirGoodMorningGreetor.honorific}, ${sirGoodMorningGreetor.greeting}" )
 
-    val femaleGreetor = Greetor(madam, goodEvening)
-    assert( femaleGreetor.greet() == s"${femaleGreetor.honorific}, ${femaleGreetor.greeting}" )
+    val madamGoodEveningGreetor = Greetor(madam, goodEvening)
+    assert( madamGoodEveningGreetor.greet() == s"${madamGoodEveningGreetor.honorific}, ${madamGoodEveningGreetor.greeting}" )
   }
 }
