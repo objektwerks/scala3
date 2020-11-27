@@ -6,17 +6,17 @@ trait SemiGroup[T]:
   extension (a: T) def join (b: T): T
 
 trait Monoid[T] extends SemiGroup[T]:
-  def unit: T
+  def zero: T
 
 given Monoid[String]:
   extension (a: String) def join (b: String): String = a.concat(b)
-  def unit: String = ""
+  def zero: String = ""
 
 given Monoid[Int]:
   extension (a: Int) def join (b: Int): Int = a + b
-  def unit: Int = 0
+  def zero: Int = 0
 
-def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].unit )( _.join(_) )
+def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _.join(_) )
 
 class TypeClassTest extends FunSuite {
   test("type class") {
