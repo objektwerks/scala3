@@ -2,10 +2,6 @@ package objektwerks
 
 import munit._
 
-sealed trait Salutation(val honorific: Honorific) {
-  def greet(greeting: Greeting): String = s"$honorific, $greeting"
-}
-
 enum Honorific(value: String) {
   case sir extends Honorific("Sir")
   case madam extends Honorific("Madam")
@@ -14,6 +10,10 @@ enum Honorific(value: String) {
 enum Greeting(value: String) {
   case goodMorning extends Greeting("I bid you good morning.")
   case goodEvening extends Greeting("I bid you good evening")
+}
+
+sealed trait Salutation(val honorific: Honorific) {
+  def greet(greeting: Greeting): String = s"$honorific, $greeting"
 }
 
 final case class MaleGreeting(greeting: Greeting) extends Salutation(Honorific.sir)
