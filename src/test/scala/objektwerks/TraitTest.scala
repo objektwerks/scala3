@@ -16,9 +16,8 @@ enum Greeting(value: String) {
   case goodEvening extends Greeting("I bid you good evening")
 }
 
-import Honorific._
-final case class MaleGreeting(greeting: Greeting) extends Salutation(sir)
-final case class FemaleGreeting(greeting: Greeting) extends Salutation(madam)
+final case class MaleGreeting(greeting: Greeting) extends Salutation(Honorific.sir)
+final case class FemaleGreeting(greeting: Greeting) extends Salutation(Honorific.madam)
 
 class TraitTest extends FunSuite {
   test("trait") {
