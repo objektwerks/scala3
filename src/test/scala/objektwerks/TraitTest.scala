@@ -20,17 +20,17 @@ sealed trait Salutation(val honorific: Honorific, val greeting: Greeting) extend
   def greet(): String = build(honorific, greeting)
 }
 
-class Greetor(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
+class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
 
 class TraitTest extends FunSuite {
   test("trait") {
     import Honorific._
     import Greeting._
 
-    val sirGoodMorningGreetor = Greetor(sir, goodMorning)
-    assert( sirGoodMorningGreetor.greet() == s"${sirGoodMorningGreetor.honorific}, ${sirGoodMorningGreetor.greeting}" )
+    val sirGoodMorningGreeter = Greeter(sir, goodMorning)
+    assert( sirGoodMorningGreeter.greet() == s"${sirGoodMorningGreeter.honorific}, ${sirGoodMorningGreeter.greeting}" )
 
-    val madamGoodEveningGreetor = Greetor(madam, goodEvening)
-    assert( madamGoodEveningGreetor.greet() == s"${madamGoodEveningGreetor.honorific}, ${madamGoodEveningGreetor.greeting}" )
+    val madamGoodEveningGreeter = Greeter(madam, goodEvening)
+    assert( madamGoodEveningGreeter.greet() == s"${madamGoodEveningGreeter.honorific}, ${madamGoodEveningGreeter.greeting}" )
   }
 }
