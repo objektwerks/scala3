@@ -20,8 +20,8 @@ def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _
 
 class TypeClassTest extends FunSuite {
   test("type class") {
-    val strings = Seq("This ", "is ", "insane!")
-    assert( joinAll(strings) == "This is insane!" )
+    val strings = Seq("Scala3 ", "is a ", "new language!")
+    assert( joinAll(strings) == "Scala3 is a new language!" )
 
     val ints = Seq(1, 2, 3)
     assert( joinAll(ints) == 6 )
