@@ -14,11 +14,11 @@ val divideByOneExt = new PartialFunction[Int, Int] {
 }
 
 def isEven: PartialFunction[Int, String] = {
-  case x if x % 2 == 0 => s"$x even"
+  case i if i % 2 == 0 => s"$i even"
 }
 
 def isOdd: PartialFunction[Int, String] = {
-  case x if x % 2 == 1 => s"$x odd"
+  case i if i % 2 == 1 => s"$i odd"
 }
 
 class PartialFunctionTest extends FunSuite {
