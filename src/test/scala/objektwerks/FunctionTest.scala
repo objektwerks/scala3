@@ -4,7 +4,7 @@ import munit._
 
 import scala.annotation.tailrec
 import scala.language.postfixOps
-import scala.util.Random
+import scala.util.{Random, Try}
 
 class FunctionTest extends FunSuite {
   test("literal") {
@@ -71,8 +71,8 @@ class FunctionTest extends FunSuite {
 
   test("closure") {
     val legalDrinkingAge = 21
-    def isLegallyOldEnoughToDrink(age: Int): Boolean = age >= legalDrinkingAge
-    assert( isLegallyOldEnoughToDrink(22) == true )
+    def isLegalDrinkingAge(age: Int): Boolean = age >= legalDrinkingAge
+    assert( isLegalDrinkingAge(22) == true )
   }
 
   test("higher order") {
@@ -89,12 +89,18 @@ class FunctionTest extends FunSuite {
   }
 
   test("partial function") {
-    val fraction = new PartialFunction[Int, Int] {
-      def apply(i: Int) = 2 / i
-      def isDefinedAt(i: Int): Boolean = i <= 0
+    val multipleByOne: PartialFunction[Int, Int] = {
+      case i: Int if i != 0 => i * 1
     }
-    assert( fraction(2) == 1 )
-    assert( fraction.isDefinedAt(-42) == true )
+    assert( ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) == true )
+    assert( ( List(0, 1, 2) collect multipleByOne ) == List(1, 2) )
+
+    val divideByOne = new PartialFunction[Int, Int] {
+      def apply(i: Int): Int = i / 1
+      def isDefinedAt(i: Int): Boolean = i != 0
+    }
+    assert( divideByOne(2) == 2 )
+    assert( divideByOne(0) == 0 )
   }
 
   test("curry") {
@@ -112,8 +118,8 @@ class FunctionTest extends FunSuite {
   }
 
   test ("lambda") {
-    val list = List(1, 2, 3, 4)
-    assert( list.filter(_ % 2 == 0) == List(2, 4) )
+    val lambdaFilteredList = List(1, 2, 3, 4).filter(_ % 2 == 0)
+    assert( lambdaFilteredList == List(2, 4) )
   }
 
   test("non-tailrec") {
@@ -133,18 +139,18 @@ class FunctionTest extends FunSuite {
     assert( factorial(9) == 362880 )
   }
 
+  test("pure function") {
+    def add(x: Int, y: Int): Int = {
+      x + y // No side-effecting IO.
+    }
+    assert( add(1, 2) == 3 )
+  }
+
   test("impure function") {
     def add(x: Int, y: Int): Int = {
       val sum = x + y
       println(sum) // Simulating side-effecting IO
       sum
-    }
-    assert( add(1, 2) == 3 )
-  }
-
-  test("pure function") {
-    def add(x: Int, y: Int): Int = {
-      x + y // No side-effecting IO.
     }
     assert( add(1, 2) == 3 )
   }
@@ -195,7 +201,7 @@ class FunctionTest extends FunSuite {
 
   test("intersection") {
     def intersection(source: List[Int], target: List[Int]): List[Int] = {
-      for (s <- source if target.contains(s)) yield s
+      for (i <- source if target.contains(i)) yield i
     }
 
     val xs = List.range(1, 10)
