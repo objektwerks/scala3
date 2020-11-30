@@ -35,6 +35,6 @@ class PartialFunctionTest extends FunSuite {
     assert( ( 1 to 3 collect isEven ) == Vector("2 even") )
     assert( ( 1 to 3 collect isOdd ) == Vector("1 odd", "3 odd") )
     assert( ( 1 to 3 collect (isEven orElse isOdd) ) == Vector("1 odd", "2 even", "3 odd") )
-    assert( ( 1 to 3 map (isEven orElse isOdd) ) == Vector("1 odd", "2 even", "3 odd") )
+    assert( ( 1 to 3 map (isOdd orElse isEven) ) == Vector("1 odd", "2 even", "3 odd") )
   }
 }
