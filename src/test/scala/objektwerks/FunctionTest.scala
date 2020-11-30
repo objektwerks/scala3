@@ -48,14 +48,14 @@ class FunctionTest extends FunSuite {
 
   test("call by value") {
     def callByValue(random: Long): (Long, Long) = (random, random)
-    val (randomResult1, randomResult2) = callByValue(Random.nextLong())
-    assert( randomResult1 == randomResult2 )
+    val (randomResult, randomResultNext) = callByValue(Random.nextLong())
+    assert( randomResult == randomResultNext )
   }
 
   test("call by name") {
     def callByName(random: => Long): (Long, Long) = (random, random)
-    val (randomResult1, randomResult2) = callByName(Random.nextLong())
-    assert( randomResult1 != randomResult2 )
+    val (randomResult, randomResultNext) = callByName(Random.nextLong())
+    assert( randomResult != randomResultNext )
   }
 
   test("default args") {
