@@ -94,6 +94,7 @@ class FunctionTest extends FunSuite {
     }
     assert( ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) == true )
     assert( ( List(0, 1, 2) collect multipleByOne ) == List(1, 2) )
+    assert( ( List(42, "cat") collect { case i: Int => multipleByOne(i) } ) == List(42) )
 
     val divideByOne = new PartialFunction[Int, Int] {
       def apply(i: Int): Int = i / 1
@@ -101,6 +102,15 @@ class FunctionTest extends FunSuite {
     }
     assert( divideByOne(2) == 2 )
     assert( divideByOne(0) == 0 )
+    assert( divideByOne.isDefinedAt(3) == true )
+    assert( divideByOne.isDefinedAt(0) == false )
+
+    def isEven: PartialFunction[Int, String] = { case i if i % 2 == 0 => s"$i even" }
+    def isOdd: PartialFunction[Int, String] = { case i if i % 2 == 1 => s"$i odd" }
+    assert( ( 1 to 3 collect isEven ) == Vector("2 even") )
+    assert( ( 1 to 3 collect isOdd ) == Vector("1 odd", "3 odd") )
+    assert( ( 1 to 3 collect (isEven orElse isOdd) ) == Vector("1 odd", "2 even", "3 odd") )
+    assert( ( 1 to 3 map (isOdd orElse isEven) ) == Vector("1 odd", "2 even", "3 odd") )
   }
 
   test("curry") {
@@ -140,9 +150,7 @@ class FunctionTest extends FunSuite {
   }
 
   test("pure function") {
-    def add(x: Int, y: Int): Int = {
-      x + y // No side-effecting IO.
-    }
+    def add(x: Int, y: Int): Int = x + y // No side-effecting IO.
     assert( add(1, 2) == 3 )
   }
 
@@ -158,8 +166,10 @@ class FunctionTest extends FunSuite {
   test("compose > andThen") {
     val incr = (n: Int) => n + 1
     val decr = (n: Int) => n - 1
+
     val incrComposeDecr = incr compose decr
     val incrAndThenDecr = incr andThen decr
+    
     val incrDecrAsList = List(incr, decr)
     val incrDecrAsListWithReduce = incrDecrAsList reduce ( _ andThen _ )
 
