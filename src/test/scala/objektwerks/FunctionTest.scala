@@ -18,19 +18,15 @@ class FunctionTest extends FunSuite {
     assert( subtract(9, 3) == 6 )
   }
 
-  test("def expression") {
+  test("method") {
     def isEven(i: Int): Boolean = i % 2 == 0
     assert( isEven(2) == true )
-  }
 
-  test("def block") {
-    def isOdd(i: Int): Boolean = {
+    def isOdd(i: Int): Boolean = { // block
       i % 2 != 0
     }
     assert( isOdd(3) == true )
-  }
 
-  test("def match") {
     def sum(xs: List[Int]): Int = xs match {
       case Nil => 0
       case head :: tail => head + sum(tail)
@@ -38,12 +34,22 @@ class FunctionTest extends FunSuite {
     assert( sum(List(1, 2, 3)) == 6 )
   }
 
-  test("currying") {
+  test("curry") {
+    def multiply(x: Int): Int => Int = (y: Int) => x * y
+    assert( multiply(3)(3) == 9 )
+
+    def add(x: Int)(y: Int): Int = x + y
+    assert( add(1)(2) == 3 )
+
     def greeting(greeting: String): String => String = (name: String) => {
       greeting + ", " + name + "!"
     }
     val hello = greeting("Hello")
     assert( hello("John") == "Hello, John!" )
+
+    val sum = (x: Int, y: Int) => x + y
+    val curriedSum = sum.curried
+    assert( curriedSum(1)(2) == 3 )
   }
 
   test("call by value") {
@@ -82,9 +88,7 @@ class FunctionTest extends FunSuite {
 
   test("partially applied") {
     def multiplier(x: Int, y: Int): Int = x * y
-    val product = multiplier _
     val multiplyByFive = multiplier(5, _: Int)
-    assert( product(5, 20) == 100 )
     assert( multiplyByFive(20) == 100 )
   }
 
@@ -110,32 +114,12 @@ class FunctionTest extends FunSuite {
     assert( ( 1 to 3 collect isEven ) == Vector("2 even") )
     assert( ( 1 to 3 collect isOdd ) == Vector("1 odd", "3 odd") )
     assert( ( 1 to 3 collect (isEven orElse isOdd) ) == Vector("1 odd", "2 even", "3 odd") )
-    assert( ( 1 to 3 map (isOdd orElse isEven) ) == Vector("1 odd", "2 even", "3 odd") )
-  }
-
-  test("curry") {
-    def multiply(x: Int): Int => Int = (y: Int) => x * y
-    assert( multiply(3)(3) == 9 )
-
-    def add(x: Int)(y: Int): Int = x + y
-    assert( add(1)(2) == 3 )
-  }
-
-  test("curried") {
-    val sum = (x: Int, y: Int) => x + y
-    val curriedSum = sum.curried
-    assert( curriedSum(1)(2) == 3 )
-  }
-
-  test ("lambda") {
-    val lambdaFilteredList = List(1, 2, 3, 4).filter(_ % 2 == 0)
-    assert( lambdaFilteredList == List(2, 4) )
   }
 
   test("non-tailrec") {
     def factorial(n: Int): Int = n match {
       case i if i < 1 => 1
-      case _ => n * factorial(n - 1)
+      case _ => n * factorial(n - 1) // non-tailrec
     }
     assert( factorial(3) == 6 )
   }
@@ -144,7 +128,7 @@ class FunctionTest extends FunSuite {
     @tailrec
     def factorial(n: Int, acc: Int = 1): Int = n match {
       case i if i < 1 => acc
-      case _ => factorial(n - 1, acc * n)
+      case _ => factorial(n - 1, acc * n) // tailrec
     }
     assert( factorial(9) == 362880 )
   }
@@ -157,7 +141,7 @@ class FunctionTest extends FunSuite {
   test("impure function") {
     def add(x: Int, y: Int): Int = {
       val sum = x + y
-      println(s"side-effeecting impure function println: $sum") // Simulating side-effecting IO
+      println(s"Side-effeecting impure function println: $sum.")
       sum
     }
     assert( add(1, 2) == 3 )
@@ -169,11 +153,11 @@ class FunctionTest extends FunSuite {
 
     val incrComposeDecr = incr compose decr
     val incrAndThenDecr = incr andThen decr
-    
+
     val incrDecrAsList = List(incr, decr)
     val incrDecrAsListWithReduce = incrDecrAsList reduce ( _ andThen _ )
 
-    val xs = (1 to 10).toList
+    val xs = 1 to 10 toList
     val ys = xs map incr map decr
     val zs = xs map incrComposeDecr map incrAndThenDecr
     val fs = xs map ( incrDecrAsList reduce ( _ compose _) )
@@ -200,12 +184,14 @@ class FunctionTest extends FunSuite {
     val xs = 1 to 10 toList
     val ys = List[Int]()
     val zs = List(1, 2, 3, 4)
-    val x = selectByIndex(xs, 5)
-    val y = selectByIndex(ys, 5)
-    val z = selectByIndex(zs, 5)
 
+    val x = selectByIndex(xs, 5)
     assert( x.get == xs(5) )
+
+    val y = selectByIndex(ys, 5)
     assert( y.isEmpty == true )
+
+    val z = selectByIndex(zs, 5)
     assert( z.isEmpty == true )
   }
 
