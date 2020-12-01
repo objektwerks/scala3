@@ -229,4 +229,17 @@ class FunctionTest extends FunSuite {
     assert( result == 109641728)
     assert( time > 0.0)
   }
+
+  test("diff as percentage") {
+    def diffAsPercentage(previous: Double, current: Double): Int = {
+      val dividend = current - previous
+      val divisor = ( current + previous ) / 2
+      val delta = Math.abs( dividend / divisor ) * 100
+      delta.round.toInt
+    }
+
+    assert( diffAsPercentage(70.0, 75.0) == 7 )
+    assert( diffAsPercentage(75.0, 70.0) == 7 )
+    assert( diffAsPercentage(75.0, 80.0) == 6 )
+  }
 }
