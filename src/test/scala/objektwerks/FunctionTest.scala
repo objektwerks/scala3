@@ -54,12 +54,14 @@ class FunctionTest extends FunSuite {
 
   test("call by value") {
     def callByValue(random: Long): (Long, Long) = (random, random)
+
     val (randomResult, randomResultNext) = callByValue(Random.nextLong())
     assert( randomResult == randomResultNext )
   }
 
   test("call by name") {
     def callByName(random: => Long): (Long, Long) = (random, random)
+    
     val (randomResult, randomResultNext) = callByName(Random.nextLong())
     assert( randomResult != randomResultNext )
   }
@@ -213,6 +215,7 @@ class FunctionTest extends FunSuite {
     def doesListAcontainListB[A](listA: List[A], listB: List[A]): Boolean = {
       listB.count(b => listA.contains(b)) == listB.length
     }
+
     assert( doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) == true )
     assert( doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) == false )
   }
@@ -225,6 +228,7 @@ class FunctionTest extends FunSuite {
       val delta = stopTime - startTime
       (result, delta/1000000d)
     }
+
     val (result, time) = timer { factorial(19) }
     assert( result == 109641728)
     assert( time > 0.0)
