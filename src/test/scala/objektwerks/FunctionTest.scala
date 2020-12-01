@@ -35,17 +35,17 @@ class FunctionTest extends FunSuite {
   }
 
   test("curry") {
-    def multiply(x: Int): Int => Int = (y: Int) => x * y
-    assert( multiply(3)(3) == 9 )
-
     def add(x: Int)(y: Int): Int = x + y
     assert( add(1)(2) == 3 )
+
+    def multiply(x: Int): Int => Int = (y: Int) => x * y
+    assert( multiply(3)(3) == 9 )
 
     def greeting(greeting: String): String => String = (name: String) => {
       greeting + ", " + name + "!"
     }
-    val hello = greeting("Hello")
-    assert( hello("John") == "Hello, John!" )
+    val curriedHello = greeting("Hello")
+    assert( curriedHello("John") == "Hello, John!" )
 
     val sum = (x: Int, y: Int) => x + y
     val curriedSum = sum.curried
@@ -207,5 +207,13 @@ class FunctionTest extends FunSuite {
     assert( intersection(xs, ys) == xs.intersect(ys) )
     assert( intersection(ys, xs) == ys.intersect(xs) )
     assert( intersection(ys, zs) == ys.intersect(zs) )
+  }
+
+  test("is List A in List B") {
+    def isListAinListB[A](listA: List[A], listB: List[A]): Boolean = {
+      listA.count(a => listB.contains(a)) == listA.length
+    }
+    assert( isListAinListB( listA = (5 to 15).toList, listB = (1 to 20).toList ) == true )
+    assert( isListAinListB( listA = (10 to 30).toList, listB = (15 to 50).toList ) == false )
   }
 }
