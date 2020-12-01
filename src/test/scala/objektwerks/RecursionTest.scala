@@ -38,6 +38,20 @@ final def factorial(n: Int, acc: Int = 1): Int = n match {
   case _ => factorial(n - 1, acc * n)
 }
 
+@tailrec
+final def intersectLists[A](listA: List[A],
+                            listB: List[A],
+                            acc: List[A] = List.empty[A]): List[A] =
+  listA match {
+    case Nil => acc
+    case head :: tail =>
+      if (listB.contains(head)) {
+        intersectLists(tail, listB, acc :+ head)
+      } else {
+        intersectLists(tail, listB, acc)
+      }
+  }
+
 class RecursionTest extends FunSuite {
   test("sum") {
     assert( sum( List(1, 2, 3) ) == 6 )
@@ -59,5 +73,13 @@ class RecursionTest extends FunSuite {
 
   test("factorial") {
     assert( factorial(3) == 6 )
+  }
+
+  test("intersect lists") {
+    val listA = (1 to 10).toList
+    val listB = (5 to 15).toList
+    val listIntersection = List(5, 6, 7, 8, 9, 10)
+    assert( intersectLists(listA, listB) == listIntersection )
+    assert( ( listA intersect listB ) == listIntersection )
   }
 }
