@@ -196,7 +196,9 @@ class FunctionTest extends FunSuite {
   }
 
   test("intersection") {
-    def intersection[A](as: List[A], bs: List[A]): List[A] = for (i <- as if bs.contains(i)) yield i
+    def intersection[A](as: List[A], bs: List[A]): List[A] = {
+      for (i <- as if bs.contains(i)) yield i
+    }
 
     val xs = List.range(1, 10)
     val ys = List.range(1, 20)
@@ -207,11 +209,11 @@ class FunctionTest extends FunSuite {
     assert( intersection(ys, zs) == ys.intersect(zs) )
   }
 
-  test("is List A in List B") {
-    def isListAinListB[A](listA: List[A], listB: List[A]): Boolean = {
-      listA.count(a => listB.contains(a)) == listA.length
+  test("does List A contain List B") {
+    def doesListAcontainListB[A](listA: List[A], listB: List[A]): Boolean = {
+      listB.count(b => listA.contains(b)) == listB.length
     }
-    assert( isListAinListB( listA = (5 to 15).toList, listB = (1 to 20).toList ) == true )
-    assert( isListAinListB( listA = (10 to 30).toList, listB = (15 to 50).toList ) == false )
+    assert( doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) == true )
+    assert( doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) == false )
   }
 }
