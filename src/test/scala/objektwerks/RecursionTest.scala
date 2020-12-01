@@ -38,6 +38,15 @@ final def factorial(n: Int, acc: Int = 1): Int = n match {
   case _ => factorial(n - 1, acc * n)
 }
 
+def fibonacci(n: Long): BigInt = {
+  @tailrec
+  def loop(n: Long, a: Long, b: Long): BigInt = n match {
+    case 0 => a
+    case _ => loop(n - 1, b, a + b)
+  }
+  loop(n, 0, 1)
+}
+
 @tailrec
 final def intersectLists[A](listA: List[A],
                             listB: List[A],
@@ -73,6 +82,10 @@ class RecursionTest extends FunSuite {
 
   test("factorial") {
     assert( factorial(3) == 6 )
+  }
+
+  test("fibbonaci") {
+    assert( fibonacci(39) == 63245986 )
   }
 
   test("intersect lists") {
