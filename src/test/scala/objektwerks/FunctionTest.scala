@@ -216,4 +216,17 @@ class FunctionTest extends FunSuite {
     assert( doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) == true )
     assert( doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) == false )
   }
+
+  test("timer") {
+    def timer[A](codeblock: => A): (A, Double) = {
+      val startTime = System.nanoTime
+      val result = codeblock
+      val stopTime = System.nanoTime
+      val delta = stopTime - startTime
+      (result, delta/1000000d)
+    }
+    val (result, time) = timer { factorial(19) }
+    assert( result == 109641728)
+    assert( time > 0.0)
+  }
 }
