@@ -196,9 +196,7 @@ class FunctionTest extends FunSuite {
   }
 
   test("intersection") {
-    def intersection(source: List[Int], target: List[Int]): List[Int] = {
-      for (i <- source if target.contains(i)) yield i
-    }
+    def intersection[A](as: List[A], bs: List[A]): List[A] = for (i <- as if bs.contains(i)) yield i
 
     val xs = List.range(1, 10)
     val ys = List.range(1, 20)
