@@ -82,6 +82,7 @@ class MatchTest extends FunSuite {
     assert( m3.size == 27 )
     assert( m5.size == 13 )
     assert( none.size == 53 )
+    assert( m3m5.size + m3.size + m5.size + none.size == 99)
   }
 
   test("alias match") {
