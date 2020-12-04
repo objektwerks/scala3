@@ -143,7 +143,7 @@ class FunctionTest extends FunSuite {
   test("impure function") {
     def add(x: Int, y: Int): Int = {
       val sum = x + y
-      println(s"Side-effeecting impure function println: $sum.")
+      println(s"Side-effeecting impure function using println: $sum.")
       sum
     }
     assert( add(1, 2) == 3 )
