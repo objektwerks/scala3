@@ -7,6 +7,8 @@ import scala.util.control.Exception._
 import scala.util.control.NonFatal
 import scala.util.{Success, Try, Using}
 
+def divide(x: Int, y: Int): Either[Throwable, Int] = Try(x / y).toEither
+
 def divide(x: String, y: String): Try[Int] = {
   for {
     x <- Try(x.toInt)
@@ -19,7 +21,21 @@ def fileToLines(file: String): Try[Seq[String]] =
 
 def parseInt(s: String): Option[Int] = Try(s.toInt).toOption
 
-class TryTest extends FunSuite {
+class ErrorsTest extends FunSuite {
+  test("either") {
+    assert( divide(9, 3).isRight == true )
+    assert( divide(9, 0).isLeft == true )
+    assert( divide(9, 3).contains(3) == true )
+    assert( divide(9, 3).exists(_ == 3) == true )
+    assert( divide(9, 3).getOrElse(-1) == 3 )
+    assert( divide(9, 3).map(_ * 3).getOrElse(-1) == 9 )
+    assert( divide(9, 3).map(_ * 3).filterOrElse(_ == 9, -1).getOrElse(-1) == 9 )
+    divide(3, 0) match {
+      case Right(_) => throw new Exception("Should throw divide by zero error.")
+      case Left(error) => error.isInstanceOf[Throwable] == true
+    }
+  }
+  
   test("try catch handler") {
     val handler: PartialFunction[Throwable, Unit] = {
       case NonFatal(error) => error.getMessage.nonEmpty == true; ()
