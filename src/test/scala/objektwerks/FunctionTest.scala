@@ -5,6 +5,7 @@ import munit._
 import scala.annotation.tailrec
 import scala.language.postfixOps
 import scala.util.{Random, Try}
+import scala.util.chaining._
 
 class FunctionTest extends FunSuite {
   test("literal") {
@@ -171,6 +172,11 @@ class FunctionTest extends FunSuite {
     assert( fs == zs )
     assert( gs == fs )
     assert( us == gs )
+  }
+
+  test("pipe") {
+    val square = (n: Int) => n * n
+    assert( 2.pipe(square) == 4 )
   }
 
   test("select by index") {
