@@ -9,10 +9,10 @@ import scala.util.{Success, Try, Using}
 
 def divide(x: Int, y: Int): Either[Throwable, Int] = Try(x / y).toEither
 
-def divide(x: String, y: String): Try[Int] = {
+def divide(x: String, y: String): Option[Int] = {
   for {
-    x <- Try(x.toInt)
-    y <- Try(y.toInt)
+    x <- x.toIntOption
+    y <- y.toIntOption
   } yield x / y
 }
 
@@ -44,11 +44,11 @@ class ErrorsTest extends FunSuite {
   }
 
   test("try") {
-    assert( divide("9", "3").isSuccess == true )
-    assert( divide("9", "3").toOption.contains(3) == true )
+    assert( divide("9", "3").nonEmpty == true )
+    assert( divide("9", "3").contains(3) == true )
     assert( divide("9", "3").get == 3 )
-    assert( divide("a", "b").isFailure == true )
-    assert( divide("a", "b").toOption.isEmpty == true )
+    assert( divide("a", "b").isEmpty == true )
+    assert( divide("a", "b").isEmpty == true )
     assert( divide("a", "b").getOrElse(-1) == -1 )
   }
 
