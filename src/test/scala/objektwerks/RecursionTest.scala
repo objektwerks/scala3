@@ -54,11 +54,8 @@ final def intersectLists[A](listA: List[A],
   listA match {
     case Nil => acc
     case head :: tail =>
-      if (listB.contains(head)) {
-        intersectLists(tail, listB, acc :+ head)
-      } else {
-        intersectLists(tail, listB, acc)
-      }
+      if (listB.contains(head)) intersectLists(tail, listB, acc :+ head)
+      else intersectLists(tail, listB, acc)
   }
 
 class RecursionTest extends FunSuite {
