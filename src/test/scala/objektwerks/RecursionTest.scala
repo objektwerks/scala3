@@ -60,10 +60,12 @@ final def intersectLists[A](listA: List[A],
 
 class RecursionTest extends FunSuite {
   test("sum") {
+    assert( sum( Nil ) == 0 )
     assert( sum( List(1, 2, 3) ) == 6 )
   }
 
   test("product") {
+    assert( product( Nil ) == 1 )
     assert( product( List(1, 2, 3) ) == 6 )
   }
 
