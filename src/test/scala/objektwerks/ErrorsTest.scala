@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 import scala.io.{Codec, Source}
 import scala.util.control.Exception._
@@ -21,56 +22,56 @@ def fileToLines(file: String): Try[Seq[String]] =
 
 def parseInt(s: String): Option[Int] = Try(s.toInt).toOption
 
-class ErrorsTest extends FunSuite {
+class ErrorsTest extends AnyFunSuite with Matchers {
   test("either") {
-    assert( divide(9, 3).isRight == true )
-    assert( divide(9, 0).isLeft == true )
-    assert( divide(9, 3).contains(3) == true )
-    assert( divide(9, 3).exists(_ == 3) == true )
-    assert( divide(9, 3).getOrElse(-1) == 3 )
-    assert( divide(9, 3).map(_ * 3).getOrElse(-1) == 9 )
-    assert( divide(9, 3).map(_ * 3).filterOrElse(_ == 9, -1).getOrElse(-1) == 9 )
+    divide(9, 3).isRight shouldBe true
+    divide(9, 0).isLeft shouldBe true
+    divide(9, 3).contains(3) shouldBe true
+    divide(9, 3).exists(_ == 3) shouldBe true
+    divide(9, 3).getOrElse(-1) shouldBe 3
+    divide(9, 3).map(_ * 3).getOrElse(-1) shouldBe 9
+    divide(9, 3).map(_ * 3).filterOrElse(_ == 9, -1).getOrElse(-1) shouldBe 9
     divide(3, 0) match {
       case Right(_) => throw new Exception("Should throw divide by zero error.")
-      case Left(error) => error.isInstanceOf[Throwable] == true
+      case Left(error) => error.isInstanceOf[Throwable] shouldBe true
     }
   }
   
   test("try catch handler") {
     val handler: PartialFunction[Throwable, Unit] = {
-      case NonFatal(error) => error.getMessage.nonEmpty == true; ()
+      case NonFatal(error) => error.getMessage.nonEmpty shouldBe true; ()
     }
     try "abc".toInt catch handler
   }
 
   test("try") {
-    assert( divide("9", "3").nonEmpty == true )
-    assert( divide("9", "3").contains(3) == true )
-    assert( divide("9", "3").get == 3 )
-    assert( divide("a", "b").isEmpty == true )
-    assert( divide("a", "b").isEmpty == true )
-    assert( divide("a", "b").getOrElse(-1) == -1 )
+    divide("9", "3").nonEmpty shouldBe true
+    divide("9", "3").contains(3) shouldBe true
+    divide("9", "3").get shouldBe 3
+    divide("a", "b").isEmpty shouldBe true
+    divide("a", "b").isEmpty shouldBe true
+    divide("a", "b").getOrElse(-1) shouldBe -1
   }
 
   test("try option") {
-    assert( parseInt("a").isEmpty == true )
-    assert( parseInt("1").isDefined == true )
+    parseInt("a").isEmpty shouldBe true
+    parseInt("1").isDefined shouldBe true
   }
 
   test("try using") {
-    assert( fileToLines("build.sbt").isSuccess == true )
-    assert( fileToLines("sbt.sbt").isFailure == true )
+    fileToLines("build.sbt").isSuccess shouldBe true
+    fileToLines("sbt.sbt").isFailure shouldBe true
   }
 
   test("try recover") {
     val i = for {
       i <- Try("one".toInt).recover { case _ => 0 }
     } yield i
-    assert( i == Success(0) )
+    i shouldBe Success(0)
   }
 
   test("all catch") {
-    assert( allCatch.opt("1".toInt).nonEmpty == true )
-    assert( allCatch.opt("one".toInt).isEmpty == true )
+    allCatch.opt("1".toInt).nonEmpty shouldBe true
+    allCatch.opt("one".toInt).isEmpty shouldBe true
   }
 }
