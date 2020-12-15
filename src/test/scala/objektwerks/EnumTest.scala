@@ -1,27 +1,28 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 enum Gate(state: Int) {
   case closed extends Gate(0)
   case open extends Gate(1)
 }
 
-class EnumTest extends FunSuite {
+class EnumTest extends AnyFunSuite with Matchers {
   test("gate") {
     val closed = Gate.closed
-    assert(closed == Gate.closed)
-    assert(closed.ordinal == 0)
-    assert(Gate.valueOf("closed") == closed)
+    closed shouldBe Gate.closed
+    closed.ordinal shouldBe 0
+    Gate.valueOf("closed") shouldBe closed
 
     val open = Gate.open
-    assert(open == Gate.open)
-    assert(open.ordinal == 1)
-    assert(Gate.valueOf("open") == open)
+    open shouldBe Gate.open
+    open.ordinal shouldBe 1
+    Gate.valueOf("open") shouldBe open
 
     val values = Gate.values
-    assert(values.length == 2)
-    assert(values(0) == closed)
-    assert(values(1) == open)
+    values.length shouldBe 2
+    values(0) shouldBe closed
+    values(1) shouldBe open
   }
 }
