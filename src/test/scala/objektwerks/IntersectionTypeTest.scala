@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 sealed trait Camera {
   def takePhoto(): Boolean = true
@@ -14,8 +15,8 @@ class MobilePhone extends Camera with Phone
 
 def useMobilePhone(mobilePhone: Camera & Phone): (Boolean, Boolean) = ( mobilePhone.takePhoto(), mobilePhone.makeCall() )
 
-class IntersectionTypeTest extends FunSuite {
+class IntersectionTypeTest extends AnyFunSuite with Matchers {
   test("intersection") {
-    assert( useMobilePhone( MobilePhone() ) == (true, true) )
+    useMobilePhone( MobilePhone() ) shouldBe (true, true)
   }
 }
