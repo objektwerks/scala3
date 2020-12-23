@@ -77,6 +77,8 @@ class RecursionTest extends AnyFunSuite with Matchers {
 
   test("reverse") {
     reverse( List(1, 2, 3) ) shouldBe List(3, 2, 1)
+    reverse( List("Hello", "World") ) shouldBe List("World", "Hello")
+
   }
 
   test("find nth element from right") {
