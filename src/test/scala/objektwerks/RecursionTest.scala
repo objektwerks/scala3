@@ -39,13 +39,18 @@ final def factorial(n: Int, acc: Int = 1): Int = n match {
   case _ => factorial(n - 1, acc * n)
 }
 
-def fibonacci(n: Long): BigInt = {
+def fibonacci(n: Long): Long = {
   @tailrec
-  def loop(n: Long, a: Long, b: Long): BigInt = n match {
+  def loop(n: Long, a: Long, b: Long): Long = n match {
     case 0 => a
     case _ => loop(n - 1, b, a + b)
   }
   loop(n, 0, 1)
+}
+
+def fibonacci(ns: Seq[String]): Seq[Long] = {
+  def toLong(s: String): Option[Long] = s.toLongOption
+  ns.flatMap( n => toLong(n) ).map( n => fibonacci(n) )
 }
 
 @tailrec
@@ -86,6 +91,7 @@ class RecursionTest extends AnyFunSuite with Matchers {
 
   test("fibbonaci") {
     fibonacci(39) shouldBe 63245986
+    fibonacci( Seq("3", "6", "9", "four") ) shouldBe Seq(2L, 8L, 34L)
   }
 
   test("intersect lists") {
