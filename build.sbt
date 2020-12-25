@@ -9,4 +9,3 @@ libraryDependencies ++= {
 }
 testFrameworks += new TestFramework("munit.Framework")
 parallelExecution in Test := false
-semanticdbEnabled := true
