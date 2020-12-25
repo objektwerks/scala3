@@ -8,11 +8,11 @@ trait SemiGroup[T]:
 trait Monoid[T] extends SemiGroup[T]:
   def zero: T
 
-given Monoid[String]:
+given Monoid[String] with
   extension (a: String) def join (b: String): String = a.concat(b)
   def zero: String = ""
 
-given Monoid[Int]:
+given Monoid[Int] with
   extension (a: Int) def join (b: Int): Int = a + b
   def zero: Int = 0
 

@@ -4,8 +4,8 @@ import munit._
 
 case class Name(last: String, first: String)
 
-given lastNameOrdering as Ordering[Name] = Ordering.by(_.last)
-given firstNameOrdering as Ordering[Name] = Ordering.by(_.first)
+given lastNameOrdering: Ordering[Name] = Ordering.by(_.last)
+given firstNameOrdering: Ordering[Name] = Ordering.by(_.first)
 
 class OrderingTest extends FunSuite {
   test("ordering") {

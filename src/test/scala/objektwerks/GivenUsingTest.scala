@@ -6,13 +6,11 @@ trait Combiner[T] {
   def combine(list: List[T]): T
 }
 
-given IntCombiner as Combiner[Int] {
+given Combiner[Int] with
   def combine(list: List[Int]): Int = list.sum
-}
 
-given StringCombiner as Combiner[String] {
+given Combiner[String] with
   def combine(list: List[String]): String = list.mkString("")
-}
 
 def combineList[T](list: List[T])(using combiner: Combiner[T]): T = combiner.combine(list)
 

@@ -8,7 +8,7 @@ import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
 
 class FutureTest extends FunSuite {
-  given ec as ExecutionContext = ExecutionContext.global
+  given ec: ExecutionContext = ExecutionContext.global
 
   test("blocking") {
     assert( Await.result(Future(1), 1 second) == 1 )
