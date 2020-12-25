@@ -1,14 +1,13 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import munit._
 
-class UntuplingTest extends AnyFunSuite with Matchers {
+class UntuplingTest extends FunSuite {
   test("untupling") {
     val tuples = List( (1, 1), (2, 2), (3, 3) )
     val sums = tuples.map {
       (x, y) => x + y
     }
-    sums shouldBe List(2, 4, 6)
+    assert( sums == List(2, 4, 6) )
   }
 }

@@ -1,7 +1,6 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import munit._
 
 sealed trait Beer { val name: String }
 final case class Lager(name: String) extends Beer { def prost: Lager = this }
@@ -12,15 +11,15 @@ def drink(beer: Lager | Pilsner): Beer = beer match {
   case pilsner @ Pilsner(name) => pilsner.cheers
 }
 
-class UnionTypeTest extends AnyFunSuite with Matchers {
+class UnionTypeTest extends FunSuite {
   test("union") {
     val lager = Lager("Song of Joy")
     val pilsner = Pilsner("Poetica 2")
 
-    drink( lager ).isInstanceOf[Lager] shouldBe true
-    drink( lager ).name shouldBe "Song of Joy"
+    assert( drink( lager ).isInstanceOf[Lager] )
+    assert( drink( lager ).name == "Song of Joy" )
 
-    drink( pilsner ).isInstanceOf[Pilsner] shouldBe true
-    drink( pilsner ).name shouldBe "Poetica 2"
+    assert( drink( pilsner ).isInstanceOf[Pilsner] )
+    assert( drink( pilsner ).name == "Poetica 2" )
   }
 }

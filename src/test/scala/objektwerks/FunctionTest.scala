@@ -1,123 +1,122 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import munit._
 
 import scala.annotation.tailrec
 import scala.language.postfixOps
 import scala.util.{Random, Try}
 import scala.util.chaining._
 
-class FunctionTest extends AnyFunSuite with Matchers {
+class FunctionTest extends FunSuite {
   test("literal") {
     val add = (x: Int, y: Int) => x + y
-    add(3, 3) shouldBe 6
+    assert( add(3, 3) == 6 )
 
     val multiply = (x: Int, y: Int) => x * y: Int
-    multiply(3, 3) shouldBe 9
+    assert( multiply(3, 3) == 9 )
 
     val subtract: (Int, Int) => Int = (x, y) => x - y
-    subtract(9, 3) shouldBe 6
+    assert( subtract(9, 3) == 6 )
   }
 
   test("method") {
     def isEven(i: Int): Boolean = i % 2 == 0
-    isEven(2) shouldBe true
+    assert( isEven(2) == true )
 
     def isOdd(i: Int): Boolean = { // block
       i % 2 != 0
     }
-    isOdd(3) shouldBe true
+    assert( isOdd(3) == true )
 
     def sum(xs: List[Int]): Int = xs match {
       case Nil => 0
       case head :: tail => head + sum(tail)
     }
-    sum(List(1, 2, 3)) shouldBe 6
+    assert( sum(List(1, 2, 3)) == 6 )
   }
 
   test("curry") {
     def add(x: Int)(y: Int): Int = x + y
-    add(1)(2) shouldBe 3
+    assert( add(1)(2) == 3 )
 
     def multiply(x: Int): Int => Int = (y: Int) => x * y
-    multiply(3)(3) shouldBe 9
+    assert( multiply(3)(3) == 9 )
 
     def greeting(greeting: String): String => String = (name: String) => {
       greeting + ", " + name + "!"
     }
     val curriedHello = greeting("Hello")
-    curriedHello("John") shouldBe "Hello, John!"
+    assert( curriedHello("John") == "Hello, John!" )
 
     val sum = (x: Int, y: Int) => x + y
     val curriedSum = sum.curried
-    curriedSum(1)(2) shouldBe 3
+    assert( curriedSum(1)(2) == 3 )
   }
 
   test("call by value") {
     def callByValue(random: Long): (Long, Long) = (random, random)
 
     val (randomResult, randomResultNext) = callByValue(Random.nextLong())
-    randomResult shouldEqual randomResultNext
+    assert( randomResult == randomResultNext )
   }
 
   test("call by name") {
     def callByName(random: => Long): (Long, Long) = (random, random)
-    
+
     val (randomResult, randomResultNext) = callByName(Random.nextLong())
-    randomResult should not equal randomResultNext
+    assert( randomResult != randomResultNext )
   }
 
   test("default args") {
     def multiply(x: Int, y: Int = 1): Int = x * y
-    multiply(1) shouldBe 1
+    assert( multiply(1) == 1 )
   }
 
   test("var args") {
     def add(varargs: Int*): Int = varargs.sum
-    add(1, 2, 3) shouldBe 6
-    add(List(1, 2, 3):_*) shouldBe 6
+    assert( add(1, 2, 3) == 6 )
+    assert( add(List(1, 2, 3):_*) == 6 )
   }
 
   test("closure") {
     val legalDrinkingAge = 21
     def isLegalDrinkingAge(age: Int): Boolean = age >= legalDrinkingAge
-    isLegalDrinkingAge(22) shouldBe true
+    assert( isLegalDrinkingAge(22) == true )
   }
 
   test("higher order") {
     def square(f: Int => Int, i: Int) = f(i)
-    square((x: Int) => x * x, 2) shouldBe 4
+    assert( square((x: Int) => x * x, 2) == 4 )
   }
 
   test("partially applied") {
     def multiplier(x: Int, y: Int): Int = x * y
     val multiplyByFive = multiplier(5, _: Int)
-    multiplyByFive(20) shouldBe 100
+    assert( multiplyByFive(20) == 100 )
   }
 
   test("partial function") {
     val multipleByOne: PartialFunction[Int, Int] = {
       case i: Int if i != 0 => i * 1
     }
-    ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) shouldBe true
-    ( List(0, 1, 2) collect multipleByOne ) shouldBe List(1, 2)
-    ( List(42, "cat") collect { case i: Int => multipleByOne(i) } ) shouldBe List(42)
+    assert( ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) == true )
+    assert( ( List(0, 1, 2) collect multipleByOne ) == List(1, 2) )
+    assert( ( List(42, "cat") collect { case i: Int => multipleByOne(i) } ) == List(42) )
 
     val divideByOne = new PartialFunction[Int, Int] {
       def apply(i: Int): Int = i / 1
       def isDefinedAt(i: Int): Boolean = i != 0
     }
-    divideByOne(2) shouldBe 2
-    divideByOne(0) shouldBe 0
-    divideByOne.isDefinedAt(3) shouldBe true
-    divideByOne.isDefinedAt(0) shouldBe false
+    assert( divideByOne(2) == 2 )
+    assert( divideByOne(0) == 0 )
+    assert( divideByOne.isDefinedAt(3) == true )
+    assert( divideByOne.isDefinedAt(0) == false )
 
     def isEven: PartialFunction[Int, String] = { case i if i % 2 == 0 => s"$i even" }
     def isOdd: PartialFunction[Int, String] = { case i if i % 2 == 1 => s"$i odd" }
-    ( 1 to 3 collect isEven ) shouldBe Vector("2 even")
-    ( 1 to 3 collect isOdd ) shouldBe Vector("1 odd", "3 odd")
-    ( 1 to 3 collect (isEven orElse isOdd) ) shouldBe Vector("1 odd", "2 even", "3 odd")
+    assert( ( 1 to 3 collect isEven ) == Vector("2 even") )
+    assert( ( 1 to 3 collect isOdd ) == Vector("1 odd", "3 odd") )
+    assert( ( 1 to 3 collect (isEven orElse isOdd) ) == Vector("1 odd", "2 even", "3 odd") )
   }
 
   test("non-tailrec") {
@@ -125,7 +124,7 @@ class FunctionTest extends AnyFunSuite with Matchers {
       case i if i < 1 => 1
       case _ => n * factorial(n - 1) // non-tailrec
     }
-    factorial(3) shouldBe 6
+    assert( factorial(3) == 6 )
   }
 
   test("tailrec") {
@@ -134,12 +133,12 @@ class FunctionTest extends AnyFunSuite with Matchers {
       case i if i < 1 => acc
       case _ => factorial(n - 1, acc * n) // tailrec
     }
-    factorial(9) shouldBe 362880
+    assert( factorial(9) == 362880 )
   }
 
   test("pure function") {
     def add(x: Int, y: Int): Int = x + y // No side-effecting IO.
-    add(1, 2) shouldBe 3
+    assert( add(1, 2) == 3 )
   }
 
   test("impure function") {
@@ -148,7 +147,7 @@ class FunctionTest extends AnyFunSuite with Matchers {
       println(s"Side-effeecting impure function using println: $sum.")
       sum
     }
-    add(1, 2) shouldBe 3
+    assert( add(1, 2) == 3 )
   }
 
   test("compose > andThen") {
@@ -168,16 +167,16 @@ class FunctionTest extends AnyFunSuite with Matchers {
     val gs = xs map ( incrDecrAsList reduce ( _ andThen _) )
     val us = xs map incrDecrAsListWithReduce
 
-    xs shouldBe ys
-    ys shouldBe zs
-    fs shouldBe zs
-    gs shouldBe fs
-    us shouldBe gs
+    assert( xs == ys )
+    assert( ys == zs )
+    assert( fs == zs )
+    assert( gs == fs )
+    assert( us == gs )
   }
 
   test("pipe") {
     val square = (n: Int) => n * n
-    2.pipe(square) shouldBe 4
+    assert( 2.pipe(square) == 4 )
   }
 
   test("select by index") {
@@ -195,13 +194,13 @@ class FunctionTest extends AnyFunSuite with Matchers {
     val zs = List(1, 2, 3, 4)
 
     val x = selectByIndex(xs, 5)
-    x.get shouldBe xs(5)
+    assert( x.get == xs(5) )
 
     val y = selectByIndex(ys, 5)
-    y.isEmpty shouldBe true
+    assert( y.isEmpty == true )
 
     val z = selectByIndex(zs, 5)
-    z.isEmpty shouldBe true
+    assert( z.isEmpty == true )
   }
 
   test("intersection") {
@@ -213,9 +212,9 @@ class FunctionTest extends AnyFunSuite with Matchers {
     val ys = List.range(1, 20)
     val zs = List.range(30, 40)
 
-    intersection(xs, ys) shouldBe xs.intersect(ys)
-    intersection(ys, xs) shouldBe ys.intersect(xs)
-    intersection(ys, zs) shouldBe ys.intersect(zs)
+    assert( intersection(xs, ys) == xs.intersect(ys) )
+    assert( intersection(ys, xs) == ys.intersect(xs) )
+    assert( intersection(ys, zs) == ys.intersect(zs) )
   }
 
   test("does List A contain List B") {
@@ -223,8 +222,8 @@ class FunctionTest extends AnyFunSuite with Matchers {
       listB.count(b => listA.contains(b)) == listB.length
     }
 
-    doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) shouldBe true
-    doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) shouldBe false
+    assert( doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) == true )
+    assert( doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) == false )
   }
 
   test("timer") {
@@ -237,8 +236,8 @@ class FunctionTest extends AnyFunSuite with Matchers {
     }
 
     val (result, time) = timer { factorial(19) }
-    result shouldBe 109641728
-    time > 0.0
+    assert( result == 109641728)
+    assert( time > 0.0)
   }
 
   test("diff as percentage") {
@@ -249,8 +248,8 @@ class FunctionTest extends AnyFunSuite with Matchers {
       delta.round.toInt
     }
 
-    diffAsPercentage(70.0, 75.0) shouldBe 7
-    diffAsPercentage(75.0, 70.0) shouldBe 7
-    diffAsPercentage(75.0, 80.0) shouldBe 6
+    assert( diffAsPercentage(70.0, 75.0) == 7 )
+    assert( diffAsPercentage(75.0, 70.0) == 7 )
+    assert( diffAsPercentage(75.0, 80.0) == 6 )
   }
 }

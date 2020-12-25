@@ -1,7 +1,6 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import munit._
 
 enum Honorific(honorific: String) {
   case sir extends Honorific("Sir")
@@ -23,15 +22,15 @@ sealed trait Salutation(val honorific: Honorific, val greeting: Greeting) extend
 
 class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
 
-class TraitTest extends AnyFunSuite with Matchers {
+class TraitTest extends FunSuite {
   test("trait") {
     import Honorific._
     import Greeting._
 
     val sirGoodMorningGreeter = Greeter(sir, goodMorning)
-    sirGoodMorningGreeter.greet() shouldBe s"${sirGoodMorningGreeter.honorific}, ${sirGoodMorningGreeter.greeting}"
+    assert( sirGoodMorningGreeter.greet() == s"${sirGoodMorningGreeter.honorific}, ${sirGoodMorningGreeter.greeting}" )
 
     val madamGoodEveningGreeter = Greeter(madam, goodEvening)
-    madamGoodEveningGreeter.greet() shouldBe s"${madamGoodEveningGreeter.honorific}, ${madamGoodEveningGreeter.greeting}"
+    assert( madamGoodEveningGreeter.greet() == s"${madamGoodEveningGreeter.honorific}, ${madamGoodEveningGreeter.greeting}" )
   }
 }
