@@ -2,10 +2,6 @@ Scala 3
 -------
 >Feature tests for the ***new*** Scala3 language.
 
-Latest
-------
->To find the lastest: https://index.scala-lang.org/scalatest/scalatest/scalatest for Scala3!
-
 Documentation
 -------------
 1. Docs - https://dotty.epfl.ch/docs/
