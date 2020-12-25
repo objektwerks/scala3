@@ -9,11 +9,10 @@ object Pulses {
     def apply(pulse: Int): Pulse = pulse
   }
 
-  extension (pulse: Pulse) {
+  extension (pulse: Pulse)
     def asInt: Int = pulse.toInt
     def asIntOption: Option[Pulse] = if (pulse > 0) Some(pulse) else None
     def asJson: String = s"""{ "pulse": ${pulse.asInt} }"""
-  }
 }
 
 class OpaqueTest extends FunSuite {

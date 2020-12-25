@@ -4,9 +4,8 @@ import munit._
 
 open case class Circle(x: Double, y: Double, radius: Double)
 
-extension (circle: Circle) {
+extension (circle: Circle)
   def circumference: Double = circle.radius * math.Pi * 2
-}
 
 class ExtensionTest extends FunSuite {
   test("extension") {

@@ -9,9 +9,8 @@ case class Amount(value: Double) {
   infix def subtract(other: Amount): Amount = this - other
 }
 
-extension (amount: Amount) {
+extension (amount: Amount)
   def discount(discount: Double): Amount = amount.copy(value = amount.value - (amount.value * discount))
-}
 
 class InfixTest extends FunSuite {
   test("infix") {
