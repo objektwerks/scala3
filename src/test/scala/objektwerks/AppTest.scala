@@ -1,10 +1,9 @@
 package objektwerks
 
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
+import munit._
 
-class AppTest extends AnyFunSuite with Matchers {
+class AppTest extends FunSuite {
   test("app") {
-    App.title.nonEmpty shouldBe true
+    assert( App.title.nonEmpty == true )
   }
 }
