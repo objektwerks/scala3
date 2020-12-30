@@ -97,7 +97,7 @@ class RecursionTest extends FunSuite {
   }
 
   test("isPrime") {
-    assert( isPrime(11) == true)
+    assert( isPrime(11) == true )
   }
 
   test("intersect lists") {
