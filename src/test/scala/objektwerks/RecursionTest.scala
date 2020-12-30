@@ -47,6 +47,15 @@ def fibonacci(n: Long): BigInt = {
   loop(n, 0, 1)
 }
 
+def isPrime(n: Int): Boolean = {
+  @tailrec
+  def loop(current: Int): Boolean = {
+    if (current > Math.sqrt( Math.abs(n.toDouble)) ) true
+    else n % current != 0 && loop(current + 1)
+  }
+  if (n == -1 || n == 0 || n == 1) false else loop(2)
+}
+
 @tailrec
 final def intersectLists[A](listA: List[A],
                             listB: List[A],
@@ -85,6 +94,10 @@ class RecursionTest extends FunSuite {
 
   test("fibbonaci") {
     assert( fibonacci(39) == 63245986 )
+  }
+
+  test("isPrime") {
+    assert( isPrime(11) == true)
   }
 
   test("intersect lists") {
