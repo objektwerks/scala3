@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 trait SemiGroup[T]:
   extension (a: T) def join (b: T): T
@@ -18,12 +19,12 @@ given Monoid[Int] with
 
 def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _.join(_) )
 
-class TypeClassTest extends FunSuite {
+class TypeClassTest extends AnyFunSuite with Matchers {
   test("type class") {
     val strings = Seq("Scala3 ", "is a ", "new language!")
-    assert( joinAll(strings) == "Scala3 is a new language!" )
+    joinAll(strings) shouldBe "Scala3 is a new language!"
 
     val ints = Seq(1, 2, 3)
-    assert( joinAll(ints) == 6 )
+    joinAll(ints) shouldBe 6
   }
 }
