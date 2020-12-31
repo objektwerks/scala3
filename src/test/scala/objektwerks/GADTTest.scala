@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 sealed trait Expression[T]
 final case class IntExpr(int: Int) extends Expression[Int]
@@ -11,9 +12,9 @@ def eval[T](expression: Expression[T]): T = expression match {
   case BoolExpr(boolean) => boolean
 }
 
-class GADTTest extends FunSuite {
+class GADTTest extends AnyFunSuite with Matchers {
   test("gadt") {
-    assert( eval( IntExpr(3) ) == 3 )
-    assert( eval( BoolExpr(true) ) == true )
+    eval( IntExpr(3) ) shouldBe 3
+    eval( BoolExpr(true) ) shouldBe true
   }
 }
