@@ -1,15 +1,16 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 open case class Circle(x: Double, y: Double, radius: Double)
 
 extension (circle: Circle)
   def circumference: Double = circle.radius * math.Pi * 2
 
-class ExtensionTest extends FunSuite {
+class ExtensionTest extends AnyFunSuite with Matchers {
   test("extension") {
     val circle = Circle(3.0, 3.0, 3.0)
-    assert( circle.circumference == 18.84955592153876 )
+    circle.circumference shouldBe 18.84955592153876
   }
 }
