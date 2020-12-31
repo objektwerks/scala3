@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 object Pulses {
   opaque type Pulse = Int
@@ -15,14 +16,14 @@ object Pulses {
     def asJson: String = s"""{ "pulse": ${pulse.asInt} }"""
 }
 
-class OpaqueTest extends FunSuite {
+class OpaqueTest extends AnyFunSuite with Matchers {
   test("opaque") {
     import Pulses._
 
     val pulse = Pulse(56)
-    assert( pulse == Pulse(56) )
-    assert( pulse.asInt == 56 )
-    assert( pulse.asIntOption == Some(pulse) )
-    assert( pulse.asJson == s"""{ "pulse": ${pulse.asInt} }""" )
+    pulse shouldBe Pulse(56)
+    pulse.asInt shouldBe 56
+    pulse.asIntOption shouldBe Some(pulse)
+    pulse.asJson shouldBe s"""{ "pulse": ${pulse.asInt} }"""
   }
 }
