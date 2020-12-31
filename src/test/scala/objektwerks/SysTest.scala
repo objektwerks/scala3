@@ -1,30 +1,31 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 import scala.sys.SystemProperties
 import scala.sys.process.Process
 
-class SysTest extends FunSuite {
+class SysTest extends AnyFunSuite with Matchers {
   test("system properties") {
     val properties = SystemProperties()
-    assert( properties.contains("java.runtime.name") == true )
+    properties.contains("java.runtime.name") shouldBe true
 
     properties += ("objekt" -> "werks")
-    assert( properties.contains("objekt") == true )
+    properties.contains("objekt") shouldBe true
 
     properties -= "objekt"
-    assert( properties.getOrElse("objekt", "empty") == "empty" )
+    properties.getOrElse("objekt", "empty") shouldBe "empty"
   }
 
   test("process") {
     val file = Process("ls").lazyLines.find(file => file == "build.sbt")
-    assert( file.getOrElse("empty") == "build.sbt" )
+    file.getOrElse("empty") shouldBe "build.sbt"
 
     val line = Process("find build.sbt").lazyLines.headOption
-    assert( line.getOrElse("empty") == "build.sbt" )
+    line.getOrElse("empty") shouldBe "build.sbt"
 
     val lines = Process("cat .gitignore").lazyLines
-    assert( lines.length == 6 )
+    lines.length shouldBe 6
   }
 }
