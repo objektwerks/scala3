@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -10,8 +11,8 @@ given ec: ExecutionContext = ExecutionContext.global
 
 def square(n: Int): Executable[Future[Int]] = Future { n * n }
 
-class ContextFunctionTest extends FunSuite {
+class ContextFunctionTest extends AnyFunSuite with Matchers {
   test("?=>") {
-    square(2).foreach( result => assert( result == 4 ) )
+    square(2).foreach( result => result shouldBe 4 )
   }
 }
