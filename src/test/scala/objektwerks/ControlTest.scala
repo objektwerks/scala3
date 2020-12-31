@@ -1,6 +1,7 @@
 package objektwerks
 
-import munit._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 enum NumberType {
   case negative extends NumberType
@@ -17,33 +18,33 @@ def typeOfNumber(number: Int): NumberType =
   else
     positive
 
-class ControlTest extends FunSuite {
+class ControlTest extends AnyFunSuite with Matchers {
   test("if then else") {
     import NumberType._
 
-    assert( typeOfNumber(-1) == negative)
-    assert( typeOfNumber(0) == zero)
-    assert( typeOfNumber(1) == positive)
+    typeOfNumber(-1) shouldBe negative
+    typeOfNumber(0) shouldBe zero
+    typeOfNumber(1) shouldBe positive
 
     inline val x = 1
     val result = if x < 0 then -x else x
-    assert( result == x )
+    result shouldBe x
   }
 
   test("for > yield") {
     val xs = -1 to 3
     val result = for x <- xs if x > 0
-      yield x * x
-    assert( result.sum == 14 )
+    yield x * x
+    result.sum shouldBe 14
   }
 
   test("for > do") {
     val xs = 1 to 3
     val ys = 4 to 6
     for
-    x <- xs
-    y <- ys
-    z = x + y
+      x <- xs
+      y <- ys
+      z = x + y
     do
       assert( z >= 5 && z <= 9)
   }
@@ -51,6 +52,6 @@ class ControlTest extends FunSuite {
   test("while > do") {
     var x = 3
     while x > 0 do x = x - 1
-    assert( x == 0 )
+    x shouldBe 0
   }
 }
