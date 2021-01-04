@@ -285,6 +285,8 @@ class CollectionTest extends AnyFunSuite with Matchers {
   test("trie map") {
     val map = concurrent.TrieMap(1 -> 1, 2 -> 2)
     map.getOrElseUpdate(3, 3) shouldBe 3
+    map.remove(3) shouldBe Some(3)
+    map.addOne(3 -> 3) shouldBe concurrent.TrieMap(1 -> 1, 2 -> 2, 3 -> 3)
   }
 
   test("set") {
