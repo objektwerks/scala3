@@ -14,213 +14,213 @@ class CollectionTest extends AnyFunSuite with Matchers {
   test("list") {
     val list = List(1, 2, 3)
 
-    list shouldEqual 1 :: 2 :: 3 :: Nil
-    list shouldEqual List(1) ::: List(2, 3)
-    list shouldEqual 1 :: List(2, 3)
-    list shouldEqual 1 +: List(2, 3)
-    list shouldEqual List(1, 2) :+ 3
-    list shouldEqual List(1) ++ List(2, 3)
-    list shouldEqual List(1) ++: List(2, 3)
+    list shouldBe 1 :: 2 :: 3 :: Nil
+    list shouldBe List(1) ::: List(2, 3)
+    list shouldBe 1 :: List(2, 3)
+    list shouldBe 1 +: List(2, 3)
+    list shouldBe List(1, 2) :+ 3
+    list shouldBe List(1) ++ List(2, 3)
+    list shouldBe List(1) ++: List(2, 3)
 
-    list(2) shouldEqual 3 // select by index
+    list(2) shouldBe 3 // select by index
 
-    list shouldEqual List(1, 1, 2, 2, 3, 3).distinct
-    list shouldEqual (List(1) concat List(2, 3))
-    list shouldEqual (List(-2, -1, 0, 1, 2, 3) intersect List(1, 2, 3, 4, 5, 6))
+    list shouldBe List(1, 1, 2, 2, 3, 3).distinct
+    list shouldBe (List(1) concat List(2, 3))
+    list shouldBe (List(-2, -1, 0, 1, 2, 3) intersect List(1, 2, 3, 4, 5, 6))
 
-    list.length shouldEqual 3
-    list.size shouldEqual 3
-    list.lengthCompare(list.size) shouldEqual 0
-    list.lengthCompare(list.size - 1) shouldEqual 1
+    list.length shouldBe 3
+    list.size shouldBe 3
+    list.lengthCompare(list.size) shouldBe 0
+    list.lengthCompare(list.size - 1) shouldBe 1
     list.nonEmpty shouldBe true
     List().isEmpty shouldBe true
 
-    list.head shouldEqual 1
-    list.headOption.get shouldEqual 1
-    list.tail shouldEqual List(2, 3)
-    list.tails.toList shouldEqual List(List(1, 2, 3), List(2, 3), List(3), List())
-    list.init shouldEqual List(1, 2)
-    list.inits.toList shouldEqual List(List(1, 2, 3), List(1, 2), List(1), List())
-    list.last shouldEqual 3
-    list.lastOption.get shouldEqual 3
-    list.lastIndexOf(3) shouldEqual 2
-    list.lastIndexOfSlice(List(3)) shouldEqual 2
-    list.lastIndexWhere(_ > 2) shouldEqual 2
+    list.head shouldBe 1
+    list.headOption.get shouldBe 1
+    list.tail shouldBe List(2, 3)
+    list.tails.toList shouldBe List(List(1, 2, 3), List(2, 3), List(3), List())
+    list.init shouldBe List(1, 2)
+    list.inits.toList shouldBe List(List(1, 2, 3), List(1, 2), List(1), List())
+    list.last shouldBe 3
+    list.lastOption.get shouldBe 3
+    list.lastIndexOf(3) shouldBe 2
+    list.lastIndexOfSlice(List(3)) shouldBe 2
+    list.lastIndexWhere(_ > 2) shouldBe 2
 
-    list.collect { case i if i % 2 == 0 => i } shouldEqual List(2)
+    list.collect { case i if i % 2 == 0 => i } shouldBe List(2)
     list.collectFirst { case i if i % 2 == 0 => i }.contains(2) shouldBe true
     list.contains(1) shouldBe true
     list.containsSlice(List(2, 3)) shouldBe true
     list.startsWith(List(1, 2)) shouldBe true
     list.endsWith(List(2, 3)) shouldBe true
-    list.count(_ > 0) shouldEqual 3
+    list.count(_ > 0) shouldBe 3
 
-    (List(1, 2) diff List(2, 3)) shouldEqual List(1)
-    (List(2, 3) diff List(1, 2)) shouldEqual List(3)
+    (List(1, 2) diff List(2, 3)) shouldBe List(1)
+    (List(2, 3) diff List(1, 2)) shouldBe List(3)
 
-    (list drop 1) shouldEqual List(2, 3)
-    list.dropWhile(_ < 2) shouldEqual List(2, 3)
-    list.dropRight(1) shouldEqual List(1, 2)
+    (list drop 1) shouldBe List(2, 3)
+    list.dropWhile(_ < 2) shouldBe List(2, 3)
+    list.dropRight(1) shouldBe List(1, 2)
 
-    (list take 2) shouldEqual List(1, 2)
-    list.takeWhile(_ < 3) shouldEqual List(1, 2)
-    list.takeRight(1) shouldEqual List(3)
+    (list take 2) shouldBe List(1, 2)
+    list.takeWhile(_ < 3) shouldBe List(1, 2)
+    list.takeRight(1) shouldBe List(3)
 
-    list.min shouldEqual 1
-    list.minBy(_ * 2) shouldEqual 1
-    list.max shouldEqual 3
-    list.maxBy(_ * 2) shouldEqual 3
+    list.min shouldBe 1
+    list.minBy(_ * 2) shouldBe 1
+    list.max shouldBe 3
+    list.maxBy(_ * 2) shouldBe 3
 
-    list.filter(_ > 1) shouldEqual List(2, 3)
-    list.filter(_ > 1).map(_ * 2) shouldEqual List(4, 6)
-    list.filterNot(_ > 1) shouldEqual List(1)
-    list.find(_ > 2).get shouldEqual 3
+    list.filter(_ > 1) shouldBe List(2, 3)
+    list.filter(_ > 1).map(_ * 2) shouldBe List(4, 6)
+    list.filterNot(_ > 1) shouldBe List(1)
+    list.find(_ > 2).get shouldBe 3
 
-    List(List(1), List(2), List(3)).flatten shouldEqual list
-    List(Some(1), None, Some(3), None).flatten shouldEqual List(1, 3)
+    List(List(1), List(2), List(3)).flatten shouldBe list
+    List(Some(1), None, Some(3), None).flatten shouldBe List(1, 3)
 
-    list.map(_ * 2) shouldEqual List(2, 4, 6)
-    List("abc").map(_.toUpperCase) shouldEqual List("ABC")
-    list.map(i => toList(i)) shouldEqual List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4))
+    list.map(_ * 2) shouldBe List(2, 4, 6)
+    List("abc").map(_.toUpperCase) shouldBe List("ABC")
+    list.map(i => toList(i)) shouldBe List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4))
 
-    list.flatMap(i => List(i * 2)) shouldEqual List(2, 4, 6)
-    List("abc").flatMap(_.toUpperCase) shouldEqual List('A', 'B', 'C')
-    list.flatMap(i => toList(i)) shouldEqual List(0, 1, 2, 1, 2, 3, 2, 3, 4)
+    list.flatMap(i => List(i * 2)) shouldBe List(2, 4, 6)
+    List("abc").flatMap(_.toUpperCase) shouldBe List('A', 'B', 'C')
+    list.flatMap(i => toList(i)) shouldBe List(0, 1, 2, 1, 2, 3, 2, 3, 4)
 
-    list.foldLeft(List[Int]())( (tail, head) => head :: tail ) shouldEqual List(3, 2, 1)
+    list.foldLeft(List[Int]())( (tail, head) => head :: tail ) shouldBe List(3, 2, 1)
     val words = List("Hello, ", "world!")
-    words.fold("")(_ + _) shouldEqual "Hello, world!"
-    words.foldLeft("")(_ + _) shouldEqual "Hello, world!"
-    words.foldRight("")(_ + _) shouldEqual "Hello, world!"
+    words.fold("")(_ + _) shouldBe "Hello, world!"
+    words.foldLeft("")(_ + _) shouldBe "Hello, world!"
+    words.foldRight("")(_ + _) shouldBe "Hello, world!"
 
-    List(2, 4, 6) shouldEqual (for (i <- list) yield i * 2)
-    List(2, 4, 6) shouldEqual (for (i <- list if i > 0) yield i * 2)
+    List(2, 4, 6) shouldBe (for (i <- list) yield i * 2)
+    List(2, 4, 6) shouldBe (for (i <- list if i > 0) yield i * 2)
     list.forall(_ > 0) shouldBe true
     list foreach { i => i should be > 0 }
 
-    list.groupBy(_ % 2 == 0) shouldEqual Map(false -> List(1, 3), true -> List(2))
-    list.grouped(1).toList shouldEqual List(List(1), List(2), List(3))
+    list.groupBy(_ % 2 == 0) shouldBe Map(false -> List(1, 3), true -> List(2))
+    list.grouped(1).toList shouldBe List(List(1), List(2), List(3))
 
-    list.indexOf(1) shouldEqual 0
-    list.indexOfSlice(List(2, 3)) shouldEqual 1
-    list.indexWhere(_ > 2) shouldEqual 2
-    list.indices.length shouldEqual 3
+    list.indexOf(1) shouldBe 0
+    list.indexOfSlice(List(2, 3)) shouldBe 1
+    list.indexWhere(_ > 2) shouldBe 2
+    list.indices.length shouldBe 3
     for (i <- 0 to 2) list.isDefinedAt(i) shouldBe true
 
-    "123" shouldEqual list.mkString
+    "123" shouldBe list.mkString
 
-    list.padTo(7, 0) shouldEqual List(1, 2, 3, 0, 0, 0, 0)
-    list.patch(0, List(4, 5, 6), 3) shouldEqual List(4, 5, 6)
-    (List[Int](2), List[Int](1, 3)) shouldEqual list.partition(_ % 2 == 0)
-    list.permutations.toList shouldEqual List(List(1, 2, 3), List(1, 3, 2), List(2, 1, 3), List(2, 3, 1), List(3, 1, 2), List(3, 2, 1))
-    list.segmentLength(_ > 0) shouldEqual 3
-    list.product shouldEqual 6
+    list.padTo(7, 0) shouldBe List(1, 2, 3, 0, 0, 0, 0)
+    list.patch(0, List(4, 5, 6), 3) shouldBe List(4, 5, 6)
+    (List[Int](2), List[Int](1, 3)) shouldBe list.partition(_ % 2 == 0)
+    list.permutations.toList shouldBe List(List(1, 2, 3), List(1, 3, 2), List(2, 1, 3), List(2, 3, 1), List(3, 1, 2), List(3, 2, 1))
+    list.segmentLength(_ > 0) shouldBe 3
+    list.product shouldBe 6
 
-    list shouldEqual List.range(1, 4)
-    list.reduceLeftOption(_ + _).get shouldEqual 6
-    list.reduceRightOption(_ + _).get shouldEqual 6
-    list shouldEqual List(3, 2, 1).reverse
+    list shouldBe List.range(1, 4)
+    list.reduceLeftOption(_ + _).get shouldBe 6
+    list.reduceRightOption(_ + _).get shouldBe 6
+    list shouldBe List(3, 2, 1).reverse
 
-    list.segmentLength(_ > 0, 0) shouldEqual 3
+    list.segmentLength(_ > 0, 0) shouldBe 3
 
-    list shouldEqual List(3, 2, 1).sortBy(i => i)
-    list shouldEqual List(3, 2, 1).sorted
-    List(1, 2, 3).sortWith(_ > _) shouldEqual List(3, 2, 1)
-    List(3, 2, 1).sortWith(_ < _) shouldEqual List(1, 2, 3)
+    list shouldBe List(3, 2, 1).sortBy(i => i)
+    list shouldBe List(3, 2, 1).sorted
+    List(1, 2, 3).sortWith(_ > _) shouldBe List(3, 2, 1)
+    List(3, 2, 1).sortWith(_ < _) shouldBe List(1, 2, 3)
 
-    list.scan(0)(_ + _) shouldEqual List(0, 1, 3, 6)
-    list.scanLeft(0)(_ + _) shouldEqual List(0, 1, 3, 6)
-    list.scanRight(0)(_ + _) shouldEqual List(6, 5, 3, 0)
+    list.scan(0)(_ + _) shouldBe List(0, 1, 3, 6)
+    list.scanLeft(0)(_ + _) shouldBe List(0, 1, 3, 6)
+    list.scanRight(0)(_ + _) shouldBe List(6, 5, 3, 0)
 
-    list.slice(0, 2) shouldEqual List(1, 2)
-    List(List(1), List(2), List(3)) shouldEqual list.sliding(1).toList
-    (List[Int](1), List[Int](2, 3)) shouldEqual list.span(_ < 2)
-    (List[Int](1, 2), List[Int](3)) shouldEqual list.splitAt(2)
-    list.sum shouldEqual 6
+    list.slice(0, 2) shouldBe List(1, 2)
+    List(List(1), List(2), List(3)) shouldBe list.sliding(1).toList
+    (List[Int](1), List[Int](2, 3)) shouldBe list.span(_ < 2)
+    (List[Int](1, 2), List[Int](3)) shouldBe list.splitAt(2)
+    list.sum shouldBe 6
 
-    List(Set(1, 2), Set(3, 4), Set(5, 6)).transpose shouldEqual List(List(1, 3, 5), List(2, 4, 6))
-    List(1, 2, 1) shouldEqual list.updated(index = 2, elem = 1)
-    List(2, 4, 6) shouldEqual list.withFilter(_ > 0).map(_ * 2)
+    List(Set(1, 2), Set(3, 4), Set(5, 6)).transpose shouldBe List(List(1, 3, 5), List(2, 4, 6))
+    List(1, 2, 1) shouldBe list.updated(index = 2, elem = 1)
+    List(2, 4, 6) shouldBe list.withFilter(_ > 0).map(_ * 2)
 
-    (1 to 100).map(_ % 10).filter(_ > 5).sum shouldEqual 300 // strict, slowest
-    (1 to 100).view.map(_ % 10).filter(_ > 5).sum shouldEqual 300  // non-strict, fast
-    (1 to 100).iterator.map(_ % 10).filter(_ > 5).sum shouldEqual 300  // non-strict, fastest
-    (1 to 100).to(LazyList).map(_ % 10).filter(_ > 5).sum shouldEqual 300  // non-strict, fastest
+    (1 to 100).map(_ % 10).filter(_ > 5).sum shouldBe 300 // strict, slowest
+    (1 to 100).view.map(_ % 10).filter(_ > 5).sum shouldBe 300  // non-strict, fast
+    (1 to 100).iterator.map(_ % 10).filter(_ > 5).sum shouldBe 300  // non-strict, fastest
+    (1 to 100).to(LazyList).map(_ % 10).filter(_ > 5).sum shouldBe 300  // non-strict, fastest
 
-    (List[Int](1, 3),List[Int](2, 4)) shouldEqual List((1, 2), (3, 4)).unzip
-    List((1,3), (2,4)) shouldEqual (List(1, 2) zip List(3, 4))
-    List((1,3), (2,4), (3,5)) shouldEqual List(1, 2, 3).zipAll(List(3, 4, 5), 0, 1)
-    List((1,0), (2,1), (3,2)) shouldEqual list.zipWithIndex
+    (List[Int](1, 3),List[Int](2, 4)) shouldBe List((1, 2), (3, 4)).unzip
+    List((1,3), (2,4)) shouldBe (List(1, 2) zip List(3, 4))
+    List((1,3), (2,4), (3,5)) shouldBe List(1, 2, 3).zipAll(List(3, 4, 5), 0, 1)
+    List((1,0), (2,1), (3,2)) shouldBe list.zipWithIndex
   }
 
   test("lazy list") {
     val numberOfEvens = (1 to 100).to(LazyList).count(_ % 2 == 0)
-    numberOfEvens shouldEqual 50
+    numberOfEvens shouldBe 50
   }
 
   test("list buffer") {
     val buffer = mutable.ListBuffer(1, 2)
-    (buffer += 3) shouldEqual mutable.ListBuffer(1, 2, 3)
-    (buffer -= 3) shouldEqual mutable.ListBuffer(1, 2)
-    (buffer -= 2) shouldEqual mutable.ListBuffer(1)
-    (buffer -= 1) shouldEqual mutable.ListBuffer()
+    (buffer += 3) shouldBe mutable.ListBuffer(1, 2, 3)
+    (buffer -= 3) shouldBe mutable.ListBuffer(1, 2)
+    (buffer -= 2) shouldBe mutable.ListBuffer(1)
+    (buffer -= 1) shouldBe mutable.ListBuffer()
   }
 
   test("view") {
     val vector = Vector(1, 2, 3)
     val view = vector.view
-    view.map(_ + 1).map(_ * 2).to(Vector) shouldEqual Vector(4, 6, 8)
+    view.map(_ + 1).map(_ * 2).to(Vector) shouldBe Vector(4, 6, 8)
   }
 
   test("vector") {
     val vector = Vector(1, 2)
-    vector.length shouldEqual 2
-    vector(0) shouldEqual 1
-    vector(1) shouldEqual 2
-    vector.reverse shouldEqual Vector(2, 1)
-    vector shouldEqual 1 +: Vector(2)
-    vector shouldEqual Vector(1) :+ 2
-    vector shouldEqual Vector(1) ++ Vector(2)
-    vector shouldEqual Vector(1) ++: Vector(2)
-    3 shouldEqual (vector foldRight 0)(_ + _)
+    vector.length shouldBe 2
+    vector(0) shouldBe 1
+    vector(1) shouldBe 2
+    vector.reverse shouldBe Vector(2, 1)
+    vector shouldBe 1 +: Vector(2)
+    vector shouldBe Vector(1) :+ 2
+    vector shouldBe Vector(1) ++ Vector(2)
+    vector shouldBe Vector(1) ++: Vector(2)
+    3 shouldBe (vector foldRight 0)(_ + _)
   }
 
   test("array") {
     val array = Array(1, 2)
-    1 +: Array(2) shouldEqual array
-    Array(1) :+ 2 shouldEqual array
-    Array(1) ++ Array(2) shouldEqual array
-    Array(1) ++: Array(2) shouldEqual array
+    1 +: Array(2) shouldBe array
+    Array(1) :+ 2 shouldBe array
+    Array(1) ++ Array(2) shouldBe array
+    Array(1) ++: Array(2) shouldBe array
   }
 
   test("array buffer") {
     val buffer = mutable.ArrayBuffer(1, 2)
-    (buffer += 3) shouldEqual mutable.ArrayBuffer(1, 2, 3)
-    (buffer -= 3) shouldEqual mutable.ArrayBuffer(1, 2)
+    (buffer += 3) shouldBe mutable.ArrayBuffer(1, 2, 3)
+    (buffer -= 3) shouldBe mutable.ArrayBuffer(1, 2)
   }
 
   test("array deque") {
     val deque = mutable.ArrayDeque(1, 2)
-    (deque += 3) shouldEqual mutable.ArrayDeque(1, 2, 3)
-    (deque -= 3) shouldEqual mutable.ArrayDeque(1, 2)
+    (deque += 3) shouldBe mutable.ArrayDeque(1, 2, 3)
+    (deque -= 3) shouldBe mutable.ArrayDeque(1, 2)
   }
 
   test("queue") {
     val queue = mutable.Queue(1, 2)
     queue enqueue 3
-    3 shouldEqual queue.last
-    queue.dequeue() shouldEqual 1
-    queue.dequeue() shouldEqual 2
-    queue.dequeue() shouldEqual 3
+    3 shouldBe queue.last
+    queue.dequeue() shouldBe 1
+    queue.dequeue() shouldBe 2
+    queue.dequeue() shouldBe 3
     queue.isEmpty shouldBe true
   }
 
   test("stack") {
     val stack = mutable.Stack(2, 1)
     stack push 3
-    3 shouldEqual stack.pop()
-    2 shouldEqual stack.pop()
-    1 shouldEqual stack.pop()
+    3 shouldBe stack.pop()
+    2 shouldBe stack.pop()
+    1 shouldBe stack.pop()
     stack.isEmpty shouldBe true
   }
 
@@ -229,94 +229,94 @@ class CollectionTest extends AnyFunSuite with Matchers {
     builder.append("a")
     builder.append("b")
     builder.append("c")
-    builder.toString shouldEqual "abc"
-    builder.result() shouldEqual "abc"
-    builder.reverse.result() shouldEqual "cba"
+    builder.toString shouldBe "abc"
+    builder.result() shouldBe "abc"
+    builder.reverse.result() shouldBe "cba"
   }
 
   test("range") {
-    (1 until 10) shouldEqual Range(1, 10, 1)
-    (10 until 1 by -1) shouldEqual Range(10, 1, -1)
-    (1 to 10) shouldEqual Range.inclusive(1, 10, 1)
+    (1 until 10) shouldBe Range(1, 10, 1)
+    (10 until 1 by -1) shouldBe Range(10, 1, -1)
+    (1 to 10) shouldBe Range.inclusive(1, 10, 1)
   }
 
   test("map") {
     val map = Map(1 -> 1, 2 -> 2)
-    map(1) shouldEqual 1
-    map(2) shouldEqual 2
-    map.getOrElse(3, -1) shouldEqual -1
+    map(1) shouldBe 1
+    map(2) shouldBe 2
+    map.getOrElse(3, -1) shouldBe -1
     map.contains(1) shouldBe true
-    map shouldEqual Map(1 -> 1) + (2 -> 2)
-    map shouldEqual Map(1 -> 1, 2 -> 2, 3 -> 3) - 3
-    map shouldEqual Map(1 -> 1) ++ Map(2 -> 2)
-    map shouldEqual Map(1 -> 1, 2 -> 2, 3 -> 3, 4 -> 4) -- List(3, 4)
-    map.keySet shouldEqual Set(1, 2)
-    map.values.toSet shouldEqual Set(1, 2)
+    map shouldBe Map(1 -> 1) + (2 -> 2)
+    map shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3) - 3
+    map shouldBe Map(1 -> 1) ++ Map(2 -> 2)
+    map shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3, 4 -> 4) -- List(3, 4)
+    map.keySet shouldBe Set(1, 2)
+    map.values.toSet shouldBe Set(1, 2)
     map.empty.isEmpty shouldBe true
   }
 
   test("list map") {
     val map = ListMap(3 -> 3, 2 -> 2, 1 -> 1)
     val list = map.keys.toIndexedSeq
-    list(0) shouldEqual 3
-    list(1) shouldEqual 2
-    list(2) shouldEqual 1
+    list(0) shouldBe 3
+    list(1) shouldBe 2
+    list(2) shouldBe 1
   }
 
   test("sorted map") {
     val map = SortedMap(3 -> 3, 2 -> 2, 1 -> 1)
     val list = map.keys.toIndexedSeq
-    list(0) shouldEqual 1
-    list(1) shouldEqual 2
-    list(2) shouldEqual 3
+    list(0) shouldBe 1
+    list(1) shouldBe 2
+    list(2) shouldBe 3
   }
 
   test("mutable map") {
     val map = mutable.Map(1 -> 1, 2 -> 2)
-    (map += 3 -> 3) shouldEqual Map(1 -> 1, 2 -> 2, 3 -> 3)
-    (map -= 3) shouldEqual Map(1 -> 1, 2 -> 2)
-    (map -= 2) shouldEqual Map(1 -> 1)
-    (map -= 1) shouldEqual Map()
-    (map ++= List(1 -> 1, 2 -> 2)) shouldEqual Map(1 -> 1, 2 -> 2)
-    (map --= List(1, 2)) shouldEqual Map()
+    (map += 3 -> 3) shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
+    (map -= 3) shouldBe Map(1 -> 1, 2 -> 2)
+    (map -= 2) shouldBe Map(1 -> 1)
+    (map -= 1) shouldBe Map()
+    (map ++= List(1 -> 1, 2 -> 2)) shouldBe Map(1 -> 1, 2 -> 2)
+    (map --= List(1, 2)) shouldBe Map()
   }
 
   test("set") {
     val set = Set(1, 2)
-    set shouldEqual Set(1) + 2
-    set shouldEqual Set(1, 2, 3) - 3
-    set shouldEqual Set(1) ++ Set(2)
-    set shouldEqual Set(1, 2, 3, 4) -- List(3, 4)
-    set shouldEqual (Set(-1, 0, 1, 2) & Set(1, 2, 3, 4))
-    Set(-1, 0) shouldEqual (Set(-1, 0, 1, 2) &~ Set(1, 2, 3, 4))
-    Set(3, 4) shouldEqual (Set(1, 2, 3, 4) &~ Set(-1, 0, 1, 2))
-    set.size shouldEqual 2
+    set shouldBe Set(1) + 2
+    set shouldBe Set(1, 2, 3) - 3
+    set shouldBe Set(1) ++ Set(2)
+    set shouldBe Set(1, 2, 3, 4) -- List(3, 4)
+    set shouldBe (Set(-1, 0, 1, 2) & Set(1, 2, 3, 4))
+    Set(-1, 0) shouldBe (Set(-1, 0, 1, 2) &~ Set(1, 2, 3, 4))
+    Set(3, 4) shouldBe (Set(1, 2, 3, 4) &~ Set(-1, 0, 1, 2))
+    set.size shouldBe 2
     set.contains(1) shouldBe true
     set.contains(2) shouldBe true
     set.empty.isEmpty shouldBe true
     val a = Set(1, 2, 3,4, 5, 6)
     val b = Set(3, 4, 7, 8, 9, 10)
-    a.intersect(b) shouldEqual Set(3, 4)
-    a.union(b) shouldEqual Set(5, 10, 1, 6, 9, 2, 7, 3, 8, 4)
-    a.diff(b) shouldEqual Set(5, 1, 6, 2)
+    a.intersect(b) shouldBe Set(3, 4)
+    a.union(b) shouldBe Set(5, 10, 1, 6, 9, 2, 7, 3, 8, 4)
+    a.diff(b) shouldBe Set(5, 1, 6, 2)
   }
 
   test("sorted set") {
     val set = SortedSet(3, 2, 1)
     val list = set.toIndexedSeq
-    list(0) shouldEqual 1
-    list(1) shouldEqual 2
-    list(2) shouldEqual 3
+    list(0) shouldBe 1
+    list(1) shouldBe 2
+    list(2) shouldBe 3
   }
 
   test("mutable set") {
     val set = mutable.Set(1, 2)
-    (set += 3) shouldEqual Set(1, 2, 3)
-    (set -= 3) shouldEqual Set(1, 2)
-    (set -= 2) shouldEqual Set(1)
-    (set -= 1) shouldEqual Set()
-    (set ++= List(1, 2)) shouldEqual Set(1, 2)
-    (set --= List(1, 2)) shouldEqual Set()
+    (set += 3) shouldBe Set(1, 2, 3)
+    (set -= 3) shouldBe Set(1, 2)
+    (set -= 2) shouldBe Set(1)
+    (set -= 1) shouldBe Set()
+    (set ++= List(1, 2)) shouldBe Set(1, 2)
+    (set --= List(1, 2)) shouldBe Set()
   }
 
   test("tupled") {
@@ -325,16 +325,16 @@ class CollectionTest extends AnyFunSuite with Matchers {
     }
 
     val (city, state, zip) = CityStateZip("placida", "florida", 33946).tupled
-    city shouldEqual "placida"
-    state shouldEqual "florida"
-    zip shouldEqual 33946
+    city shouldBe "placida"
+    state shouldBe "florida"
+    zip shouldBe 33946
   }
 
   test("tuple") {
     val (first, last, age) = ("fred", "flintstone", 99)
-    first shouldEqual "fred"
-    last shouldEqual "flintstone"
-    age shouldEqual 99
+    first shouldBe "fred"
+    last shouldBe "flintstone"
+    age shouldBe 99
   }
 
   test("copy") {
@@ -342,14 +342,14 @@ class CollectionTest extends AnyFunSuite with Matchers {
       def tupled: (Int, Int) = (key, value)
     }
     
-    (2, 2) shouldEqual KeyValue(1, 1).tupled.copy(2, 2)
+    (2, 2) shouldBe KeyValue(1, 1).tupled.copy(2, 2)
   }
 
   test("asJava") {
     val asJavaList = List(1, 2, 3).asJava
-    asJavaList.size shouldEqual 3
-    asJavaList.stream.count shouldEqual 3
-    asJavaList.stream.reduce((t: Int, u: Int) => t + u).get shouldEqual 6
+    asJavaList.size shouldBe 3
+    asJavaList.stream.count shouldBe 3
+    asJavaList.stream.reduce((t: Int, u: Int) => t + u).get shouldBe 6
   }
 
   test("asScala") {
@@ -358,7 +358,7 @@ class CollectionTest extends AnyFunSuite with Matchers {
     arrayList.add(2)
     arrayList.add(3)
     val asScalaBuffer = arrayList.asScala
-    asScalaBuffer.size shouldEqual 3
-    asScalaBuffer.sum shouldEqual 6
+    asScalaBuffer.size shouldBe 3
+    asScalaBuffer.sum shouldBe 6
   }  
 }
