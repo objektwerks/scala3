@@ -353,6 +353,14 @@ class CollectionTest extends AnyFunSuite with Matchers {
     age shouldBe 99
   }
 
+  test("untupling") {
+    val tuples = List( (1, 1), (2, 2), (3, 3) )
+    val sums = tuples.map {
+      (x, y) => x + y
+    }
+    sums shouldBe List(2, 4, 6)
+  }
+
   test("copy") {
     case class KeyValue(key: Int, value: Int) {
       def tupled: (Int, Int) = (key, value)
