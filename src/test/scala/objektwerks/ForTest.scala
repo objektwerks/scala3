@@ -27,16 +27,10 @@ class ForTest extends AnyFunSuite with Matchers {
     for ((_, v) <- map) v shouldEqual v
   }
 
-  test("for > foreach > map") {
-    val xs = List(1, 2)
-    val forList = mutable.ListBuffer[Int]()
-    for (x <- xs) {
-      forList += (x * 2)
-    }
-    val mapList = mutable.ListBuffer[Int]()
-    xs map (_ * 2) foreach (x => mapList += x)
-    forList shouldEqual mutable.ListBuffer(2, 4)
-    mapList shouldEqual mutable.ListBuffer(2, 4)
+  test("map > foreach") {
+    val buffer = mutable.ListBuffer[Int]()
+    List(1, 2, 3) map (_ * 2) foreach (x => buffer += x)
+    buffer shouldEqual mutable.ListBuffer(2, 4, 6)
   }
 
   test("for comprehension") {
