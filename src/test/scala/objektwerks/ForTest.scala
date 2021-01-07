@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ForTest extends AnyFunSuite with Matchers {
   test("foreach") {
-    val map = Map("a" -> 1, "b" -> 2, "c" -> 3)
-    map.foreach( t => t._2 should be > 0 )
+    val map = Map(1 -> 1, 2 -> 2, 3 -> 3)
+    map.foreach( (key, value) => (key > 0) && (value > 0) shouldBe true )
   }
 
   test("forall") {
