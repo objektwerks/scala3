@@ -13,8 +13,8 @@ class ForTest extends AnyFunSuite with Matchers {
   }
 
   test("forall") {
-    val map = Map(1 -> 1, 2 -> 2, 3 -> 3)
-    map.forall( _._2 > 0 ) shouldBe true
+    val list = List(1, 2, 3)
+    list.forall( _ > 0 ) shouldBe true
   }
 
   test("for") {
