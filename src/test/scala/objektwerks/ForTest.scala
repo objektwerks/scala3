@@ -33,7 +33,7 @@ class ForTest extends AnyFunSuite with Matchers {
     buffer shouldEqual mutable.ListBuffer(2, 4, 6)
   }
 
-  test("for") {
+  test("for comprehension") {
     val xs = List(1, 2, 3)
     val ys = for {
       x <- xs
@@ -48,7 +48,7 @@ class ForTest extends AnyFunSuite with Matchers {
     bs shouldEqual as.flatMap(_.map( _ * 2 ))
   }
 
-  test("nested for") {
+  test("nested for comprehensions") {
     val xs = List(1, 2, 3)
     val ys = List(4, 5, 6)
     val zs = for {
@@ -63,7 +63,7 @@ class ForTest extends AnyFunSuite with Matchers {
     zs.flatten.sum shouldEqual 63
   }
 
-  test("for > map") {
+  test("for comprehension > map") {
     val o = Option(3)
     val c = for {
       x <- o map { i => i * i * i }
@@ -71,10 +71,10 @@ class ForTest extends AnyFunSuite with Matchers {
     c.get shouldEqual 27
   }
 
-  test("for vs flatmap > map") {
+  test("for comprehension vs flatmap > map") {
     val xs = List(2, 4)
     val ys = List(3, 5)
-
+    
     val forList = for {
       x <- xs
       y <- ys
@@ -90,7 +90,7 @@ class ForTest extends AnyFunSuite with Matchers {
     mapList shouldEqual List(2 * 3, 2 * 5, 4 * 3, 4 * 5)
   }
 
-  test("for vs flatmap > flatmap > map") {
+  test("for comprehension vs flatmap > flatmap > map") {
     val xs = List(2, 4)
     val ys = List(3, 5)
     val zs = List(1, 6)
@@ -113,7 +113,7 @@ class ForTest extends AnyFunSuite with Matchers {
     mapList shouldEqual List(6, 36, 10, 60, 12, 72, 20, 120)
   }
 
-  test("for > if guard filter") {
+  test("for comprehension > if guard filter") {
     val ls = List("A", "B", "C", "D", "F")
     val filteredLetters = for {
       l <- ls if l == "A"
@@ -128,14 +128,14 @@ class ForTest extends AnyFunSuite with Matchers {
     filteredNumbers shouldEqual List(1, 2)
   }
 
-  test("for > zip") {
+  test("for comprehension > zip") {
     val xs = for {
       (a, b) <- List(1, 2, 3) zip List(4, 5, 6)
     } yield a + b
     xs shouldEqual List(5, 7, 9)
   }
 
-  test("for with recover") {
+  test("for comprehension with recover") {
     implicit val ec = ExecutionContext.global
     val future = Future(Integer.parseInt("one"))
     val result = ( for {
