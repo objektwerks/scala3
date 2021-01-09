@@ -10,7 +10,7 @@ class Record(fields: (String, Any)*) extends Selectable {
   def selectDynamic(column: String): Any = columns(column)
 }
 
-type Car = Record {
+type Auto = Record {
   val make: String
   val model: String
   val year: Int
@@ -18,10 +18,10 @@ type Car = Record {
 
 class StructuralTypeTest extends AnyFunSuite with Matchers {
   test("structural") {
-    val car = Record("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Car]
-    val make = car.selectDynamic("make").asInstanceOf[String]
-    val model = car.selectDynamic("model").asInstanceOf[String]
-    val year = car.selectDynamic("year").asInstanceOf[Int]
+    val auto = Record("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Auto]
+    val make = auto.selectDynamic("make").asInstanceOf[String]
+    val model = auto.selectDynamic("model").asInstanceOf[String]
+    val year = auto.selectDynamic("year").asInstanceOf[Int]
     make shouldBe "Porsche"
     model shouldBe "911"
     year shouldBe 1964
