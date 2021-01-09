@@ -55,7 +55,7 @@ class CaseClassesTest extends AnyFunSuite with Matchers {
     panther1 should not equal panther2
   }
 
-  test("to string") {
+  test("toString") {
     val bear1 = Bear("grrrr")
     val bear2 = Bear("grrrr")
     bear1.toString shouldEqual bear2.toString
