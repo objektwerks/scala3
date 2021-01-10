@@ -12,8 +12,8 @@ class Covariant[+R](val relative: R)
 class Contravariant[-R, +S](val relative: S)
 class Invariant[R](val relative: R)
 
-trait PositiveFilter[-A, +B] { 
-  def isPositive(n: Int): Boolean 
+trait NotNullFilter[-V, +R] {
+  def notNull(value: V): R
 }
 
 // Bounds
@@ -74,14 +74,14 @@ class TypesTest extends AnyFunSuite with Matchers {
   }
 
   test("contravariant in, covariant out") {
-    val filter = new PositiveFilter[Int, Boolean] {
-      override def isPositive(n: Int): Boolean = n > 0
+    val filter = new NotNullFilter[String, Boolean] {
+      override def notNull(v: String): Boolean = v != null
     }
 
-    val numbers = List(-3, -2, -1, 0, 1, 2, 3)
-    val positives = numbers.filter(n => filter.isPositive(n))
+    val values = List("a", "b", "c", null)
+    val notNulls = values.filter(v => filter.notNull(v))
 
-    positives shouldEqual List(1, 2, 3)
+    notNulls shouldEqual List("a", "b", "c")
   }
 
   test("bounds") {
