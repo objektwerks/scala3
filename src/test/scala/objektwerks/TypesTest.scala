@@ -4,17 +4,17 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 // Variance
-trait Relative
+sealed trait Relative
 class Parent extends Relative
 class Child extends Parent
-class Covariant[+RR](val relative: RR)
-class Contravariant[-RR, +SS](val relative: SS)
-class Invariant[RR](val relative: RR)
-trait PositiveFilter[-AA, +BB] { def isPositive(n: Int): Boolean }
+class Covariant[+R](val relative: R)
+class Contravariant[-R, +S](val relative: S)
+class Invariant[R](val relative: R)
+trait PositiveFilter[-A, +B] { def isPositive(n: Int): Boolean }
 
 // Bounds
-object UpperBounds { def apply[UB <: AnyVal](n: UB): UB = identity(n) }
-object LowerBounds { def apply[LB >: AnyVal](n: LB): LB = identity(n) }
+object UpperBounds { def apply[U <: AnyVal](n: U): U = identity(n) }
+object LowerBounds { def apply[L >: AnyVal](n: L): L = identity(n) }
 
 // Compound Types
 trait Init { def init: Boolean = true }
@@ -27,12 +27,12 @@ trait Speach { def isSpeaking: Boolean = true }
 class Robot extends Runnable with Emotion with Speach
 
 // Self Type
-trait Greeting { def greeting: String }
-trait Hello extends Greeting { override def greeting = "hello" }
-trait Goodbye extends Greeting { override def greeting = "goodbye" }
+trait Speaking { def speaking: String }
+trait Hello extends Speaking { override def speaking = "hello" }
+trait Goodbye extends Speaking { override def speaking = "goodbye" }
 class Speaker {
-  self: Greeting =>
-  def greet: String = greeting
+  self: Speaking =>
+  def speak: String = speaking
 }
 
 // Path Dependent Types
@@ -83,18 +83,20 @@ class TypesTest extends AnyFunSuite with Matchers {
   }
 
   test("self type") {
-    val hello = new Speaker() with Hello
-    hello.greet shouldEqual "hello"
+    val helloSpeaker = new Speaker() with Hello
+    helloSpeaker.speak shouldEqual "hello"
 
-    val goodbye = new Speaker() with Goodbye
-    goodbye.greet shouldEqual "goodbye"
+    val goodbyeSpeaker = new Speaker() with Goodbye
+    goodbyeSpeaker.speak shouldEqual "goodbye"
   }
 
   test("path dependent types") {
-    val first1 = First()
-    val path1 = first1.Second()
-    val first2 = First()
-    val path2 = first2.Second()
-    path1 should not equal path2
+    val firstDependent1 = First()
+    val firstToSecondDependentPath1 = firstDependent1.Second()
+
+    val firstDependent2 = First()
+    val firstToSecondDependentPath2 = firstDependent2.Second()
+
+    firstToSecondDependentPath1 should not equal firstToSecondDependentPath2
   }
 }
