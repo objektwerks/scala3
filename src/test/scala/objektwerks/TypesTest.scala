@@ -78,19 +78,27 @@ class TypesTest extends AnyFunSuite with Matchers {
 
   test("invariant") {
     class Vet[T](val animal: T)
-    val dog: Animal = Dog()
-    val vet: Vet[Animal] = Vet(dog)
+    val dog: Dog = Dog()
+    val vet: Vet[Animal] = Vet[Animal](dog)
     vet.animal.isInstanceOf[Animal] shouldBe true
     vet.animal.isInstanceOf[Dog] shouldBe true
   }
 
   test("covariant") {
     class Vet[+T](val animal: T)
-    val dog: Animal = Dog()
-    val vet: Vet[Animal] = Vet(dog)
+    val dog: Dog = Dog()
+    val vet: Vet[Animal] = Vet[Dog](dog)
     vet.animal.isInstanceOf[Animal] shouldBe true
     vet.animal.isInstanceOf[Dog] shouldBe true
- }
+  }
+
+  test("contravariant") {
+    class Vet[-T <: Animal](val animal: Animal)
+    val dog = Dog()
+    val vet: Vet[Dog] = Vet[Animal](dog)
+    vet.animal.isInstanceOf[Animal] shouldBe true
+    vet.animal.isInstanceOf[Dog] shouldBe true
+  }
 
   test("contravariant in, covariant out") {
     val filter = new NotNullFilter[String, Boolean] {
