@@ -16,6 +16,9 @@ trait NotNullFilter[-V, +R] {
   def notNull(value: V): R
 }
 
+sealed trait Animal
+class Dog extends Animal
+
 // Bounds
 object UpperBounds { 
   def apply[U <: AnyVal](n: U): U = identity(n) 
@@ -71,6 +74,11 @@ class TypesTest extends AnyFunSuite with Matchers {
     covariant.relative.isInstanceOf[Child] shouldBe true
     contravariant.relative.isInstanceOf[Parent] shouldBe true
     invariant.relative.isInstanceOf[Child] shouldBe true
+  }
+
+  test("invariant") {
+    val animals = List[Animal]( Dog(), Dog(), Dog() )
+    animals.length shouldBe 3
   }
 
   test("contravariant in, covariant out") {
