@@ -10,12 +10,18 @@ class Dog extends Animal
 class VarianceTypeTest extends AnyFunSuite with Matchers {
   test("invariant") {
     class Vet[T] {
-      def heal(animal: T): T = animal
+      def heal[T](animal: T): T = animal
     }
 
     val vet = Vet[Animal]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val catVet: Vet[Cat] = Vet[Cat]
+    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
+
+    val dogVet: Vet[Dog] = Vet[Dog]
+    dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
   }
 
   test("covariant") {
@@ -26,6 +32,12 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     val vet = Vet[Animal]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val catVet: Vet[Cat] = Vet[Cat]
+    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
+
+    val dogVet: Vet[Dog] = Vet[Dog]
+    dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
   }
 
   test("contravariant") {
@@ -36,6 +48,12 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     val vet = Vet[Animal]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val catVet: Vet[Cat] = Vet[Animal]
+    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
+
+    val dogVet: Vet[Dog] = Vet[Animal]
+    dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
   }
 
   test("contravariant in, covariant out") {
