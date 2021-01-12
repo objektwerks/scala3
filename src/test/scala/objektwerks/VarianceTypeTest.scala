@@ -1,19 +1,19 @@
-package classes
+package objektwerks
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-sealed trait Animal
-class Cat extends Animal
-class Dog extends Animal
+sealed trait Canine
+class Cat extends Canine
+class Dog extends Canine
 
 class VarianceTypeTest extends AnyFunSuite with Matchers {
   test("invariant") {
     class Vet[T] {
-      def heal[T](animal: T): T = animal
+      def heal[T](canine: T): T = canine
     }
 
-    val vet = Vet[Animal]
+    val vet = Vet[Canine]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
 
@@ -26,10 +26,10 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
 
   test("covariant") {
     class Vet[+T] {
-      def heal[S >: T](animal: S): S = animal
+      def heal[S >: T](canine: S): S = canine
     }
 
-    val vet = Vet[Animal]
+    val vet = Vet[Canine]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
 
@@ -42,17 +42,17 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
 
   test("contravariant") {
     class Vet[-T] {
-      def heal[S <: T](animal: S): S = animal
+      def heal[S <: T](canine: S): S = canine
     }
 
-    val vet = Vet[Animal]
+    val vet = Vet[Canine]
     vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val catVet: Vet[Cat] = Vet[Animal]
+    val catVet: Vet[Cat] = Vet[Canine]
     catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
 
-    val dogVet: Vet[Dog] = Vet[Animal]
+    val dogVet: Vet[Dog] = Vet[Canine]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
   }
 
