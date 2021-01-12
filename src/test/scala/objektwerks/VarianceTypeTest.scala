@@ -14,8 +14,8 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
@@ -30,8 +30,8 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
@@ -46,8 +46,8 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Canine]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
