@@ -3,23 +3,13 @@ package classes
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-// Variance
-sealed trait Relative
-class Parent extends Relative
-class Child extends Parent
-
-class Covariant[+R](val relative: R)
-class Contravariant[-R, +S](val relative: S)
-class Invariant[R](val relative: R)
+sealed trait Animal
+class Dog extends Animal
 
 trait NotNullFilter[-V, +R] {
   def notNull(value: V): R
 }
 
-sealed trait Animal
-class Dog extends Animal
-
-// Bounds
 object UpperBounds { 
   def apply[U <: AnyVal](n: U): U = identity(n) 
 }
@@ -27,36 +17,7 @@ object LowerBounds {
   def apply[L >: AnyVal](n: L): L = identity(n) 
 }
 
-// Compound Type
-trait Init { 
-  def init: Boolean = true 
-}
-trait Run extends Init { 
-  def run: Boolean = init
-}
-class Runnable extends Run { 
-  def isRunning: Boolean = run 
-}
-trait Emotion { 
-  def isEmoting: Boolean = true 
-}
-trait Speach { 
-  def isSpeaking: Boolean = true 
-}
-class Robot extends Runnable with Emotion with Speach
-
-
 class TypesTest extends AnyFunSuite with Matchers {
-  test("variance") {
-    val covariant: Covariant[Parent] = Covariant[Child](Child())
-    val contravariant: Contravariant[Child, Parent] = Contravariant[Child, Parent](Parent())
-    val invariant: Invariant[Child] = Invariant[Child](Child())
-
-    covariant.relative.isInstanceOf[Child] shouldBe true
-    contravariant.relative.isInstanceOf[Parent] shouldBe true
-    invariant.relative.isInstanceOf[Child] shouldBe true
-  }
-
   test("invariant") {
     class Vet[T](val animal: T)
     val dog: Dog = Dog()
@@ -98,13 +59,6 @@ class TypesTest extends AnyFunSuite with Matchers {
 
     val lowerBounds: Any = LowerBounds(3)
     lowerBounds shouldEqual 3
-  }
-
-  test("compound type") {
-    val robot = Robot()
-    robot.isRunning shouldBe true
-    robot.isEmoting shouldBe true
-    robot.isSpeaking shouldBe true
   }
 
   test("type alias") {
