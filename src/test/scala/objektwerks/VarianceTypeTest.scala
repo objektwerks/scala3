@@ -43,12 +43,12 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
       def notNull(value: V): R
     }
 
-    val filter = new NotNullFilter[String, Boolean] {
+    val notNullFilter = new NotNullFilter[String, Boolean] {
       override def notNull(v: String): Boolean = v != null
     }
 
     val values = List("a", "b", "c", null)
-    val notNulls = values.filter(v => filter.notNull(v))
+    val notNulls = values.filter( value => notNullFilter.notNull(value) )
 
     notNulls shouldEqual List("a", "b", "c")
   }
