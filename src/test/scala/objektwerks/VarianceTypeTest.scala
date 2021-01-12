@@ -4,8 +4,8 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 sealed trait Canine
-class Cat extends Canine
 class Dog extends Canine
+class Wolf extends Canine
 
 class VarianceTypeTest extends AnyFunSuite with Matchers {
   test("invariant") {
@@ -14,14 +14,14 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
-
-    val catVet: Vet[Cat] = Vet[Cat]
-    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val wolfVet: Vet[Wolf] = Vet[Wolf]
+    wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("covariant") {
@@ -30,14 +30,14 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
-
-    val catVet: Vet[Cat] = Vet[Cat]
-    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val wolfVet: Vet[Wolf] = Vet[Wolf]
+    wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("contravariant") {
@@ -46,14 +46,14 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
     }
 
     val vet = Vet[Canine]
-    vet.heal( Cat() ).isInstanceOf[Cat] shouldBe true
+    vet.heal( Wolf() ).isInstanceOf[Wolf] shouldBe true
     vet.heal( Dog() ).isInstanceOf[Dog] shouldBe true
-
-    val catVet: Vet[Cat] = Vet[Canine]
-    catVet.heal[Cat]( Cat() ).isInstanceOf[Cat] shouldBe true
 
     val dogVet: Vet[Dog] = Vet[Canine]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
+
+    val wolfVet: Vet[Wolf] = Vet[Canine]
+    wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("contravariant in, covariant out") {
