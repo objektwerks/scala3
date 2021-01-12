@@ -45,21 +45,6 @@ trait Speach {
 }
 class Robot extends Runnable with Emotion with Speach
 
-// Self Type
-trait Speaking { 
-  def speaking: String 
-}
-trait Hello extends Speaking { 
-  override def speaking = "hello" 
-}
-trait Goodbye extends Speaking { 
-  override def speaking = "goodbye" 
-}
-class Speaker {
-  self: Speaking =>
-  def speak: String = speaking
-}
-
 // Path Dependent Type
 class First {
   class Second
@@ -133,14 +118,6 @@ class TypesTest extends AnyFunSuite with Matchers {
 
     users("john") shouldEqual 21
     users("jane") shouldEqual 19
-  }
-
-  test("self type") {
-    val helloSpeaker = new Speaker() with Hello
-    helloSpeaker.speak shouldEqual "hello"
-
-    val goodbyeSpeaker = new Speaker() with Goodbye
-    goodbyeSpeaker.speak shouldEqual "goodbye"
   }
 
   test("path dependent types") {
