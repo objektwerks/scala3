@@ -45,10 +45,6 @@ trait Speach {
 }
 class Robot extends Runnable with Emotion with Speach
 
-// Path Dependent Type
-class First {
-  class Second
-}
 
 class TypesTest extends AnyFunSuite with Matchers {
   test("variance") {
@@ -118,15 +114,5 @@ class TypesTest extends AnyFunSuite with Matchers {
 
     users("john") shouldEqual 21
     users("jane") shouldEqual 19
-  }
-
-  test("path dependent types") {
-    val firstDependent1 = First()
-    val firstToSecondDependentPath1 = firstDependent1.Second()
-
-    val firstDependent2 = First()
-    val firstToSecondDependentPath2 = firstDependent2.Second()
-
-    firstToSecondDependentPath1 should not equal firstToSecondDependentPath2
   }
 }
