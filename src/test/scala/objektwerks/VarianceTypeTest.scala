@@ -57,17 +57,15 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
   }
 
   test("contravariant in, covariant out") {
-    trait NotNullFilter[-V, +R] {
-      def notNull(value: V): R
+    trait Function[-V, +R] {
+      def apply(value: V): R
     }
 
-    val notNullFilter = new NotNullFilter[String, Boolean] {
-      override def notNull(value: String): Boolean = value != null
+    val function = new Function[String, Option[Int]] {
+      def apply(value: String): Option[Int] = value.toIntOption
     }
 
-    val values = List("a", "b", "c", null)
-    val notNulls = values.filter( value => notNullFilter.notNull(value) )
-
-    notNulls shouldEqual List("a", "b", "c")
+    val values = List("1", "2", "3", "four")
+    values.flatMap(value => function(value)) shouldEqual List(1, 2, 3)
   }
 }
