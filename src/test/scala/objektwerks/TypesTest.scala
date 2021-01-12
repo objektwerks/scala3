@@ -60,13 +60,4 @@ class TypesTest extends AnyFunSuite with Matchers {
     val lowerBounds: Any = LowerBounds(3)
     lowerBounds shouldEqual 3
   }
-
-  test("type alias") {
-    type User = String
-    type Age = Int
-    val users =  Map[User, Age]("john" -> 21, "jane" -> 19)
-
-    users("john") shouldEqual 21
-    users("jane") shouldEqual 19
-  }
 }
