@@ -67,5 +67,6 @@ class VarianceTypeTest extends AnyFunSuite with Matchers {
 
     val values = List("1", "2", "3", "four")
     values.flatMap(value => function(value)) shouldEqual List(1, 2, 3)
+    values.flatMap(value => function(value)).sum shouldEqual 6
   }
 }
