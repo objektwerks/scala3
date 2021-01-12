@@ -17,7 +17,7 @@ object LowerBounds {
   def apply[L >: AnyVal](n: L): L = identity(n) 
 }
 
-class TypesTest extends AnyFunSuite with Matchers {
+class VarianceTypeTest extends AnyFunSuite with Matchers {
   test("invariant") {
     class Vet[T](val animal: T)
     val dog: Dog = Dog()

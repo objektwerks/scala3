@@ -22,7 +22,7 @@ class FutureTest extends AnyFunSuite with Matchers {
   test("promise") {
     def send(message: String): Future[String] = {
       val promise = Promise[String] ()
-      val runnable = new Runnable {
+      val runnable = new java.lang.Runnable {
         override def run(): Unit = {
           promise.success(message)
         }
