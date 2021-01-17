@@ -347,7 +347,7 @@ class CollectionTest extends AnyFunSuite with Matchers {
   }
 
   test("tuple copy") {
-    case class KeyValue(key: Int, value: Int) {
+    final case class KeyValue(key: Int, value: Int) {
       def tupled: (Int, Int) = (key, value)
     }
     
@@ -355,7 +355,7 @@ class CollectionTest extends AnyFunSuite with Matchers {
   }
 
   test("tupled") {
-    case class CityStateZip(city: String, state: String, zip: Int) {
+    final case class CityStateZip(city: String, state: String, zip: Int) {
       def tupled: (String, String, Int) = (city, state, zip)
     }
 
