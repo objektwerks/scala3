@@ -3,11 +3,10 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-enum NumberType {
+enum NumberType:
   case negative extends NumberType
   case positive extends NumberType
   case zero extends NumberType
-}
 
 import NumberType._
 def typeOfNumber(number: Int): NumberType =
@@ -33,8 +32,7 @@ class ControlTest extends AnyFunSuite with Matchers {
 
   test("for > yield") {
     val xs = -1 to 3
-    val result = for x <- xs if x > 0
-    yield x * x
+    val result = for x <- xs if x > 0 yield x * x
     result.sum shouldBe 14
   }
 
