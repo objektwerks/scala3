@@ -10,19 +10,18 @@ import scala.util.{Success, Try, Using}
 
 def divide(x: Int, y: Int): Either[Throwable, Int] = Try(x / y).toEither
 
-def divide(x: String, y: String): Option[Int] = {
+def divide(x: String, y: String): Option[Int] =
   for {
     x <- x.toIntOption
     y <- y.toIntOption
   } yield x / y
-}
 
 def fileToLines(file: String): Try[Seq[String]] = 
   Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().toSeq }
 
 def parseInt(s: String): Option[Int] = Try(s.toInt).toOption
 
-class ErrorsTest extends AnyFunSuite with Matchers {
+class ErrorHandlingTest extends AnyFunSuite with Matchers {
   test("either") {
     divide(9, 3).isRight shouldBe true
     divide(9, 0).isLeft shouldBe true
