@@ -14,11 +14,10 @@ enum Greeting(greeting: String):
 transparent trait SalutationBuilder:
   def build(honorific: Honorific, greeting: Greeting): String = s"$honorific, $greeting"
 
-
 sealed trait Salutation(val honorific: Honorific, val greeting: Greeting) extends SalutationBuilder:
   def greet(): String = build(honorific, greeting)
 
-class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
+final class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
 
 class TraitTest extends AnyFunSuite with Matchers {
   test("trait") {
