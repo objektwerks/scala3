@@ -3,9 +3,8 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-trait Combiner[T] {
+trait Combiner[T]:
   def combine(list: List[T]): T
-}
 
 given Combiner[Int] with
   def combine(list: List[Int]): Int = list.sum
