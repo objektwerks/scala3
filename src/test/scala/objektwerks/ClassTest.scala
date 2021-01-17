@@ -3,21 +3,16 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-abstract class Car:
+sealed trait Car:
   def drive: String = "driving"
   def sound: String
 
-class Porsche extends Car:
-  override def sound: String = "prrrr"
-
-class Corvette extends Car:
-  override def sound: String = "woosh" 
-
-class Maserati extends Car:
-  override def sound: String = "grrrr" 
+final case class Porsche(sound: String) extends Car
+final case class Corvette(sound: String) extends Car
+final case class Maserati(sound: String) extends Car
 
 object Owner:
-  def startEngines: Set[Car] = Set(new Porsche, new Corvette, new Maserati)
+  def startEngines: Set[Car] = Set( Porsche("prrrr"), Corvette("woosh"), Maserati("grrrr") )
 
 class Human(val first: String, val last: String, val initial: String):
   def this(first: String, last: String) = this(first, last, "")
@@ -28,10 +23,10 @@ class Square:
 object Cube:
   def apply(n: Int): Int = n * n * n
 
-class Timestamp(val seconds: Int)
+case class Timestamp(val seconds: Int)
 
 object Timestamp:
-  def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = new Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
+  def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
 
 class ClassTest extends AnyFunSuite with Matchers {
   test("classes with inheritence") {
