@@ -41,7 +41,7 @@ object Timestamp {
   }
 }
 
-class ClassesTest extends AnyFunSuite with Matchers {
+class ClassTest extends AnyFunSuite with Matchers {
   test("classes with inheritence") {
     val cars = Owner.startEngines
     for (car <- cars) {
