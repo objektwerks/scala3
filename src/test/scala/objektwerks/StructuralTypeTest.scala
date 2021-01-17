@@ -5,10 +5,9 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.Selectable._
 
-class Record(fields: (String, Any)*) extends Selectable {
+class Record(fields: (String, Any)*) extends Selectable:
   private val columns = fields.toMap
   def selectDynamic(column: String): Any = columns(column)
-}
 
 type Auto = Record {
   val make: String
