@@ -3,10 +3,9 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-enum Gate(state: Int) {
+enum Gate(state: Int):
   case closed extends Gate(0)
   case open extends Gate(1)
-}
 
 class EnumTest extends AnyFunSuite with Matchers {
   test("gate") {
