@@ -3,43 +3,35 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-abstract class Car {
+abstract class Car:
   def drive: String = "driving"
   def sound: String
-}
-class Porsche extends Car {
+
+class Porsche extends Car:
   override def sound: String = "prrrr"
-}
-class Corvette extends Car {
+
+class Corvette extends Car:
   override def sound: String = "woosh" 
-}
-class Maserati extends Car { 
+
+class Maserati extends Car:
   override def sound: String = "grrrr" 
-}
-object Owner { 
-  def startEngines: Set[Car] = Set(new Porsche, new Corvette, new Maserati) 
-}
 
-class Human(val first: String, val last: String, val initial: String) {
-  def this(first: String, last: String) = {
-    this(first, last, "")
-  }
-}
+object Owner:
+  def startEngines: Set[Car] = Set(new Porsche, new Corvette, new Maserati)
 
-class Square { 
-  def apply(n: Int): Int = n * n 
-}
+class Human(val first: String, val last: String, val initial: String):
+  def this(first: String, last: String) = this(first, last, "")
 
-object Cube { 
-  def apply(n: Int): Int = n * n * n 
-}
+class Square:
+  def apply(n: Int): Int = n * n
+
+object Cube:
+  def apply(n: Int): Int = n * n * n
 
 class Timestamp(val seconds: Int)
-object Timestamp {
-  def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = {
-    new Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
-  }
-}
+
+object Timestamp:
+  def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = new Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
 
 class ClassTest extends AnyFunSuite with Matchers {
   test("classes with inheritence") {
