@@ -5,9 +5,9 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.util.Try
 
-def isGreaterThanZero(x: Int): Option[Int] = if (x > 0) Some(x) else None
-
 class OptionTest extends AnyFunSuite with Matchers {
+  def isGreaterThanZero(x: Int): Option[Int] = if (x > 0) Some(x) else None
+
   test("option") {
     isGreaterThanZero(1).get shouldBe 1
     isGreaterThanZero(0).getOrElse(1) shouldBe 1
@@ -32,10 +32,9 @@ class OptionTest extends AnyFunSuite with Matchers {
   }
 
   test("match") {
-    val x = isGreaterThanZero(1) match {
+    val x = isGreaterThanZero(1) match
       case Some(n) => n * 3
       case None => -1
-    }
     x shouldBe 3
   }
 
@@ -43,7 +42,7 @@ class OptionTest extends AnyFunSuite with Matchers {
     ( isGreaterThanZero(1) map(_ * 3) getOrElse(-1) ) shouldBe 3
   }
 
-  test("flatmap") {
+  test("flatMap") {
     def toInt(s: String): Option[Int] = s.toIntOption
 
     val strings = List("1", "2", "3", "four")
