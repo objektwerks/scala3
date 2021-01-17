@@ -13,6 +13,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     def byVariable(order: Order): (String, Int) = order match {
       case Order(p, q) => (p, q)
     }
+
     val (product, quanity) = byVariable(Order("beer", 6))
     product shouldBe "beer"
     quanity shouldBe 6
@@ -24,6 +25,7 @@ class MatchTest extends AnyFunSuite with Matchers {
       case d: Double => s"double: $d"
       case s: String => s"string: $s"
     }
+
     byType(1) shouldBe "integer: 1"
     byType(1.0) shouldBe "double: 1.0"
     byType("10") shouldBe "string: 10"
@@ -33,6 +35,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     def byTuple(t: (Int, Int)): Int = t match {
       case (a, b) => a + b
     }
+
     byTuple((1, 2)) shouldBe 3
   }
 
@@ -41,18 +44,20 @@ class MatchTest extends AnyFunSuite with Matchers {
       case 0 | "" => false
       case _ => true
     }
+
     isTrue(1) shouldBe true
     isTrue(0) shouldBe false
     isTrue("") shouldBe false
   }
 
   test("case class match") {
-    case class Person(name: String)
+    final case class Person(name: String)
     def byPerson(p: Person): String = p match {
       case Person("John") => "Mr. " + p.name
       case Person("Jane") => "Ms. " + p.name
       case Person(name) => s"Mr. $name"
     }
+
     byPerson(Person("John")) shouldBe "Mr. John"
     byPerson(Person("Jane")) shouldBe "Ms. Jane"
     byPerson(Person("Jake")) shouldBe "Mr. Jake"
@@ -64,6 +69,7 @@ class MatchTest extends AnyFunSuite with Matchers {
       case Nil => acc
       case head :: tail => sum(tail, acc + head)
     }
+
     sum(Nil) shouldBe 0
     sum(List(1, 2, 3)) shouldBe 6
   }
@@ -79,6 +85,7 @@ class MatchTest extends AnyFunSuite with Matchers {
       case i if i % 5 == 0 => m5 += s"$i -> m5"
       case i => none += i.toString
     }
+
     m3m5.size shouldBe 6
     m3.size shouldBe 27
     m5.size shouldBe 13
@@ -92,16 +99,18 @@ class MatchTest extends AnyFunSuite with Matchers {
       case t @ Stock(_, _) if t.symbol == yesterday.symbol => t.price > yesterday.price
       case _ => false
     }
+
     val today = Stock("XYZ", 3.33)
     val yesterday = Stock("XYZ", 1.11)
     isPriceHigher(today, yesterday) shouldBe true
   }
 
   test("regex match") {
-    val ipAddress = new Regex("""(\d+)\.(\d+)\.(\d+)\.(\d+)""")
+    val ipAddress = Regex("""(\d+)\.(\d+)\.(\d+)\.(\d+)""")
     def byRegex(address: String): (Int, Int, Int, Int) = address match {
       case ipAddress(a, b, c, d) => (a.toInt, b.toInt, c.toInt, d.toInt)
     }
+    
     (10, 10, 0, 1) shouldBe byRegex("10.10.0.1")
   }
 }
