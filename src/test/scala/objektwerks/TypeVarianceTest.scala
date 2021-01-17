@@ -4,14 +4,13 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 sealed trait Canine
-class Dog extends Canine
-class Wolf extends Canine
+final class Dog extends Canine
+final class Wolf extends Canine
 
 class TypeVarianceTest extends AnyFunSuite with Matchers {
   test("invariant") {
-    class Vet[T] {
+    class Vet[T]:
       def heal[T](canine: T): T = canine
-    }
 
     val vet = Vet[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
@@ -25,9 +24,8 @@ class TypeVarianceTest extends AnyFunSuite with Matchers {
   }
 
   test("covariant") {
-    class Vet[+T] {
+    class Vet[+T]:
       def heal[S >: T](canine: S): S = canine
-    }
 
     val vet = Vet[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
@@ -41,9 +39,8 @@ class TypeVarianceTest extends AnyFunSuite with Matchers {
   }
 
   test("contravariant") {
-    class Vet[-T] {
+    class Vet[-T]:
       def heal[S <: T](canine: S): S = canine
-    }
 
     val vet = Vet[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
@@ -57,13 +54,11 @@ class TypeVarianceTest extends AnyFunSuite with Matchers {
   }
 
   test("contravariant in, covariant out") {
-    trait Function[-V, +R] {
+    trait Function[-V, +R]:
       def apply(value: V): R
-    }
 
-    val function = new Function[String, Option[Int]] {
+    val function = new Function[String, Option[Int]]:
       def apply(value: String): Option[Int] = value.toIntOption
-    }
 
     val values = List("1", "2", "3", "four")
     values.flatMap(value => function(value)) shouldEqual List(1, 2, 3)
