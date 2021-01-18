@@ -28,7 +28,7 @@ case class Timestamp(val seconds: Int)
 object Timestamp:
   def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
 
-class ClassTest extends AnyFunSuite with Matchers {
+class ClassTest extends AnyFunSuite with Matchers:
   test("classes with inheritence") {
     val cars = Owner.startEngines
     for (car <- cars) {
@@ -68,4 +68,3 @@ class ClassTest extends AnyFunSuite with Matchers {
   test("companion object") {
     Timestamp(1, 1, 1).seconds shouldEqual 3661
   }
-}
