@@ -11,9 +11,8 @@ def eval[T](expression: Expression[T]): T = expression match
   case IntExpr(int) => int
   case BoolExpr(boolean) => boolean
 
-class GADTTest extends AnyFunSuite with Matchers {
+class GADTTest extends AnyFunSuite with Matchers:
   test("gadt") {
     eval( IntExpr(3) ) shouldBe 3
     eval( BoolExpr(true) ) shouldBe true
   }
-}
