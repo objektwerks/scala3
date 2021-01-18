@@ -3,7 +3,7 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TypeAliasTest extends AnyFunSuite with Matchers {
+class TypeAliasTest extends AnyFunSuite with Matchers:
   test("type alias") {
     type User = String
     type Age = Int
@@ -12,4 +12,3 @@ class TypeAliasTest extends AnyFunSuite with Matchers {
     users("john") shouldEqual 21
     users("jane") shouldEqual 19
   }
-}
