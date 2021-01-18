@@ -7,7 +7,7 @@ sealed trait Canine
 final class Dog extends Canine
 final class Wolf extends Canine
 
-class TypeVarianceTest extends AnyFunSuite with Matchers {
+class TypeVarianceTest extends AnyFunSuite with Matchers:
   test("invariant") {
     class Vet[T]:
       def heal[T](canine: T): T = canine
@@ -64,4 +64,3 @@ class TypeVarianceTest extends AnyFunSuite with Matchers {
     values.flatMap(value => function(value)) shouldEqual List(1, 2, 3)
     values.flatMap(value => function(value)).sum shouldEqual 6
   }
-}
