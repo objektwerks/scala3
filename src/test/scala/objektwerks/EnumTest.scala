@@ -7,8 +7,8 @@ enum Gate(state: Int):
   case closed extends Gate(0)
   case open extends Gate(1)
 
-class EnumTest extends AnyFunSuite with Matchers {
-  test("gate") {
+class EnumTest extends AnyFunSuite with Matchers:
+  test("enum") {
     val closed = Gate.closed
     closed shouldBe Gate.closed
     closed.ordinal shouldBe 0
@@ -24,4 +24,3 @@ class EnumTest extends AnyFunSuite with Matchers {
     values(0) shouldBe closed
     values(1) shouldBe open
   }
-}
