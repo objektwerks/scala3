@@ -7,8 +7,8 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 import scala.util.matching.Regex
 
-class MatchTest extends AnyFunSuite with Matchers {
-  test("variable match") {
+class MatchTest extends AnyFunSuite with Matchers:
+  test("variable") {
     final case class Order(product: String, quantity: Int)
     def byVariable(order: Order): (String, Int) = order match {
       case Order(p, q) => (p, q)
@@ -19,7 +19,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     quanity shouldBe 6
   }
 
-  test("type match") {
+  test("type") {
     def byType(t: Any): String = t match {
       case i: Int => s"integer: $i"
       case d: Double => s"double: $d"
@@ -31,7 +31,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     byType("10") shouldBe "string: 10"
   }
 
-  test("tuple match") {
+  test("tuple") {
     def byTuple(t: (Int, Int)): Int = t match {
       case (a, b) => a + b
     }
@@ -39,7 +39,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     byTuple((1, 2)) shouldBe 3
   }
 
-  test("or match") {
+  test("or") {
     def isTrue(a: Any) = a match {
       case 0 | "" => false
       case _ => true
@@ -50,7 +50,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     isTrue("") shouldBe false
   }
 
-  test("case class match") {
+  test("case class") {
     final case class Person(name: String)
     def byPerson(p: Person): String = p match {
       case Person("John") => "Mr. " + p.name
@@ -63,7 +63,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     byPerson(Person("Jake")) shouldBe "Mr. Jake"
   }
 
-  test("tailrec sum match") {
+  test("tailrec sum") {
     @tailrec
     def sum(numbers: List[Int], acc: Int = 0): Int = numbers match {
       case Nil => acc
@@ -74,7 +74,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     sum(List(1, 2, 3)) shouldBe 6
   }
 
-  test("guarded match") {
+  test("guarded") {
     val m3m5 = ArrayBuffer[String]()
     val m3 = ArrayBuffer[String]()
     val m5 = ArrayBuffer[String]()
@@ -93,7 +93,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     m3m5.size + m3.size + m5.size + none.size shouldBe 99
   }
 
-  test("alias match") {
+  test("alias") {
     final case class Stock(symbol: String, price: Double)
     def isPriceHigher(today: Stock, yesterday: Stock): Boolean = today match {
       case t @ Stock(_, _) if t.symbol == yesterday.symbol => t.price > yesterday.price
@@ -105,7 +105,7 @@ class MatchTest extends AnyFunSuite with Matchers {
     isPriceHigher(today, yesterday) shouldBe true
   }
 
-  test("regex match") {
+  test("regex") {
     val ipAddress = Regex("""(\d+)\.(\d+)\.(\d+)\.(\d+)""")
     def byRegex(address: String): (Int, Int, Int, Int) = address match {
       case ipAddress(a, b, c, d) => (a.toInt, b.toInt, c.toInt, d.toInt)
@@ -113,4 +113,3 @@ class MatchTest extends AnyFunSuite with Matchers {
     
     (10, 10, 0, 1) shouldBe byRegex("10.10.0.1")
   }
-}
