@@ -3,7 +3,7 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-trait Combiner[T]:
+sealed trait Combiner[T]:
   def combine(list: List[T]): T
 
 given Combiner[Int] with
