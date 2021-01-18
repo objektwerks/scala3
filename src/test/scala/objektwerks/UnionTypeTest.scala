@@ -16,7 +16,7 @@ def drink(beer: Lager | Pilsner): Beer = beer match
   case lager @ Lager(name) => lager.prost
   case pilsner @ Pilsner(name) => pilsner.cheers
 
-class UnionTypeTest extends AnyFunSuite with Matchers {
+class UnionTypeTest extends AnyFunSuite with Matchers:
   test("union") {
     val lager = Lager("Song of Joy")
     val pilsner = Pilsner("Poetica 2")
@@ -27,4 +27,3 @@ class UnionTypeTest extends AnyFunSuite with Matchers {
     drink( pilsner ).isInstanceOf[Pilsner] shouldBe true
     drink( pilsner ).name shouldBe "Poetica 2"
   }
-}
