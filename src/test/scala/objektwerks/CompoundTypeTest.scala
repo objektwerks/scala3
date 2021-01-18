@@ -3,27 +3,25 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-trait Init:
-  def init: Boolean = true 
+sealed trait Boot:
+  def boot: Boolean = true
 
-trait Run extends Init:
-  def run: Boolean = init
+sealed trait Walk:
+  def walk: Boolean = true
 
-class Runnable extends Run:
-  def isRunning: Boolean = run 
+sealed trait Stop:
+  def stop: Boolean = true 
 
-trait Emotion:
-  def isEmoting: Boolean = true 
+sealed trait Shutdown:
+  def shutdown: Boolean = true 
 
-trait Speach:
-  def isSpeaking: Boolean = true 
-
-class Robot extends Runnable with Emotion with Speach
+final class Robot extends Boot with Walk with Stop with Shutdown
 
 class CompoundTypeTest extends AnyFunSuite with Matchers:
   test("compound") {
     val robot = Robot()
-    robot.isRunning shouldBe true
-    robot.isEmoting shouldBe true
-    robot.isSpeaking shouldBe true
+    robot.boot shouldBe true
+    robot.walk shouldBe true
+    robot.stop shouldBe true
+    robot.shutdown shouldBe true
   }
