@@ -20,11 +20,10 @@ trait Speach:
 
 class Robot extends Runnable with Emotion with Speach
 
-class CompoundTypeTest extends AnyFunSuite with Matchers {
+class CompoundTypeTest extends AnyFunSuite with Matchers:
   test("compound") {
     val robot = Robot()
     robot.isRunning shouldBe true
     robot.isEmoting shouldBe true
     robot.isSpeaking shouldBe true
-  }  
-}
+  }
