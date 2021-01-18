@@ -8,7 +8,7 @@ import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
 
-class FutureTest extends AnyFunSuite with Matchers {
+class FutureTest extends AnyFunSuite with Matchers:
   given ec: ExecutionContext = ExecutionContext.global
 
   test("blocking") {
@@ -206,4 +206,3 @@ class FutureTest extends AnyFunSuite with Matchers {
       .zipWith(Future(100.0)) { case (label, average) => s"$label $average" }
       .foreach { s => s shouldBe "My average is: 100.0" }
   }
-}
