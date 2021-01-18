@@ -8,7 +8,7 @@ import scala.io.{Codec, Source}
 import scala.util.{Try, Using}
 import scala.language.postfixOps
 
-class IOTest extends AnyFunSuite with Matchers {
+class IOTest extends AnyFunSuite with Matchers:
   val utf8 = Codec.UTF8.name
   val quote = "You can avoid reality, but you cannot avoid the consequences of avoiding reality."
 
@@ -61,4 +61,3 @@ class IOTest extends AnyFunSuite with Matchers {
   }
 
   def fileToLines(file: String): Try[Seq[String]] = Using( Source.fromFile(file, utf8) ) { source => source.getLines().toSeq }
-}
