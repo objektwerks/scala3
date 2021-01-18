@@ -9,7 +9,7 @@ import scala.collection.immutable._
 import scala.collection.mutable
 import scala.jdk.CollectionConverters._
 
-class CollectionTest extends AnyFunSuite with Matchers {
+class CollectionTest extends AnyFunSuite with Matchers:
   def toList(i: Int): List[Int] = List(i - 1, i, i + 1)
 
   test("newBuilder") {
@@ -388,5 +388,4 @@ class CollectionTest extends AnyFunSuite with Matchers {
     val asScalaBuffer = arrayList.asScala
     asScalaBuffer.size shouldBe 3
     asScalaBuffer.sum shouldBe 6
-  }  
-}
+  }
