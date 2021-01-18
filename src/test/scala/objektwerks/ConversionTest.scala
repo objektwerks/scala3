@@ -9,10 +9,9 @@ final case class Person(name: String):
 given stringToPerson: Conversion[String, Person] with
   def apply(name: String): Person = Person(name)
 
-class ConversionTest extends AnyFunSuite with Matchers {
+class ConversionTest extends AnyFunSuite with Matchers:
   test("conversion") {
     import scala.language.implicitConversions
 
     "Fred Flintstone".greetings shouldBe "Greetings. My name is Fred Flintstone."
   }
-}
