@@ -3,7 +3,7 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class OrderingTest extends AnyFunSuite with Matchers {
+class OrderingTest extends AnyFunSuite with Matchers:
   final case class Name(last: String, first: String)
 
   given lastNameOrdering: Ordering[Name] = Ordering.by(_.last)
@@ -20,4 +20,3 @@ class OrderingTest extends AnyFunSuite with Matchers {
     val firstNameSorted = names.sorted[Name](using firstNameOrdering)
     firstNameSorted.head shouldBe zName
   }
-}
