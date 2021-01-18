@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, Future}
 
-class ForTest extends AnyFunSuite with Matchers {
+class ForTest extends AnyFunSuite with Matchers:
   test("foreach") {
     val map = Map(1 -> 1, 2 -> 2, 3 -> 3)
     map.foreach( (key, value) => (key > 0) && (value > 0) shouldBe true )
@@ -143,4 +143,3 @@ class ForTest extends AnyFunSuite with Matchers {
     } yield i ).recover { case _: Throwable => -1 }
     result foreach { x => x shouldEqual -1 }
   }
-}
