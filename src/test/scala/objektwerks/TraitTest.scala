@@ -19,7 +19,7 @@ sealed trait Salutation(val honorific: Honorific, val greeting: Greeting) extend
 
 final class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation(honorific, greeting)
 
-class TraitTest extends AnyFunSuite with Matchers {
+class TraitTest extends AnyFunSuite with Matchers:
   test("trait") {
     import Honorific._
     import Greeting._
@@ -30,4 +30,3 @@ class TraitTest extends AnyFunSuite with Matchers {
     val madamGoodEveningGreeter = Greeter(madam, goodEvening)
     madamGoodEveningGreeter.greet() shouldBe s"${madamGoodEveningGreeter.honorific}, ${madamGoodEveningGreeter.greeting}"
   }
-}
