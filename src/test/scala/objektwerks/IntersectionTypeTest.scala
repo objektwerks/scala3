@@ -6,15 +6,14 @@ import org.scalatest.matchers.should.Matchers
 sealed trait Camera:
   def cameraEnabled(): Boolean = true
 
-sealed trait Phone:
-  def phoneEnabled(): Boolean = true
+sealed trait Mic:
+  def micEnabled(): Boolean = true
 
-class MobilePhone extends Camera with Phone
+final class MobilePhone extends Camera with Mic
 
-def verifyMobilePhone(mobilePhone: Camera & Phone): (Boolean, Boolean) = ( mobilePhone.cameraEnabled(), mobilePhone.phoneEnabled() )
+def verifyMobilePhone(mobilePhone: Camera & Mic): (Boolean, Boolean) = ( mobilePhone.cameraEnabled(), mobilePhone.micEnabled() )
 
-class IntersectionTypeTest extends AnyFunSuite with Matchers {
+class IntersectionTypeTest extends AnyFunSuite with Matchers:
   test("intersection") {
     verifyMobilePhone( MobilePhone() ) shouldBe (true, true)
   }
-}
