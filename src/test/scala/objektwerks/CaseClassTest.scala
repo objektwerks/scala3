@@ -25,7 +25,7 @@ case class Meter(value: Double) extends AnyVal:
 case class Foot(value: Double) extends AnyVal:
   def toMeter: Meter = Meter(value / 0.3048) 
 
-class CaseClassTest extends AnyFunSuite with Matchers {
+class CaseClassTest extends AnyFunSuite with Matchers:
   test("case classes") {
     val animals = ZooKeeper.openCages
     for(animal <- animals) {
@@ -70,4 +70,3 @@ class CaseClassTest extends AnyFunSuite with Matchers {
     Meter(3.0).toFeet shouldEqual Foot(0.9144000000000001)
     Foot(3.0).toMeter shouldEqual Meter(9.84251968503937)
   }
-}
