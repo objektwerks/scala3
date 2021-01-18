@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import scala.sys.SystemProperties
 import scala.sys.process.Process
 
-class SysTest extends AnyFunSuite with Matchers {
+class SysTest extends AnyFunSuite with Matchers:
   test("system properties") {
     val properties = SystemProperties()
     properties.contains("java.runtime.name") shouldBe true
@@ -28,4 +28,3 @@ class SysTest extends AnyFunSuite with Matchers {
     val lines = Process("cat .gitignore").lazyLines
     lines.length shouldBe 6
   }
-}
