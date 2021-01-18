@@ -21,7 +21,7 @@ def fileToLines(file: String): Try[Seq[String]] =
 
 def parseInt(s: String): Option[Int] = Try(s.toInt).toOption
 
-class ErrorHandlingTest extends AnyFunSuite with Matchers {
+class ErrorHandlingTest extends AnyFunSuite with Matchers:
   test("either") {
     divide(9, 3).isRight shouldBe true
     divide(9, 0).isLeft shouldBe true
@@ -73,4 +73,3 @@ class ErrorHandlingTest extends AnyFunSuite with Matchers {
     allCatch.opt("1".toInt).nonEmpty shouldBe true
     allCatch.opt("one".toInt).isEmpty shouldBe true
   }
-}
