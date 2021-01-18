@@ -9,11 +9,11 @@ sealed trait Camera:
 sealed trait Mic:
   def micEnabled(): Boolean = true
 
-final class MobilePhone extends Camera with Mic
+open class MobilePhone
 
-def verifyMobilePhone(mobilePhone: Camera & Mic): (Boolean, Boolean) = ( mobilePhone.cameraEnabled(), mobilePhone.micEnabled() )
+def verifyFeatures(mobilePhone: Camera & Mic): (Boolean, Boolean) = ( mobilePhone.cameraEnabled(), mobilePhone.micEnabled() )
 
 class IntersectionTypeTest extends AnyFunSuite with Matchers:
   test("intersection") {
-    verifyMobilePhone( MobilePhone() ) shouldBe (true, true)
+    verifyFeatures( new MobilePhone() with Camera with Mic ) shouldBe (true, true)
   }
