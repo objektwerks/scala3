@@ -68,7 +68,7 @@ final def intersectLists[A](listA: List[A],
       else intersectLists(tail, listB, acc)
   }
 
-class RecursionTest extends AnyFunSuite with Matchers {
+class RecursionTest extends AnyFunSuite with Matchers:
   test("sum") {
     sum( Nil ) shouldBe 0
     sum( List(1, 2, 3) ) shouldBe 6
@@ -108,4 +108,3 @@ class RecursionTest extends AnyFunSuite with Matchers {
     intersectLists(listA, listB) shouldBe listIntersection
     ( listA intersect listB ) shouldBe listIntersection
   }
-}
