@@ -6,13 +6,13 @@ import org.scalatest.matchers.should.Matchers
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-type Executable[T] = ExecutionContext ?=> T
-given ec: ExecutionContext = ExecutionContext.global
+class ContextFunctionTest extends AnyFunSuite with Matchers:
+  type Executable[T] = ExecutionContext ?=> T
 
-def square(n: Int): Executable[Future[Int]] = Future { n * n }
+  given ec: ExecutionContext = ExecutionContext.global
 
-class ContextFunctionTest extends AnyFunSuite with Matchers {
+  def square(n: Int): Executable[Future[Int]] = Future { n * n }
+
   test("?=>") {
     square(2).foreach( result => result shouldBe 4 )
   }
-}
