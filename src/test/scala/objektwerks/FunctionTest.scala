@@ -8,7 +8,7 @@ import scala.language.postfixOps
 import scala.util.{Random, Try}
 import scala.util.chaining._
 
-class FunctionTest extends AnyFunSuite with Matchers {
+class FunctionTest extends AnyFunSuite with Matchers:
   test("literal") {
     val add = (x: Int, y: Int) => x + y
     add(3, 3) shouldBe 6
@@ -253,4 +253,3 @@ class FunctionTest extends AnyFunSuite with Matchers {
     diffAsPercentage(75.0, 70.0) shouldBe 7
     diffAsPercentage(75.0, 80.0) shouldBe 6
   }
-}
