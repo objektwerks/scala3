@@ -14,9 +14,8 @@ given Combiner[String] with
 
 def combineList[T](list: List[T])(using combiner: Combiner[T]): T = combiner.combine(list)
 
-class GivenUsingTest extends AnyFunSuite with Matchers {
+class GivenUsingTest extends AnyFunSuite with Matchers:
   test("given > using") {
     combineList( List(1, 2, 3) ) shouldBe 6
     combineList( List("Scala3 ", "is a ", "new language!") ) shouldBe "Scala3 is a new language!"
   }
-}
