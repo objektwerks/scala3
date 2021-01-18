@@ -1,9 +1,4 @@
 package objektwerks
 
-object App {
-  private val title = "Scala3 @main App"
-
-  @main def greeting(name: String): Unit = {
-    println(s"*** $title : Greetings, $name! ***")
-  }
-}
+object App:
+  @main def greeting(name: String): Unit = println(s"*** Scala3 @main App : Greetings, $name! ***")
