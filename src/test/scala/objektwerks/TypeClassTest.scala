@@ -3,10 +3,10 @@ package objektwerks
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-trait SemiGroup[T]:
+sealed trait SemiGroup[T]:
   extension (a: T) def join (b: T): T
 
-trait Monoid[T] extends SemiGroup[T]:
+sealed trait Monoid[T] extends SemiGroup[T]:
   def zero: T
 
 given Monoid[String] with
@@ -19,7 +19,7 @@ given Monoid[Int] with
 
 def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _.join(_) )
 
-class TypeClassTest extends AnyFunSuite with Matchers {
+class TypeClassTest extends AnyFunSuite with Matchers:
   test("type class") {
     val strings = Seq("Scala3 ", "is a ", "new language!")
     joinAll(strings) shouldBe "Scala3 is a new language!"
@@ -27,4 +27,3 @@ class TypeClassTest extends AnyFunSuite with Matchers {
     val ints = Seq(1, 2, 3)
     joinAll(ints) shouldBe 6
   }
-}
