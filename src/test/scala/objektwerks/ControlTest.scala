@@ -17,7 +17,7 @@ def typeOfNumber(number: Int): NumberType =
   else
     positive
 
-class ControlTest extends AnyFunSuite with Matchers {
+class ControlTest extends AnyFunSuite with Matchers:
   test("if then else") {
     import NumberType._
 
@@ -52,4 +52,3 @@ class ControlTest extends AnyFunSuite with Matchers {
     while x > 0 do x = x - 1
     x shouldBe 0
   }
-}
