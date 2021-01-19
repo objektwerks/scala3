@@ -10,6 +10,7 @@ import scala.util.matching.Regex
 class PatternMatchTest extends AnyFunSuite with Matchers:
   test("variable") {
     final case class Order(product: String, quantity: Int)
+
     def byVariable(order: Order): (String, Int) = order match
       case Order(beer, quantity) => (beer, quantity)
 
@@ -37,7 +38,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("or") {
-    def isTrue(any: Any) = any match
+    def isTrue(any: Any): Boolean = any match
       case 0 | "" => false
       case _ => true
 
@@ -48,6 +49,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("case class") {
     final case class Person(name: String)
+
     def byPerson(person: Person): String = person match
       case p @ Person("John") => "Mr. " + p.name
       case p @ Person("Jane") => "Ms. " + p.name
@@ -73,6 +75,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
     val m3 = ArrayBuffer[String]()
     val m5 = ArrayBuffer[String]()
     val none = ArrayBuffer[String]()
+
     1 until 100 foreach {
       case i if i % 3 == 0 && i % 5 == 0 => m3m5 += s"$i -> m3 & m5"
       case i if i % 3 == 0 => m3 += s"$i -> m3"
@@ -89,6 +92,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("alias") {
     final case class Stock(symbol: String, price: Double)
+
     def isPriceHigher(today: Stock, yesterday: Stock): Boolean = today match
       case t @ Stock(_, _) if t.symbol == yesterday.symbol => t.price > yesterday.price
       case _ => false
@@ -100,6 +104,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("regex") {
     val ipAddress = Regex("""(\d+)\.(\d+)\.(\d+)\.(\d+)""")
+    
     def byRegex(address: String): (Int, Int, Int, Int) = address match
       case ipAddress(a, b, c, d) => (a.toInt, b.toInt, c.toInt, d.toInt)
     
