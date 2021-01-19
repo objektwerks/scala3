@@ -31,7 +31,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("tuple") {
     def byTuple(tuple: (Int, Int)): Int = tuple match
-      case (a, b) => a + b
+      case (x, y) => x + y
 
     byTuple((1, 2)) shouldBe 3
   }
