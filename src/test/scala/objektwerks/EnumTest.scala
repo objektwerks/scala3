@@ -9,9 +9,9 @@ enum Gate(val state: Int):
 
 enum Planet(val mass: Double, val radius: Double):
    val gravity = 6.67300E-11
-   
+
    def surfaceGravity: Double = gravity * mass / (radius * radius)
-   def surfaceWeight(mass: Double): Double = mass * surfaceGravity
+   def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
    case Mercury extends Planet(3.303e+23, 2.4397e6)
    case Venus   extends Planet(4.869e+24, 6.0518e6)
