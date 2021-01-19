@@ -21,9 +21,9 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("type") {
     def byType(tpe: Any): String = tpe match
-      case i: Int => s"integer: $i"
-      case d: Double => s"double: $d"
-      case s: String => s"string: $s"
+      case int: Int => s"integer: $int"
+      case double: Double => s"double: $double"
+      case string: String => s"string: $string"
 
     byType(1) shouldBe "integer: 1"
     byType(1.0) shouldBe "double: 1.0"
@@ -38,13 +38,13 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("or") {
-    def isTrue(any: Any): Boolean = any match
-      case 0 | "" => false
-      case _ => true
+    def isEmpty(any: Any): Boolean = any match
+      case 0 | "" => true
+      case _ => false
 
-    isTrue(1) shouldBe true
-    isTrue(0) shouldBe false
-    isTrue("") shouldBe false
+    isEmpty(1) shouldBe false
+    isEmpty(0) shouldBe true
+    isEmpty("") shouldBe true
   }
 
   test("case class") {
@@ -60,7 +60,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
     byPerson(Person("Jake")) shouldBe "Mr. Jake"
   }
 
-  test("tailrec sum") {
+  test("tailrec") {
     @tailrec
     def sum(numbers: List[Int], acc: Int = 0): Int = numbers match
       case Nil => acc
@@ -70,27 +70,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
     sum(List(1, 2, 3)) shouldBe 6
   }
 
-  test("guarded") {
-    val m3m5 = ArrayBuffer[String]()
-    val m3 = ArrayBuffer[String]()
-    val m5 = ArrayBuffer[String]()
-    val none = ArrayBuffer[String]()
-
-    1 until 100 foreach {
-      case i if i % 3 == 0 && i % 5 == 0 => m3m5 += s"$i -> m3 & m5"
-      case i if i % 3 == 0 => m3 += s"$i -> m3"
-      case i if i % 5 == 0 => m5 += s"$i -> m5"
-      case i => none += i.toString
-    }
-
-    m3m5.size shouldBe 6
-    m3.size shouldBe 27
-    m5.size shouldBe 13
-    none.size shouldBe 53
-    m3m5.size + m3.size + m5.size + none.size shouldBe 99
-  }
-
-  test("alias") {
+  test("alias > guard") {
     final case class Stock(symbol: String, price: Double)
 
     def isPriceHigher(today: Stock, yesterday: Stock): Boolean = today match
