@@ -38,13 +38,13 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("or") {
-    def isEmpty(matchable: Matchable): Boolean = matchable match
+    def isZeroOrEmpty(matchable: Matchable): Boolean = matchable match
       case 0 | "" => true
       case _ => false
 
-    isEmpty(1) shouldBe false
-    isEmpty(0) shouldBe true
-    isEmpty("") shouldBe true
+    isZeroOrEmpty(1) shouldBe false
+    isZeroOrEmpty(0) shouldBe true
+    isZeroOrEmpty("") shouldBe true
   }
 
   test("case class") {
