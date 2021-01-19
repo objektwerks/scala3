@@ -11,10 +11,10 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   test("variable") {
     final case class Order(product: String, quantity: Int)
     def byVariable(order: Order): (String, Int) = order match
-      case Order(p, q) => (p, q)
+      case Order(beer, quantity) => (beer, quantity)
 
-    val (product, quanity) = byVariable(Order("beer", 6))
-    product shouldBe "beer"
+    val (product, quanity) = byVariable(Order("Dogfish Head 60' IPA", 6))
+    product shouldBe "Dogfish Head 60' IPA"
     quanity shouldBe 6
   }
 
