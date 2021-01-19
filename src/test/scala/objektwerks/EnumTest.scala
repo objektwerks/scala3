@@ -21,7 +21,7 @@ enum Planet(val mass: Double, val radius: Double):
    case Saturn  extends Planet(5.688e+26, 6.0268e7)
    case Uranus  extends Planet(8.686e+25, 2.5559e7)
    case Neptune extends Planet(1.024e+26, 2.4746e7)
-end Planet
+end Planet // end Planet is optional!!!
 
 class EnumTest extends AnyFunSuite with Matchers:
   test("enum") {
