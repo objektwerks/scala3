@@ -10,9 +10,8 @@ import scala.util.matching.Regex
 class PatternMatchTest extends AnyFunSuite with Matchers:
   test("variable") {
     final case class Order(product: String, quantity: Int)
-    def byVariable(order: Order): (String, Int) = order match {
+    def byVariable(order: Order): (String, Int) = order match
       case Order(p, q) => (p, q)
-    }
 
     val (product, quanity) = byVariable(Order("beer", 6))
     product shouldBe "beer"
@@ -20,11 +19,10 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("type") {
-    def byType(t: Any): String = t match {
+    def byType(tpe: Any): String = tpe match
       case i: Int => s"integer: $i"
       case d: Double => s"double: $d"
       case s: String => s"string: $s"
-    }
 
     byType(1) shouldBe "integer: 1"
     byType(1.0) shouldBe "double: 1.0"
@@ -32,18 +30,16 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("tuple") {
-    def byTuple(t: (Int, Int)): Int = t match {
+    def byTuple(tuple: (Int, Int)): Int = tuple match
       case (a, b) => a + b
-    }
 
     byTuple((1, 2)) shouldBe 3
   }
 
   test("or") {
-    def isTrue(a: Any) = a match {
+    def isTrue(any: Any) = any match
       case 0 | "" => false
       case _ => true
-    }
 
     isTrue(1) shouldBe true
     isTrue(0) shouldBe false
@@ -52,11 +48,10 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("case class") {
     final case class Person(name: String)
-    def byPerson(p: Person): String = p match {
-      case Person("John") => "Mr. " + p.name
-      case Person("Jane") => "Ms. " + p.name
+    def byPerson(person: Person): String = person match
+      case p @ Person("John") => "Mr. " + p.name
+      case p @ Person("Jane") => "Ms. " + p.name
       case Person(name) => s"Mr. $name"
-    }
 
     byPerson(Person("John")) shouldBe "Mr. John"
     byPerson(Person("Jane")) shouldBe "Ms. Jane"
@@ -65,10 +60,9 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("tailrec sum") {
     @tailrec
-    def sum(numbers: List[Int], acc: Int = 0): Int = numbers match {
+    def sum(numbers: List[Int], acc: Int = 0): Int = numbers match
       case Nil => acc
       case head :: tail => sum(tail, acc + head)
-    }
 
     sum(Nil) shouldBe 0
     sum(List(1, 2, 3)) shouldBe 6
@@ -95,10 +89,9 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("alias") {
     final case class Stock(symbol: String, price: Double)
-    def isPriceHigher(today: Stock, yesterday: Stock): Boolean = today match {
+    def isPriceHigher(today: Stock, yesterday: Stock): Boolean = today match
       case t @ Stock(_, _) if t.symbol == yesterday.symbol => t.price > yesterday.price
       case _ => false
-    }
 
     val today = Stock("XYZ", 3.33)
     val yesterday = Stock("XYZ", 1.11)
@@ -107,9 +100,8 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
 
   test("regex") {
     val ipAddress = Regex("""(\d+)\.(\d+)\.(\d+)\.(\d+)""")
-    def byRegex(address: String): (Int, Int, Int, Int) = address match {
+    def byRegex(address: String): (Int, Int, Int, Int) = address match
       case ipAddress(a, b, c, d) => (a.toInt, b.toInt, c.toInt, d.toInt)
-    }
     
     (10, 10, 0, 1) shouldBe byRegex("10.10.0.1")
   }
