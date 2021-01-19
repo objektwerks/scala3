@@ -38,7 +38,7 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
   }
 
   test("or") {
-    def isEmpty(any: Any): Boolean = any match
+    def isEmpty(matchable: Matchable): Boolean = matchable match
       case 0 | "" => true
       case _ => false
 
