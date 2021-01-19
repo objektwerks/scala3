@@ -28,7 +28,7 @@ class ControlTest extends AnyFunSuite with Matchers:
     result shouldBe x
   }
 
-  test("for > yield") {
+  test("for > guard > yield") {
     val xs = -1 to 3
     val result = for x <- xs if x > 0 yield x * x
     result.sum shouldBe 14
