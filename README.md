@@ -18,6 +18,6 @@ Run
 1. sbt [ interactive shell ]
 2. clean
 3. compile
-4. run "Mikey"
->Provide a name in step 4, such as: Mikey which generates: *** Scala3 @main App : Greetings, Mikey! ***
->Alternatively type: sbt "run Mikey"
+4. run "Barney"
+>Step 4 generates: *** @main Scala3 App : Greetings, Barney! ***
+>Alternatively type: sbt "run Barney"
