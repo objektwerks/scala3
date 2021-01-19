@@ -23,7 +23,7 @@ class ControlTest extends AnyFunSuite with Matchers:
     typeOfNumber(0) shouldBe zero
     typeOfNumber(1) shouldBe positive
 
-    inline val x = 1
+    val x = 1
     val result = if x < 0 then -x else x
     result shouldBe x
   }
