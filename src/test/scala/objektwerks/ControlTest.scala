@@ -4,9 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 enum NumberType:
-  case negative extends NumberType
-  case positive extends NumberType
-  case zero extends NumberType
+  case negative, positive, zero
 
 import NumberType._
 def typeOfNumber(number: Int): NumberType =
