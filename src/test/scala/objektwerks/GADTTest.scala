@@ -11,8 +11,19 @@ def eval[T](expression: Expression[T]): T = expression match
   case IntExpr(int) => int
   case BoolExpr(boolean) => boolean
 
+enum Box[T](content: T):
+  def extract: T = content
+
+  case IntBox(number: Int) extends Box[Int](number)
+  case BoolBox(boolean: Boolean) extends Box[Boolean](boolean)
+end Box // end Box is optional!!!  
+
 class GADTTest extends AnyFunSuite with Matchers:
   test("gadt") {
     eval( IntExpr(3) ) shouldBe 3
     eval( BoolExpr(true) ) shouldBe true
+
+    import Box._
+    IntBox(3).extract shouldBe 3
+    BoolBox(true).extract shouldBe true
   }
