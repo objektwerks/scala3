@@ -257,6 +257,7 @@ class CollectionTest extends AnyFunSuite with Matchers:
     val map = Map(1 -> 1, 2 -> 2)
     map(1) shouldBe 1
     map(2) shouldBe 2
+    map.getOrElse(1, -1) shouldBe 1
     map.getOrElse(3, -1) shouldBe -1
     map.contains(1) shouldBe true
     map shouldBe Map(1 -> 1) + (2 -> 2)
@@ -265,7 +266,7 @@ class CollectionTest extends AnyFunSuite with Matchers:
     map shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3, 4 -> 4) -- List(3, 4)
     map.keySet shouldBe Set(1, 2)
     map.values.toSet shouldBe Set(1, 2)
-    map.empty.isEmpty shouldBe true
+    map.nonEmpty shouldBe true
   }
 
   test("list map") {
@@ -313,7 +314,7 @@ class CollectionTest extends AnyFunSuite with Matchers:
     set.size shouldBe 2
     set.contains(1) shouldBe true
     set.contains(2) shouldBe true
-    set.empty.isEmpty shouldBe true
+    set.nonEmpty shouldBe true
     val a = Set(1, 2, 3,4, 5, 6)
     val b = Set(3, 4, 7, 8, 9, 10)
     a.intersect(b) shouldBe Set(3, 4)
