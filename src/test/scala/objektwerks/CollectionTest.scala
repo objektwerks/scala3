@@ -299,6 +299,10 @@ class CollectionTest extends AnyFunSuite with Matchers:
     (map -= 1) shouldBe Map()
     (map ++= List(1 -> 1, 2 -> 2)) shouldBe Map(1 -> 1, 2 -> 2)
     (map --= List(1, 2)) shouldBe Map()
+    val updatedMap = mutable.Map(1 -> 1, 2 -> 2)
+    updatedMap.update(1, 0)
+    updatedMap.update(2, 1)
+    updatedMap shouldBe mutable.Map(1 -> 0, 2 -> 1)
   }
 
   test("trie map") {
