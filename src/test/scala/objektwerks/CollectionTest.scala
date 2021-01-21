@@ -210,6 +210,9 @@ class CollectionTest extends AnyFunSuite with Matchers:
     val buffer = mutable.ArrayBuffer(1, 2)
     (buffer += 3) shouldBe mutable.ArrayBuffer(1, 2, 3)
     (buffer -= 3) shouldBe mutable.ArrayBuffer(1, 2)
+    buffer.update(0, 0)
+    buffer.update(1, 1)
+    buffer shouldBe mutable.ArrayBuffer(0, 1)
   }
 
   test("array deque") {
