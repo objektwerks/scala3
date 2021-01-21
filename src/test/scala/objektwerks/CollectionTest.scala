@@ -269,8 +269,8 @@ class CollectionTest extends AnyFunSuite with Matchers:
     map.nonEmpty shouldBe true
   }
 
-  test("list map") {
-    val map = ListMap(3 -> 3, 2 -> 2, 1 -> 1)
+  test("seq map") {
+    val map = SeqMap(3 -> 3, 2 -> 2, 1 -> 1)
     val list = map.keys.toIndexedSeq
     list(0) shouldBe 3
     list(1) shouldBe 2
@@ -320,6 +320,13 @@ class CollectionTest extends AnyFunSuite with Matchers:
     a.intersect(b) shouldBe Set(3, 4)
     a.union(b) shouldBe Set(5, 10, 1, 6, 9, 2, 7, 3, 8, 4)
     a.diff(b) shouldBe Set(5, 1, 6, 2)
+  }
+
+  test("list set") {
+    val set = ListSet(1, 2, 3)
+    set.size shouldBe 3
+    set.head shouldBe 1
+    set.tail shouldBe ListSet(2, 3)
   }
 
   test("sorted set") {
