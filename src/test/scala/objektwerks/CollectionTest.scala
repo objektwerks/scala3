@@ -219,6 +219,9 @@ class CollectionTest extends AnyFunSuite with Matchers:
     val deque = mutable.ArrayDeque(1, 2)
     (deque += 3) shouldBe mutable.ArrayDeque(1, 2, 3)
     (deque -= 3) shouldBe mutable.ArrayDeque(1, 2)
+    deque.update(0, 0)
+    deque.update(1, 1)
+    deque shouldBe mutable.ArrayDeque(0, 1)
   }
 
   test("queue") {
