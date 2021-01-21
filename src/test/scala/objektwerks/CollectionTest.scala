@@ -316,7 +316,7 @@ class CollectionTest extends AnyFunSuite with Matchers:
     set.contains(1) shouldBe true
     set.contains(2) shouldBe true
     set.filter(_ == 1) shouldBe Set(1)
-    set.find(i => i == 2) shouldBe Some(2)
+    set.find(_ == 2) shouldBe Some(2)
     val a = Set(1, 2, 3,4, 5, 6)
     val b = Set(3, 4, 7, 8, 9, 10)
     a.intersect(b) shouldBe Set(3, 4)
