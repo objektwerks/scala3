@@ -19,6 +19,12 @@ given Monoid[Int] with
 
 def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _.join(_) )
 
+trait Mimicable[A]:
+  extension(a: A) def mimic: String
+
+given Mimicable[String] with
+  extension (a: String) def mimic = a
+
 class TypeClassTest extends AnyFunSuite with Matchers:
   test("type class") {
     val strings = Seq("Scala3 ", "is a ", "new language!")
@@ -26,4 +32,6 @@ class TypeClassTest extends AnyFunSuite with Matchers:
 
     val ints = Seq(1, 2, 3)
     joinAll(ints) shouldBe 6
+
+    "test".mimic shouldBe "test"
   }
