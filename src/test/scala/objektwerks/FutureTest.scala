@@ -35,29 +35,29 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("sequential") {
-    val future = for {
+    val future = for
       one <-  Future(1)
       two <- Future(2)
-    } yield one + two
+    yield one + two
     future foreach { i => i shouldBe 3 }
   }
 
   test("parallel") {
     val futureOne = Future(1)
     val futureTwo = Future(2)
-    val futureThree = for {
+    val futureThree = for
       one <- futureOne
       two <- futureTwo
-    } yield one + two
+    yield one + two
     futureThree foreach { i => i shouldBe 3 }
   }
 
   test("sequential fail fast") {
-    val future = for {
+    val future = for
       x <- Future { Integer.parseInt("one") }
       y <- Future { Integer.parseInt("2") }
       z <- Future { Integer.parseInt("3") }
-    } yield (x, y, z)
+    yield (x, y, z)
     future onComplete {
       case Success(result) => throw new IllegalStateException(s"Fail fast failed: $result")
       case Failure(failure) => failure.isInstanceOf[NumberFormatException] shouldBe true
@@ -68,11 +68,11 @@ class FutureTest extends AnyFunSuite with Matchers:
     val futureOne = Future { Integer.parseInt("one") }
     val futureTwo = Future { Integer.parseInt("2") }
     val futureThree = Future { Integer.parseInt("3") }
-    val future = for {
+    val future = for
       x <- futureOne
       y <- futureTwo
       z <- futureThree
-    } yield (x, y, z)
+    yield (x, y, z)
     future onComplete {
       case Success(result) => throw new IllegalStateException(s"Fail fast failed: $result")
       case Failure(failure) => failure.isInstanceOf[NumberFormatException] shouldBe true
@@ -138,7 +138,7 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("fromTry") {
-    Future.fromTry(Try(Integer.parseInt("3"))) foreach { i => i shouldBe 3 }
+    Future.fromTry( Try( Integer.parseInt("3") ) ) foreach { i => i shouldBe 3 }
   }
 
   test("andThen") {
@@ -173,9 +173,9 @@ class FutureTest extends AnyFunSuite with Matchers:
   test("recover for") {
     val future = Future(Integer.parseInt("one"))
     val result = (
-      for {
+      for
         i <- future
-      } yield i
+      yield i
     ).recover { case _: Throwable => -1 }
     result foreach { i => i shouldBe -1 }
   }
