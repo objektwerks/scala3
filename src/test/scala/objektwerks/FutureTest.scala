@@ -16,13 +16,13 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("non-blocking") {
-    Future(1) foreach { i => i shouldBe 1 }
+    Future(1) foreach { _ shouldBe 1 }
   }
 
   test("promise") {
     def send(message: String): Future[String] = {
       val promise = Promise[String] ()
-      val runnable = new java.lang.Runnable {
+      val runnable = new Runnable {
         override def run(): Unit = {
           promise.success(message)
         }
@@ -39,7 +39,7 @@ class FutureTest extends AnyFunSuite with Matchers:
       one <-  Future(1)
       two <- Future(2)
     yield one + two
-    future foreach { i => i shouldBe 3 }
+    future foreach { _ shouldBe 3 }
   }
 
   test("parallel") {
@@ -49,7 +49,7 @@ class FutureTest extends AnyFunSuite with Matchers:
       one <- futureOne
       two <- futureTwo
     yield one + two
-    futureThree foreach { i => i shouldBe 3 }
+    futureThree foreach { _ shouldBe 3 }
   }
 
   test("sequential fail fast") {
@@ -82,13 +82,13 @@ class FutureTest extends AnyFunSuite with Matchers:
   test("sequence") {
     val futureOfListOfInt = Future.sequence(List(Future(1), Future(2)))
     val futureOfInt = futureOfListOfInt.map(_.sum)
-    futureOfInt foreach { i => i shouldBe 3 }
+    futureOfInt foreach { _ shouldBe 3 }
   }
 
   test("traverse") {
     val futureOfListOfInt = Future.traverse((1 to 2).toList) (i => Future(i * 1))
     val futureOfInt = futureOfListOfInt.map(_.sum)
-    futureOfInt foreach { i => i shouldBe 3 }
+    futureOfInt foreach { _ shouldBe 3 }
   }
 
   test("sequence fail fast ") {
@@ -120,29 +120,29 @@ class FutureTest extends AnyFunSuite with Matchers:
   test("foldLeft") {
     val ListFutureOfInt = List(Future(1), Future(2))
     val futureOfInt = Future.foldLeft(ListFutureOfInt)(0){ (acc, num) => acc + num }
-    futureOfInt foreach { i => i shouldBe 3 }
+    futureOfInt foreach { _ shouldBe 3 }
   }
 
   test("reduceLeft") {
     val ListFutureOfInt = List(Future(1), Future(2))
     val futureOfInt = Future.reduceLeft(ListFutureOfInt){ (acc, num) => acc + num }
-    futureOfInt foreach { i => i shouldBe 3 }
+    futureOfInt foreach { _ shouldBe 3 }
   }
 
   test("foreach") {
-    Future(3) foreach { i => i shouldBe 3 }
+    Future(3) foreach { _ shouldBe 3 }
   }
 
   test("fallbackTo") {
-    Future(Integer.parseInt("one")) fallbackTo Future(1) foreach { i => i shouldBe 1 }
+    Future(Integer.parseInt("one")) fallbackTo Future(1) foreach { _ shouldBe 1 }
   }
 
   test("fromTry") {
-    Future.fromTry( Try( Integer.parseInt("3") ) ) foreach { i => i shouldBe 3 }
+    Future.fromTry( Try( Integer.parseInt("3") ) ) foreach { _ shouldBe 3 }
   }
 
   test("andThen") {
-    Future(Integer.parseInt("1")) andThen { case Success(_) => println("Execute 'andThen' side-effecting code!") } foreach { i => i shouldBe 1 }
+    Future(Integer.parseInt("1")) andThen { case Success(_) => println("Execute 'andThen' side-effecting code!") } foreach { _ shouldBe 1 }
   }
 
   test("failed") {
@@ -150,24 +150,24 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("successful") {
-    Future.successful[Int](3).foreach { i => i shouldBe 3 }
+    Future.successful[Int](3).foreach { _ shouldBe 3 }
   }
 
   test("zip > map") {
-    Future(1) zip Future(2) map { case (x, y) => x + y } foreach { i => i shouldBe 3 }
+    Future(1) zip Future(2) map { case (x, y) => x + y } foreach { _ shouldBe 3 }
   }
 
   test("recover") {
-    Future(Integer.parseInt("one")) recover { case _ => 1 } foreach { i => i shouldBe 1 }
+    Future(Integer.parseInt("one")) recover { case _ => 1 } foreach { _ shouldBe 1 }
   }
 
   test("recover > map > recover") {
-    Future(Integer.parseInt("one")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ i => i shouldBe -1 }
-    Future(Integer.parseInt("1")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ i => i shouldBe 3 }
+    Future(Integer.parseInt("one")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe -1 }
+    Future(Integer.parseInt("1")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe 3 }
  }
 
   test("recoverWith") {
-    Future(Integer.parseInt("one")) recoverWith { case _ => Future(1) } foreach { i => i shouldBe 1 }
+    Future(Integer.parseInt("one")) recoverWith { case _ => Future(1) } foreach { _ shouldBe 1 }
   }
 
   test("recover for") {
@@ -177,32 +177,32 @@ class FutureTest extends AnyFunSuite with Matchers:
         i <- future
       yield i
     ).recover { case _: Throwable => -1 }
-    result foreach { i => i shouldBe -1 }
+    result foreach { _ shouldBe -1 }
   }
 
   test("transform") {
-    Future(Integer.parseInt("1")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { i => i shouldBe 3 }
-    Future(Integer.parseInt("one")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { i => i should not equal 3 }
+    Future(Integer.parseInt("1")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { _ shouldBe 3 }
+    Future(Integer.parseInt("one")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { _ should not equal 3 }
   }
 
   test("transformWith") {
     Future { Integer.parseInt("1") } transformWith {
       case Success(i) => Future(i)
       case Failure(_) => Future(-1)
-    } foreach { i => i shouldBe 1 }
+    } foreach { _ shouldBe 1 }
 
     Future { Integer.parseInt("one") } transformWith {
       case Success(i) => Future(i)
       case Failure(_) => Future(-1)
-    } foreach { i => i shouldBe -1  }
+    } foreach { _ shouldBe -1  }
   }
 
   test("flatten") {
-    Future { Future(1) }.flatten foreach { i => i shouldBe 1 }
+    Future { Future(1) }.flatten foreach { _ shouldBe 1 }
   }
 
   test("zipWith") {
     Future("My average is:")
       .zipWith(Future(100.0)) { case (label, average) => s"$label $average" }
-      .foreach { s => s shouldBe "My average is: 100.0" }
+      .foreach { _ shouldBe "My average is: 100.0" }
   }
