@@ -114,7 +114,7 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("filter") {
-    Future(3) filter { _ == 3 } foreach { i => i shouldBe 3 }
+    Future(3) filter { _ == 3 } foreach { _ shouldBe 3 }
   }
 
   test("foldLeft") {
@@ -162,8 +162,8 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("recover > map > recover") {
-    Future(Integer.parseInt("one")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe -1 }
-    Future(Integer.parseInt("1")).map{ i => i * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe 3 }
+    Future(Integer.parseInt("one")).map{ _ * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe -1 }
+    Future(Integer.parseInt("1")).map{ _ * 3 }.recover{ case _ => -1 }.foreach{ _ shouldBe 3 }
  }
 
   test("recoverWith") {
@@ -181,8 +181,8 @@ class FutureTest extends AnyFunSuite with Matchers:
   }
 
   test("transform") {
-    Future(Integer.parseInt("1")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { _ shouldBe 3 }
-    Future(Integer.parseInt("one")).transform(i => i + 2, failure => new Exception("failure", failure)) foreach { _ should not equal 3 }
+    Future(Integer.parseInt("1")).transform(_ + 2, failure => new Exception("failure", failure)) foreach { _ shouldBe 3 }
+    Future(Integer.parseInt("one")).transform(_ + 2, failure => new Exception("failure", failure)) foreach { _ should not equal 3 }
   }
 
   test("transformWith") {
