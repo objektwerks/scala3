@@ -7,56 +7,56 @@ sealed trait Canine
 final class Dog extends Canine
 final class Wolf extends Canine
 
-class TypeVarianceTest extends AnyFunSuite with Matchers:
-  test("invariant") {
-    class Vet[T]:
-      def heal[T](canine: T): T = canine
+class VetA[T]:
+  def heal[T](canine: T): T = canine
 
-    val vet = Vet[Canine]
+class VetB[+T]:
+  def heal[S >: T](canine: S): S = canine
+
+class VetC[-T]:
+  def heal[S <: T](canine: S): S = canine
+
+trait Function[-V, +R]:
+  def apply(value: V): R
+
+class TypeVarianceTest extends AnyFunSuite with Matchers:      
+  test("invariant") {
+    val vet = VetA[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: Vet[Dog] = Vet[Dog]
+    val dogVet: VetA[Dog] = VetA[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: Vet[Wolf] = Vet[Wolf]
+    val wolfVet: VetA[Wolf] = VetA[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("covariant") {
-    class Vet[+T]:
-      def heal[S >: T](canine: S): S = canine
-
-    val vet = Vet[Canine]
+    val vet = VetB[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: Vet[Dog] = Vet[Dog]
+    val dogVet: VetB[Dog] = VetB[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: Vet[Wolf] = Vet[Wolf]
+    val wolfVet: VetB[Wolf] = VetB[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("contravariant") {
-    class Vet[-T]:
-      def heal[S <: T](canine: S): S = canine
-
-    val vet = Vet[Canine]
+    val vet = VetC[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: Vet[Dog] = Vet[Canine]
+    val dogVet: VetC[Dog] = VetC[Canine]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: Vet[Wolf] = Vet[Canine]
+    val wolfVet: VetC[Wolf] = VetC[Canine]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("contravariant in, covariant out") {
-    trait Function[-V, +R]:
-      def apply(value: V): R
-
     val function = new Function[String, Option[Int]]:
       def apply(value: String): Option[Int] = value.toIntOption
 
