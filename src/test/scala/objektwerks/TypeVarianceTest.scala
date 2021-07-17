@@ -7,52 +7,52 @@ sealed trait Canine
 final class Dog extends Canine
 final class Wolf extends Canine
 
-class VetA[T]:
+final class VetInvariant[T]:
   def heal[T](canine: T): T = canine
 
-class VetB[+T]:
+final class VetCovariant[+T]:
   def heal[S >: T](canine: S): S = canine
 
-class VetC[-T]:
+final class VetContravariant[-T]:
   def heal[S <: T](canine: S): S = canine
 
 trait Function[-V, +R]:
   def apply(value: V): R
 
-class TypeVarianceTest extends AnyFunSuite with Matchers:      
+class TypeVarianceTest extends AnyFunSuite with Matchers:
   test("invariant") {
-    val vet = VetA[Canine]
+    val vet = VetInvariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: VetA[Dog] = VetA[Dog]
+    val dogVet: VetInvariant[Dog] = VetInvariant[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: VetA[Wolf] = VetA[Wolf]
+    val wolfVet: VetInvariant[Wolf] = VetInvariant[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("covariant") {
-    val vet = VetB[Canine]
+    val vet = VetCovariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: VetB[Dog] = VetB[Dog]
+    val dogVet: VetCovariant[Dog] = VetCovariant[Dog]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: VetB[Wolf] = VetB[Wolf]
+    val wolfVet: VetCovariant[Wolf] = VetCovariant[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
   test("contravariant") {
-    val vet = VetC[Canine]
+    val vet = VetContravariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
 
-    val dogVet: VetC[Dog] = VetC[Canine]
+    val dogVet: VetContravariant[Dog] = VetContravariant[Canine]
     dogVet.heal[Dog]( Dog() ).isInstanceOf[Dog] shouldBe true
 
-    val wolfVet: VetC[Wolf] = VetC[Canine]
+    val wolfVet: VetContravariant[Wolf] = VetContravariant[Canine]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
   }
 
