@@ -1,23 +1,16 @@
 Scala 3
 -------
->Feature tests for the ***new*** Scala3 language.
-
-Documentation
--------------
-1. Docs - https://dotty.epfl.ch/docs/
-2. Migration - https://scalacenter.github.io/scala-3-migration-guide/docs/compatibility.html
+>Scala3 feature tests.
 
 Test
 ----
-1. sbt [ interactive shell ]
-2. clean
-3. test
+1. sbt clean test
 
 Run
 ---
-1. sbt [ interactive shell ]
-2. clean
-3. compile
-4. run "Barney"
->Step 4 generates: *** @main Scala3 App : Greetings, Barney! ***
->Alternatively type: sbt "run Barney"
+1. sbt "run Fred Flintstone"
+
+Docs
+----
+1. Book - https://docs.scala-lang.org/scala3/book/introduction.html
+2. Reference - https://docs.scala-lang.org/scala3/reference/overview.html
