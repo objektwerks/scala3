@@ -10,7 +10,7 @@ object Pulses:
     def apply(pulse: Int): Pulse = pulse
 
   extension (pulse: Pulse)
-    def asInt: Int = pulse.toInt
+    def asInt: Int = pulse
 
 class OpaqueTest extends AnyFunSuite with Matchers:
   test("opaque") {
