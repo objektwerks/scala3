@@ -4,17 +4,17 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class DependentTypeTest extends AnyFunSuite with Matchers:
+  trait Container:
+    type Value
+    val value: Value
+
+  object Container:
+    def deriveValue(container: Container): container.Value = container.value
+  
   test("method") {
-    trait Box:
-      type Value
-      val value: Value
+    import Container._
 
-    object Box:
-      def deriveValue(box: Box): box.Value = box.value
-
-    import Box._
-
-    def valueOf[T](t: T) = new Box {
+    def valueOf[T](t: T) = new Container {
       type Value = T
       val value: T = t
     }
