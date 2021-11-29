@@ -8,12 +8,11 @@ class DependentTypeTest extends AnyFunSuite with Matchers:
     type Value
     val value: Value
 
-  object Container:
-    def deriveValue(container: Container): container.Value = container.value
+  def deriveValue(container: Container): container.Value = container.value
   
-  test("method") {
-    import Container._
+  val extractor: (c: Container) => c.Value = deriveValue
 
+  test("method") {
     def valueOf[T](t: T) = new Container {
       type Value = T
       val value: T = t
@@ -27,5 +26,5 @@ class DependentTypeTest extends AnyFunSuite with Matchers:
   }
 
   test("function") {
-    // TODO
+    
   }
