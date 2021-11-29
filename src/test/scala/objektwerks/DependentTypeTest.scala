@@ -25,3 +25,7 @@ class DependentTypeTest extends AnyFunSuite with Matchers:
     deriveValue(intValue) shouldBe 1
     deriveValue(stringValue) shouldBe "one"
   }
+
+  test("function") {
+    // TODO
+  }
