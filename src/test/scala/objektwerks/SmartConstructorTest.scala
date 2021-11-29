@@ -7,7 +7,7 @@ sealed trait Email:
   def address: String
 object Email:
     def validate(newAddress: String): Option[Email] =
-      if (newAddress.nonEmpty) // hardcore email validation ;)
+      if (newAddress.contains("@"))
         Some( 
           new Email {
             override def address: String = newAddress
@@ -18,13 +18,13 @@ object Email:
 sealed abstract case class Xmail private (address: String)
 object Xmail:
   def validate(newAddress: String): Option[Xmail] =
-    if (newAddress.nonEmpty) Some( new Xmail(newAddress){} )
+    if (newAddress.contains("@")) Some( new Xmail(newAddress){} )
     else None
 
 final case class Ymail private (address: String)
 object Ymail:
   def validate(newAddress: String): Option[Ymail] =
-    if (newAddress.nonEmpty) Some( Ymail(newAddress) )
+    if (newAddress.contains("@")) Some( Ymail(newAddress) )
     else None
 
 /**
