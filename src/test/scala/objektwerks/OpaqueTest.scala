@@ -12,11 +12,17 @@ object Pulses:
   extension (pulse: Pulse)
     def asInt: Int = pulse
 
+  extension (pulses: List[Pulse])
+    def avg: Double = pulses.sum / pulses.length
+
 class OpaqueTest extends AnyFunSuite with Matchers:
   test("opaque") {
     import Pulses._
     
-    val pulse = Pulse(21)
-    pulse shouldBe Pulse(21)
-    pulse.asInt shouldBe 21
+    val pulse = Pulse(59)
+    pulse shouldBe Pulse(59)
+    pulse.asInt shouldBe 59
+
+    val pulses = List(Pulse(59), Pulse(60), Pulse(61))
+    pulses.avg shouldBe 60
   }
