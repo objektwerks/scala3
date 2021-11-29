@@ -8,21 +8,21 @@ class DependentTypeTest extends AnyFunSuite with Matchers:
     type Value
     val value: Value
 
-  def extractValue(container: Container): container.Value = container.value  // dependent method
+  def unbox(container: Container): container.Value = container.value  // dependent method, on container
   
-  val valueExtractor: (c: Container) => c.Value = extractValue  // dependent function
+  val unboxer: (c: Container) => c.Value = unbox  // dependent function, on unbox
 
-  def valueOf[T](t: T) = new Container {
+  def box[T](t: T) = new Container {
     type Value = T
     val value: T = t
   }
 
   test("method") {
-    extractValue( valueOf(1) ) shouldBe 1
-    extractValue( valueOf("one") ) shouldBe "one"
+    unbox( box(1) ) shouldBe 1
+    unbox( box("one") ) shouldBe "one"
   }
 
   test("function") {
-    valueExtractor( valueOf(1) ) shouldBe 1
-    valueExtractor( valueOf("one") ) shouldBe "one"
+    unboxer( box(1) ) shouldBe 1
+    unboxer( box("one") ) shouldBe "one"
 }
