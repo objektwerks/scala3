@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.classes
 
+import objektwerks.{Email, Xmail, Ymail}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
