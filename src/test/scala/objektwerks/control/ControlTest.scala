@@ -1,22 +1,21 @@
 package objektwerks.control
 
-import objektwerks.NumberType
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-enum NumberType:
-  case negative, positive, zero
-
-import objektwerks.control.NumberType.*
-def typeOfNumber(number: Int): NumberType =
-  if number < 0 then
-    negative
-  else if number == 0 then
-    zero
-  else
-    positive
-
 class ControlTest extends AnyFunSuite with Matchers:
+  enum NumberType:
+    case negative, positive, zero
+
+  import NumberType.*
+  def typeOfNumber(number: Int): NumberType =
+    if number < 0 then
+      negative
+    else if number == 0 then
+      zero
+    else
+      positive
+
   test("if then else") {
     import NumberType.*
 
