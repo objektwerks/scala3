@@ -1,4 +1,4 @@
-package objektwerks
+package objektwerks.enums
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -24,7 +24,7 @@ class GADTTest extends AnyFunSuite with Matchers:
     eval( IntExpr(3) ) shouldBe 3
     eval( BoolExpr(true) ) shouldBe true
 
-    import Box._
+    import Box.*
     IntBox(3).unbox shouldBe 3
     BoolBox(true).unbox shouldBe true
   }
