@@ -1,10 +1,10 @@
-package objektwerks
+package objektwerks.errors
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.io.{Codec, Source}
-import scala.util.control.Exception._
+import scala.util.control.Exception.*
 import scala.util.control.NonFatal
 import scala.util.{Success, Try, Using}
 
