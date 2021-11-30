@@ -16,7 +16,7 @@ object Pulses:
   extension (pulses: List[Pulse])
     def avg: Double = pulses.sum / pulses.length
 
-class OpaqueTest extends AnyFunSuite with Matchers:
+class OpaqueTypeTest extends AnyFunSuite with Matchers:
   test("opaque") {
     import Pulses.*
     
