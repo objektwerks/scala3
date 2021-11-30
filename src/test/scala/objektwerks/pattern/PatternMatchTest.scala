@@ -1,4 +1,4 @@
-package objektwerks
+package objektwerks.pattern
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
