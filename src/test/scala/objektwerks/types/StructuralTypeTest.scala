@@ -1,9 +1,9 @@
-package objektwerks
+package objektwerks.types
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.reflect.Selectable._
+import scala.reflect.Selectable.*
 
 class Record(fields: (String, Any)*) extends Selectable:
   private val columns = fields.toMap

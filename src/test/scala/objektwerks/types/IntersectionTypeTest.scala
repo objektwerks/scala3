@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.types
 
+import objektwerks.{Camera, Mic, MobilePhone}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 

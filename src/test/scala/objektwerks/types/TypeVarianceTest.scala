@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.types
 
+import objektwerks.{Canine, Dog, Function, VetContravariant, VetCovariant, VetInvariant, Wolf}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
