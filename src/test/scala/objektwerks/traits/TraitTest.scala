@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.traits
 
+import objektwerks.{Greeting, Honorific, Salutation, SalutationBuilder}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -21,8 +22,8 @@ final class Greeter(honorific: Honorific, greeting: Greeting) extends Salutation
 
 class TraitTest extends AnyFunSuite with Matchers:
   test("trait") {
-    import Honorific._
-    import Greeting._
+    import Greeting.*
+    import Honorific.*
 
     val sirGoodMorningGreeter = Greeter(sir, goodMorning)
     sirGoodMorningGreeter.greet() shouldBe s"${sirGoodMorningGreeter.honorific}, ${sirGoodMorningGreeter.greeting}"
