@@ -1,26 +1,25 @@
 package objektwerks.types
 
-import objektwerks.{Canine, Dog, Function, VetContravariant, VetCovariant, VetInvariant, Wolf}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-sealed trait Canine
-final class Dog extends Canine
-final class Wolf extends Canine
-
-final class VetInvariant[T]:
-  def heal[T](canine: T): T = canine
-
-final class VetCovariant[+T]:
-  def heal[S >: T](canine: S): S = canine
-
-final class VetContravariant[-T]:
-  def heal[S <: T](canine: S): S = canine
-
-trait Function[-V, +R]:
-  def apply(value: V): R
-
 class TypeVarianceTest extends AnyFunSuite with Matchers:
+  sealed trait Canine
+  final class Dog extends Canine
+  final class Wolf extends Canine
+
+  final class VetInvariant[T]:
+    def heal[T](canine: T): T = canine
+
+  final class VetCovariant[+T]:
+    def heal[S >: T](canine: S): S = canine
+
+  final class VetContravariant[-T]:
+    def heal[S <: T](canine: S): S = canine
+
+  trait Function[-V, +R]:
+    def apply(value: V): R
+
   test("invariant") {
     val vet = VetInvariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
