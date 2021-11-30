@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.conversion
 
+import objektwerks.Person
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
