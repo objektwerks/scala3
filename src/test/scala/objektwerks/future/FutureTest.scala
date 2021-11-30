@@ -1,10 +1,10 @@
-package objektwerks
+package objektwerks.future
 
 import org.scalatest.funsuite.AsyncFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.util.{Failure, Success, Try}
 import scala.concurrent.{Future, Promise}
+import scala.util.{Failure, Success, Try}
 
 class FutureTest extends AsyncFunSuite with Matchers:
   test("promise") {
