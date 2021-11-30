@@ -1,12 +1,12 @@
-package objektwerks
+package objektwerks.io
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.collection.MapView
 import scala.io.{Codec, Source}
-import scala.util.{Try, Using}
 import scala.language.postfixOps
+import scala.util.{Try, Using}
 
 class IOTest extends AnyFunSuite with Matchers:
   val utf8 = Codec.UTF8.name
