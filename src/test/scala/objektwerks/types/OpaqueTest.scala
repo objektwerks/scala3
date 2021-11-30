@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.types
 
+import objektwerks.Pulses
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -17,7 +18,7 @@ object Pulses:
 
 class OpaqueTest extends AnyFunSuite with Matchers:
   test("opaque") {
-    import Pulses._
+    import Pulses.*
     
     val pulse = Pulse(59)
     pulse shouldBe Pulse(59)
