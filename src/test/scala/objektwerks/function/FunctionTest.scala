@@ -1,12 +1,12 @@
-package objektwerks
+package objektwerks.function
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.tailrec
 import scala.language.postfixOps
+import scala.util.chaining.*
 import scala.util.{Random, Try}
-import scala.util.chaining._
 
 class FunctionTest extends AnyFunSuite with Matchers:
   test("literal") {
