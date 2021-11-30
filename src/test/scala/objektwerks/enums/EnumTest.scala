@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.enums
 
+import objektwerks.{Gate, Planet}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
