@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.`given`
 
+import objektwerks.Combiner
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
