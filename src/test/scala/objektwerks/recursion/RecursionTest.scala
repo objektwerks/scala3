@@ -1,4 +1,4 @@
-package objektwerks
+package objektwerks.recursion
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
