@@ -1,12 +1,13 @@
-package objektwerks
+package objektwerks.control
 
+import objektwerks.NumberType
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 enum NumberType:
   case negative, positive, zero
 
-import NumberType._
+import objektwerks.control.NumberType.*
 def typeOfNumber(number: Int): NumberType =
   if number < 0 then
     negative
@@ -17,7 +18,7 @@ def typeOfNumber(number: Int): NumberType =
 
 class ControlTest extends AnyFunSuite with Matchers:
   test("if then else") {
-    import NumberType._
+    import NumberType.*
 
     typeOfNumber(-1) shouldBe negative
     typeOfNumber(0) shouldBe zero
