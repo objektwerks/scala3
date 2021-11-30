@@ -1,10 +1,9 @@
-package objektwerks
+package objektwerks.context
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class ContextFunctionTest extends AnyFunSuite with Matchers:
   type Executable[T] = ExecutionContext ?=> T
