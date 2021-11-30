@@ -228,6 +228,12 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("timer") {
+    @tailrec
+    def factorial(n: Int, acc: Int = 1): Int = n match {
+      case i if i < 1 => acc
+      case _ => factorial(n - 1, acc * n) // tailrec
+    }
+
     def timer[A](codeblock: => A): (A, Double) = {
       val startTime = System.nanoTime
       val result = codeblock
