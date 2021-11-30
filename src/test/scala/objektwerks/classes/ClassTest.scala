@@ -1,35 +1,34 @@
 package objektwerks.classes
 
-import objektwerks.{Car, Corvette, Cube, Human, Maserati, Owner, Porsche, Square, Timestamp}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-sealed trait Car:
-  def drive: String = "driving"
-  def sound: String
-
-final case class Porsche(sound: String) extends Car
-final case class Corvette(sound: String) extends Car
-final case class Maserati(sound: String) extends Car
-
-object Owner:
-  def startEngines: Set[Car] = Set( Porsche("prrrr"), Corvette("woosh"), Maserati("grrrr") )
-
-class Human(val first: String, val last: String, val initial: String):
-  def this(first: String, last: String) = this(first, last, "")
-
-class Square:
-  def apply(n: Int): Int = n * n
-
-object Cube:
-  def apply(n: Int): Int = n * n * n
-
-case class Timestamp(val seconds: Int)
-
-object Timestamp:
-  def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
-
 class ClassTest extends AnyFunSuite with Matchers:
+  sealed trait Car:
+    def drive: String = "driving"
+    def sound: String
+
+  final case class Porsche(sound: String) extends Car
+  final case class Corvette(sound: String) extends Car
+  final case class Maserati(sound: String) extends Car
+
+  object Owner:
+    def startEngines: Set[Car] = Set( Porsche("prrrr"), Corvette("woosh"), Maserati("grrrr") )
+
+  class Human(val first: String, val last: String, val initial: String):
+    def this(first: String, last: String) = this(first, last, "")
+
+  class Square:
+    def apply(n: Int): Int = n * n
+
+  object Cube:
+    def apply(n: Int): Int = n * n * n
+
+  case class Timestamp(seconds: Int)
+
+  object Timestamp:
+    def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
+
   test("classes with inheritence") {
     val cars = Owner.startEngines
     for (car <- cars) {
