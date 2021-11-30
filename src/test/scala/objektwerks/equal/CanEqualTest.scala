@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.equal
 
+import objektwerks.{AudioBook, Book, PrintedBook}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
