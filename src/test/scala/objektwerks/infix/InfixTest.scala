@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.infix
 
+import objektwerks.Amount
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
