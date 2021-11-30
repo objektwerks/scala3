@@ -1,35 +1,33 @@
 package objektwerks.classes
 
-import objektwerks.{Animal, Bear, Foot, Meter, Panther, Tiger, ZooKeeper}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-sealed trait Animal:
-  def speak: String 
-
-case class Tiger(speach: String) extends Animal:
-  override def speak: String = speach
-
-case class Panther(speach: String) extends Animal:
-  override def speak: String = speach 
-
-case class Bear(speach: String) extends Animal:
-  override def speak: String = speach 
-
-case object ZooKeeper: 
-  def openCages: Set[Animal] = Set(Tiger("prrrr"), Panther("woosh"), Bear("grrrr")) 
-
-
-case class Meter(value: Double) extends AnyVal:
-  def toFeet: Foot = Foot(value * 0.3048) 
-
-case class Foot(value: Double) extends AnyVal:
-  def toMeter: Meter = Meter(value / 0.3048) 
-
 class CaseClassTest extends AnyFunSuite with Matchers:
+  sealed trait Animal:
+    def speak: String
+
+  case class Tiger(speach: String) extends Animal:
+    override def speak: String = speach
+
+  case class Panther(speach: String) extends Animal:
+    override def speak: String = speach
+
+  case class Bear(speach: String) extends Animal:
+    override def speak: String = speach
+
+  case object ZooKeeper:
+    def openCages: Set[Animal] = Set(Tiger("prrrr"), Panther("woosh"), Bear("grrrr"))
+
+  case class Meter(value: Double):
+    def toFeet: Foot = Foot(value * 0.3048)
+
+  case class Foot(value: Double):
+    def toMeter: Meter = Meter(value / 0.3048)
+
   test("case classes") {
     val animals = ZooKeeper.openCages
-    for(animal <- animals) {
+    for (animal <- animals) {
       animal.speak.nonEmpty shouldBe true
       animal match {
         case Tiger(speech) => speech shouldEqual "prrrr"
