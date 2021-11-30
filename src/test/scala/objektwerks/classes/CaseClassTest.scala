@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.classes
 
+import objektwerks.{Animal, Bear, Foot, Meter, Panther, Tiger, ZooKeeper}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 

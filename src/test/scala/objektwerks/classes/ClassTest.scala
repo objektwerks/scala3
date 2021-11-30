@@ -1,5 +1,6 @@
-package objektwerks
+package objektwerks.classes
 
+import objektwerks.{Car, Corvette, Cube, Human, Maserati, Owner, Porsche, Square, Timestamp}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
