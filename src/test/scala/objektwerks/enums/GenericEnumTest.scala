@@ -4,14 +4,15 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class GenericEnumTest extends AnyFunSuite with Matchers:
-  sealed trait Expression[T]
-  final case class IntExpr(int: Int) extends Expression[Int]
-  final case class BoolExpr(boolean: Boolean) extends Expression[Boolean]
+  sealed trait Expr[T]
+  final case class IntExpr(int: Int) extends Expr[Int]
+  final case class BoolExpr(boolean: Boolean) extends Expr[Boolean]
 
-  def eval[T](expression: Expression[T]): T = expression match
-    case IntExpr(int) => int
-    case BoolExpr(boolean) => boolean
-    case _ => fail()
+  def eval[T](expr: Expr[T]): T =
+    expr match
+      case IntExpr(int) => int
+      case BoolExpr(boolean) => boolean
+      case _ => fail()
 
   enum Box[T](content: T):
     case IntBox(number: Int) extends Box[Int](number)
