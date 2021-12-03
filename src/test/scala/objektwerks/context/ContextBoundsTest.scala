@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 class ContextBoundsTest extends AnyFunSuite with Matchers:
   def maximum[A: Ordering](a: A, b: A): A = {
-    val ordering = implicitly[Ordering[A]]
+    val ordering = summon[Ordering[A]]
     ordering.max(a, b)
   }
 
