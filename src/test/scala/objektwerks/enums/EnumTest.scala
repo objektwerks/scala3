@@ -11,9 +11,6 @@ class EnumTest extends AnyFunSuite with Matchers:
   enum Planet(val mass: Double, val radius: Double):
     val gravity = 6.67300E-11
 
-    def surfaceGravity: Double = gravity * mass / (radius * radius)
-    def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
-
     case Mercury extends Planet(3.303e+23, 2.4397e6)
     case Venus   extends Planet(4.869e+24, 6.0518e6)
     case Earth   extends Planet(5.976e+24, 6.37814e6)
@@ -22,7 +19,9 @@ class EnumTest extends AnyFunSuite with Matchers:
     case Saturn  extends Planet(5.688e+26, 6.0268e7)
     case Uranus  extends Planet(8.686e+25, 2.5559e7)
     case Neptune extends Planet(1.024e+26, 2.4746e7)
-  end Planet // end Planet is optional!!!
+
+    def surfaceGravity: Double = gravity * mass / (radius * radius)
+    def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
   test("enum") {
     val closed = Gate.closed
