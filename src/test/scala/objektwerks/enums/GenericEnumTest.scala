@@ -3,7 +3,7 @@ package objektwerks.enums
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class GADTTest extends AnyFunSuite with Matchers:
+class GenericEnumTest extends AnyFunSuite with Matchers:
   sealed trait Expression[T]
   final case class IntExpr(int: Int) extends Expression[Int]
   final case class BoolExpr(boolean: Boolean) extends Expression[Boolean]
