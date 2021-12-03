@@ -14,16 +14,17 @@ class GADTTest extends AnyFunSuite with Matchers:
     case _ => fail()
 
   enum Box[T](content: T):
-    def unbox: T = content
-
     case IntBox(number: Int) extends Box[Int](number)
     case BoolBox(boolean: Boolean) extends Box[Boolean](boolean)
-  end Box // end Box is optional!!!  
 
-  test("gadt") {
+    def unbox: T = content
+
+  test("trait > case class > gadt") {
     eval( IntExpr(3) ) shouldBe 3
     eval( BoolExpr(true) ) shouldBe true
+  }
 
+  test("enum > gadt") {
     import Box.*
     IntBox(3).unbox shouldBe 3
     BoolBox(true).unbox shouldBe true
