@@ -4,6 +4,7 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "3.1.1-RC1"
 libraryDependencies ++= {
   Seq(
+    "io.github.cquiroz" %% "scala-java-time" % "2.3.0",
     "org.scalatest" %% "scalatest" % "3.2.10" % Test
   )
 }
