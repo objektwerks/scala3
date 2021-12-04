@@ -1,3 +1,3 @@
 package objektwerks
 
-trait Event
+sealed trait Event
