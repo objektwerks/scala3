@@ -6,7 +6,7 @@ import scala.util.Random
 
 import DateTime._
 
-sealed trait Entity extends Product with Serializable
+sealed trait Entity extends Product, Serializable
 
 final case class Email(id : String,
                        license: String,
