@@ -10,7 +10,7 @@ class TraitTest extends AnyFunSuite with Matchers:
 
   enum Greeting(greeting: String):
     case goodMorning extends Greeting("I bid you good morning.")
-    case goodEvening extends Greeting("I bid you good evening")
+    case goodEvening extends Greeting("I bid you good evening.")
 
   transparent trait SalutationBuilder:
     def build(honorific: Honorific, greeting: Greeting): String = s"$honorific, $greeting"
