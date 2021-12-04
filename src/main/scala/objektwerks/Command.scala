@@ -1,3 +1,3 @@
 package objektwerks
 
-trait Command
+sealed trait Command
