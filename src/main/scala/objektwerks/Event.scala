@@ -1,3 +1,3 @@
 package objektwerks
 
-trait Event extends Product, Serializable
+trait Event
