@@ -14,3 +14,7 @@ final case class UpdateAccount(account: Account) extends Command
 final case class ListPools() extends Command
 final case class AddPool(pool: Pool) extends Command
 final case class UpdatePool(pool: Pool) extends Command
+
+final case class ListSurfaces() extends Command
+final case class AddSurface(surface: Surface) extends Command
+final case class UpdateSurface(surface: Surface) extends Command
