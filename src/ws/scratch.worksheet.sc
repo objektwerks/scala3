@@ -22,3 +22,12 @@ c.isInstanceOf[TestC]
 // c.isInstanceOf[Product]  Always false
 // c.isInstanceOf[Serializable]  Always false
 c.isInstanceOf[C]
+
+final case class D()
+val d = D()
+d.isInstanceOf[Product]
+d.isInstanceOf[Serializable]
+
+case object E
+E.isInstanceOf[Product]
+E.isInstanceOf[Serializable]
