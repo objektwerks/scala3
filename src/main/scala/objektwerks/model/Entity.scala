@@ -6,11 +6,13 @@ import scala.util.Random
 
 sealed trait Entity
 
-final case class Account(license: String,
-                         email: String,
-                         pin: String,
-                         activated: Int,
-                         deactivated: Int) extends Entity {
+final case class License(key: String) extends Entity
+
+final case class Account(license: String = "",
+                         email: String = "",
+                         pin: String = "",
+                         activated: Int = 0,
+                         deactivated: Int = 0) extends Entity {
   def deriveLicense: License = License(license)
 }
 
@@ -29,26 +31,13 @@ object Account {
     .appended(newSpecialChar)
   ).mkString
 
-  val emptyAccount = Account(
-    license = "",
-    email = "",
-    pin = "",
-    activated = 0,
-    deactivated = 0
-  )
-  val emptyLicense = ""
-  val licenseHeader = "License"
-
   def apply(email: String): Account = Account(
     license = newLicense,
     email = email,
     pin = newPin,
-    activated = DateTime.currentDate,
-    deactivated = 0
+    activated = DateTime.currentDate
   )
 }
-
-final case class License(key: String) extends Entity
 
 final case class Pool(id: Int = 0,
                       license: String = "",
