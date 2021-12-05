@@ -10,3 +10,7 @@ final case class Reactivated(account: Account) extends Event
 
 final case class AccountAdded(account: Account) extends Event
 final case class AccountUpdate(account: Account) extends Event
+
+final case class PoolsListed(pools: Seq[Pool]) extends Event
+final case class PoolAdded(pool: Pool) extends Event
+final case class PoolUpdated(pool: Pool) extends Event
