@@ -31,3 +31,17 @@ d.isInstanceOf[Serializable]
 case object E
 E.isInstanceOf[Product]
 E.isInstanceOf[Serializable]
+
+import scala.quoted.Type
+
+sealed trait Z
+final case class X() extends Z
+final case class Y() extends Z
+
+def matchOn(z: Z): String =
+  z match
+    case x: X => x.toString
+    case y: Y => y.toString
+
+matchOn( X() )
+matchOn( Y() )
