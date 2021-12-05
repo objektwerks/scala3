@@ -8,13 +8,6 @@ final case class Login(email: String, pin: String) extends Command
 final case class Deactivate(license: String) extends Command
 final case class Reactivate(license: String) extends Command
 
-final case class AddAccount(account: Account) extends Command
-final case class UpdateAccount(account: Account) extends Command
-
-final case class ListPools() extends Command
-final case class AddPool(pool: Pool) extends Command
-final case class UpdatePool(pool: Pool) extends Command
-
-final case class ListSurfaces() extends Command
-final case class AddSurface(surface: Surface) extends Command
-final case class UpdateSurface(surface: Surface) extends Command
+final case class ListEntity(entity: Entity) extends Command
+final case class AddEntity(entity: Entity) extends Command
+final case class UpdateEntity() extends Command
