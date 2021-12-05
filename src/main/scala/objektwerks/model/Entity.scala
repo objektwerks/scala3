@@ -8,12 +8,6 @@ import DateTime._
 
 sealed trait Entity
 
-final case class Email(id : String,
-                       license: String,
-                       address: String,
-                       processed: Boolean = false,
-                       valid: Boolean = false) extends Entity
-
 final case class Account(license: String,
                          email: String,
                          pin: String,
@@ -29,12 +23,12 @@ object Account {
   private def newLicense: String = UUID.randomUUID.toString
   private def newSpecialChar: Char = specialChars(random.nextInt(specialChars.length))
   private def newPin: String = Random.shuffle(
-    Random
-      .alphanumeric
-      .take(7)
-      .mkString
-      .prepended(newSpecialChar)
-      .appended(newSpecialChar)
+  Random
+    .alphanumeric
+    .take(7)
+    .mkString
+    .prepended(newSpecialChar)
+    .appended(newSpecialChar)
   ).mkString
 
   val emptyAccount = Account(
