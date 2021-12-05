@@ -1,6 +1,6 @@
-package objektwerks
+package objektwerks.model
 
-import java.time._
+import java.time.{Instant, LocalDate, LocalTime, format}
 
 object DateTime:
   val dateFormatter = format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
