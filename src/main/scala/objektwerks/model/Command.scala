@@ -12,4 +12,4 @@ final case class Reactivate(license: String) extends Command
 
 final case class ListEntity(entity: Type[Entity]) extends Command
 final case class AddEntity(entity: Entity) extends Command
-final case class UpdateEntity() extends Command
+case object UpdateEntity extends Command
