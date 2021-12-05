@@ -6,15 +6,11 @@ import scala.util.Random
 
 sealed trait Entity
 
-final case class License(key: String) extends Entity
-
 final case class Account(license: String = "",
                          email: String = "",
                          pin: String = "",
                          activated: Int = 0,
-                         deactivated: Int = 0) extends Entity {
-  def deriveLicense: License = License(license)
-}
+                         deactivated: Int = 0) extends Entity
 
 object Account {
   private val specialChars = "~!@#$%^&*{}-+<>?/:;".toList
@@ -22,14 +18,15 @@ object Account {
 
   private def newLicense: String = UUID.randomUUID.toString
   private def newSpecialChar: Char = specialChars(random.nextInt(specialChars.length))
-  private def newPin: String = Random.shuffle(
-  Random
-    .alphanumeric
-    .take(7)
-    .mkString
-    .prepended(newSpecialChar)
-    .appended(newSpecialChar)
-  ).mkString
+  private def newPin: String =
+    Random.shuffle(
+      Random
+        .alphanumeric
+        .take(7)
+        .mkString
+        .prepended(newSpecialChar)
+        .appended(newSpecialChar)
+    ).mkString
 
   def apply(email: String): Account = Account(
     license = newLicense,
