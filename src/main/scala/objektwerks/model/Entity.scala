@@ -4,8 +4,6 @@ import java.util.UUID
 
 import scala.util.Random
 
-import DateTime._
-
 sealed trait Entity
 
 final case class Account(license: String,
@@ -139,27 +137,3 @@ final case class Repair(id: Int = 0,
                         repaired: Int = 0,
                         cost: Double = 0,
                         repair: String = "") extends Entity
-
-final case class Fault(dateOf: Int,
-                       timeOf: Int,
-                       nanoOf: Int,
-                       code: Int,
-                       cause: String) extends Entity
-
-object Fault {
-  def apply(code: Int, cause: String): Fault = Fault(
-    dateOf = DateTime.currentDate,
-    timeOf = DateTime.currentTime,
-    nanoOf = DateTime.nano,
-    code = code,
-    cause = cause
-  )
-
-  def apply(cause: String): Fault = Fault(
-    dateOf = 0,
-    timeOf = 0,
-    nanoOf = 0,
-    code = 0,
-    cause = cause
-  )
-}
