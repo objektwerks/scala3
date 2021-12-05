@@ -10,3 +10,7 @@ final case class Reactivate(license: String) extends Command
 
 final case class AddAccount(account: Account) extends Command
 final case class UpdateAccount(account: Account) extends Command
+
+final case class ListPools() extends Command
+final case class AddPool(pool: Pool) extends Command
+final case class Update(pool: Pool) extends Command
