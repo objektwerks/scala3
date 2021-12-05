@@ -12,7 +12,7 @@ final case class Account(license: String = "",
                          activated: Int = 0,
                          deactivated: Int = 0) extends Entity
 
-object Account {
+object Account:
   private val specialChars = "~!@#$%^&*{}-+<>?/:;".toList
   private val random = new Random
 
@@ -34,7 +34,6 @@ object Account {
     pin = newPin,
     activated = DateTime.currentDate
   )
-}
 
 final case class Pool(id: Int = 0,
                       license: String = "",
