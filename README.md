@@ -12,7 +12,7 @@ Run
 
 Model
 -----
-1. Client --- Command ---> Dispatcher --- T ---> Service
+1. Client --- Command ---> Dispatcher --- T ---> Service --- T ---> Store
 2. Service --- Future[Either[Throwable, T]] ---> Dispatcher
 3. Dispatcher --- Event ---> Client
 
