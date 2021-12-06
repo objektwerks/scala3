@@ -52,6 +52,6 @@ final case class ListSupplies(license: String, poolId: Int) extends Command
 final case class AddSupply(license: String, supply: Supply) extends Command
 final case class UpdateSupply(license: String, supply: Supply) extends Command
 
-final case class ListRepairs(poolId: Int) extends Command
-final case class AddRepair(repair: Repair) extends Command
-final case class UpdateRepair(repair: Repair) extends Command
+final case class ListRepairs(license: String, poolId: Int) extends Command
+final case class AddRepair(license: String, repair: Repair) extends Command
+final case class UpdateRepair(license: String, repair: Repair) extends Command
