@@ -11,3 +11,7 @@ final case class Reactivate(license: String) extends Command
 final case class ListPools() extends Command
 final case class AddPool(pool: Pool) extends Command
 final case class UpdatePool(pool: Pool) extends Command
+
+final case class ListSurfaces(poolId: Int) extends Command
+final case class AddSurface(surface: Surface) extends Command
+final case class UpdateSurface(surface: Surface) extends Command
