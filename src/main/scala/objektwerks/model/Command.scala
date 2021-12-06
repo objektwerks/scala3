@@ -39,3 +39,7 @@ final case class UpdateHeaterSetting(heaterSetting: HeaterSetting) extends Comma
 final case class ListMeasurements(poolId: Int) extends Command
 final case class AddMeasurement(measurement: Measurement) extends Command
 final case class UpdateMeasurement(measurement: Measurement) extends Command
+
+final case class ListCleanings(poolId: Int) extends Command
+final case class AddCleaning(cleaning: Cleaning) extends Command
+final case class UpdateCleaning(cleaning: Cleaning) extends Command
