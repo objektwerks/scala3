@@ -19,3 +19,7 @@ final case class UpdateSurface(surface: Surface) extends Command
 final case class ListPumps(poolId: Int) extends Command
 final case class AddPump(pump: Pump) extends Command
 final case class UpdatePump(pump: Pump) extends Command
+
+final case class ListTimers(poolId: Int) extends Command
+final case class AddTimer(timer: Timer) extends Command
+final case class UpdateTimer(timer: Timer) extends Command
