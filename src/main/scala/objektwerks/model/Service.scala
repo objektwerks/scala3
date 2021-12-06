@@ -51,3 +51,7 @@ trait Service:
   def listSupplies(poolId: Int): Future[Either[Fault, Listed]]
   def addSupply(supply: Supply): Future[Either[Fault, Added]]
   def updateSupply(supply: Supply): Future[Either[Fault, Updated]]
+
+  def listRepairs(poolId: Int): Future[Either[Fault, Listed]]
+  def addRepair(repair: Repair): Future[Either[Fault, Added]]
+  def updateRepair(repair: Repair): Future[Either[Fault, Updated]]
