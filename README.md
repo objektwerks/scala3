@@ -10,6 +10,12 @@ Run
 ---
 1. sbt "run Fred Flintstone"
 
+Model
+-----
+1. Client --- Command ---> Dispatcher --- T ---> Service
+2. Service --- Future[Either[Throwable, T]] ---> Dispatcher
+3. Dispatcher --- Event ---> Client
+
 Docs
 ----
 1. Book - https://docs.scala-lang.org/scala3/book/introduction.html
