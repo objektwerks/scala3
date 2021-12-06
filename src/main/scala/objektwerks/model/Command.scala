@@ -47,3 +47,7 @@ final case class UpdateCleaning(cleaning: Cleaning) extends Command
 final case class ListChemicals(poolId: Int) extends Command
 final case class AddChemical(chemical: Chemical) extends Command
 final case class UpdateChemical(chemical: Chemical) extends Command
+
+final case class ListSupplies(poolId: Int) extends Command
+final case class AddSupply(supply: Supply) extends Command
+final case class UpdateSupply(supply: Supply) extends Command
