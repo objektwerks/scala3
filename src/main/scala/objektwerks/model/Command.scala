@@ -23,3 +23,7 @@ final case class UpdatePump(pump: Pump) extends Command
 final case class ListTimers(poolId: Int) extends Command
 final case class AddTimer(timer: Timer) extends Command
 final case class UpdateTimer(timer: Timer) extends Command
+
+final case class ListTimerSetting(timerId: Int) extends Command
+final case class AddTimerSetting(timerSetting: TimerSetting) extends Command
+final case class UpdateTimerSetting(timerSetting: TimerSetting) extends Command
