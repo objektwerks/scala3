@@ -12,9 +12,9 @@ trait Service:
   def addPool(pool: Pool): Future[Either[Fault, Pool]]
   def updatePool(pool: Pool): Future[Either[Fault, Pool]]
 
-  def listSurfaces(poolId: Int): Future[Either[Fault, Listed]]
-  def addSurface(surface: Surface): Future[Either[Fault, Added]]
-  def updateSurface(surface: Surface): Future[Either[Fault, Updated]]
+  def listSurfaces(poolId: Int): Future[Either[Fault, Seq[Surface]]]
+  def addSurface(surface: Surface): Future[Either[Fault, Surface]]
+  def updateSurface(surface: Surface): Future[Either[Fault, Surface]]
 
   def listPumps(poolId: Int): Future[Either[Fault, Listed]]
   def addPump(pump: Pump): Future[Either[Fault, Added]]
