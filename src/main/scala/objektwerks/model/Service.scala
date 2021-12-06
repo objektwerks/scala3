@@ -36,9 +36,9 @@ trait Service:
   def addHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Fault, HeaterSetting]]
   def updateHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Fault, HeaterSetting]]
 
-  def listMeasurements(poolId: Int): Future[Either[Fault, Listed]]
-  def addMeasurement(measurement: Measurement): Future[Either[Fault, Added]]
-  def updateMeasurement(measurement: Measurement): Future[Either[Fault, Updated]]
+  def listMeasurements(poolId: Int): Future[Either[Fault, Seq[Measurement]]]
+  def addMeasurement(measurement: Measurement): Future[Either[Fault, Measurement]]
+  def updateMeasurement(measurement: Measurement): Future[Either[Fault, Measurement]]
 
   def listCleanings(poolId: Int): Future[Either[Fault, Listed]]
   def addCleaning(cleaning: Cleaning): Future[Either[Fault, Added]]
