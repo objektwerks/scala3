@@ -16,9 +16,9 @@ final case class ListSurfaces(license: String, poolId: Int) extends Command
 final case class AddSurface(license: String, surface: Surface) extends Command
 final case class UpdateSurface(license: String, surface: Surface) extends Command
 
-final case class ListPumps(poolId: Int) extends Command
-final case class AddPump(pump: Pump) extends Command
-final case class UpdatePump(pump: Pump) extends Command
+final case class ListPumps(license: String, poolId: Int) extends Command
+final case class AddPump(license: String, pump: Pump) extends Command
+final case class UpdatePump(license: String, pump: Pump) extends Command
 
 final case class ListTimers(poolId: Int) extends Command
 final case class AddTimer(timer: Timer) extends Command
