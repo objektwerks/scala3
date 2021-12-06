@@ -41,8 +41,6 @@ final case class Pool(id: Int = 0,
                       built: Int = 0,
                       volume: Int = 1000) extends Entity
 
-final case class PoolId(id: Int = 0) extends Entity
-
 final case class Surface(id: Int = 0,
                          poolId: Int = 0,
                          installed: Int = 0,
@@ -58,8 +56,6 @@ final case class Timer(id: Int = 0,
                        installed: Int = 0,
                        model: String = "") extends Entity
 
-final case class TimerId(id: Int = 0) extends Entity
-
 final case class TimerSetting(id: Int = 0,
                               timerId: Int = 0,
                               created: Int = 0,
@@ -70,8 +66,6 @@ final case class Heater(id: Int = 0,
                         poolId: Int = 0,
                         installed: Int = 0,
                         model: String = "") extends Entity
-
-final case class HeaterId(id: Int = 0) extends Entity
 
 final case class HeaterSetting(id: Int = 0,
                                heaterId: Int = 0,
