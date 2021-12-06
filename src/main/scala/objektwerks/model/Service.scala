@@ -3,7 +3,7 @@ package objektwerks.model
 import scala.concurrent.Future
 
 trait Service:
-  def register(register: Register): Future[Either[Throwable, Unit]]
+  def register(email: String): Future[Either[Throwable, Unit]]
   def login(login: Login): Future[Either[Throwable, Account]]
   def deactivate(deactivate: Deactivate): Future[Either[Throwable, Account]]
   def reactivate(reactivate: Reactivate): Future[Either[Throwable, Account]]
