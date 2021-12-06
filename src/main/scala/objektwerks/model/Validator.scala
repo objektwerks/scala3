@@ -48,9 +48,6 @@ object Validator:
       pool.built > 0 &&
       pool.volume >= 1000
 
-  extension (poolId: PoolId)
-    def isValid: Boolean = poolId.id > 0
-
   extension (surface: Surface)
     def isValid: Boolean =
       surface.id >= 0 &&
@@ -72,9 +69,6 @@ object Validator:
       timer.installed > 0 &&
       timer.model.nonEmpty
 
-  extension (timerId: TimerId)
-    def isValid: Boolean = timerId.id > 0
-
   extension (timerSetting: TimerSetting)
     def isValid: Boolean =
       timerSetting.id >= 0 &&
@@ -90,9 +84,6 @@ object Validator:
       heater.poolId > 0 &&
       heater.installed > 0 &&
       heater.model.nonEmpty
-
-  extension (heaterId: HeaterId)
-    def isValid: Boolean = heaterId.id > 0
 
   extension (heaterSetting: HeaterSetting)
     def isValid: Boolean =
