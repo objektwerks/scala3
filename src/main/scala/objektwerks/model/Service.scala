@@ -5,7 +5,7 @@ import scala.concurrent.Future
 trait Service:
   def register(email: String): Future[Either[Throwable, Unit]]
   def login(email: String, pin: String): Future[Either[Throwable, Account]]
-  def deactivate(deactivate: Deactivate): Future[Either[Throwable, Account]]
+  def deactivate(license: String): Future[Either[Throwable, Account]]
   def reactivate(reactivate: Reactivate): Future[Either[Throwable, Account]]
 
   def listPools(): Future[Either[Throwable, Seq[Pool]]]
