@@ -28,9 +28,9 @@ trait Service:
   def addTimerSetting(timerSetting: TimerSetting): Future[Either[Fault, TimerSetting]]
   def updateTimerSetting(timerSetting: TimerSetting): Future[Either[Fault, TimerSetting]]
 
-  def listHeaters(poolId: Int): Future[Either[Fault, Listed]]
-  def addHeater(heater: Heater): Future[Either[Fault, Added]]
-  def updateHeater(heater: Heater): Future[Either[Fault, Updated]]
+  def listHeaters(poolId: Int): Future[Either[Fault, Seq[Heater]]]
+  def addHeater(heater: Heater): Future[Either[Fault, Heater]]
+  def updateHeater(heater: Heater): Future[Either[Fault, Heater]]
 
   def listHeaterSettings(heaterId: Int): Future[Either[Fault, Listed]]
   def addHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Fault, Added]]
