@@ -23,3 +23,7 @@ trait Service:
   def listTimers(poolId: Int): Future[Either[Fault, Listed]]
   def addTimer(timer: Timer): Future[Either[Fault, Added]]
   def updateTimer(timer: Timer): Future[Either[Fault, Updated]]
+
+  def listTimerSettings(timerId: Int): Future[Either[Fault, Listed]]
+  def addTimerSetting(timerSetting: TimerSetting): Future[Either[Fault, Added]]
+  def updateTimerSetting(timerSetting: TimerSetting): Future[Either[Fault, Updated]]
