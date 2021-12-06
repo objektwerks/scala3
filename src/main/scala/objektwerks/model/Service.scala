@@ -3,10 +3,10 @@ package objektwerks.model
 import scala.concurrent.Future
 
 trait Service:
-  def register(register: Register): Future[Either[Fault, Registering]]
-  def login(login: Login): Future[Either[Fault, LoggedIn]]
-  def deactivate(deactivate: Deactivate): Future[Either[Fault, Deactivated]]
-  def reactivate(reactivate: Reactivate): Future[Either[Fault, Reactivated]]
+  def register(register: Register): Future[Either[Fault, Unit]]
+  def login(login: Login): Future[Either[Fault, Account]]
+  def deactivate(deactivate: Deactivate): Future[Either[Fault, Account]]
+  def reactivate(reactivate: Reactivate): Future[Either[Fault, Account]]
 
   def listPools(): Future[Either[Fault, Listed]]
   def addPool(pool: Pool): Future[Either[Fault, Added]]
