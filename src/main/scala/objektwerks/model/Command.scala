@@ -36,9 +36,9 @@ final case class ListHeaterSettings(license: String, heaterId: Int) extends Comm
 final case class AddHeaterSetting(license: String, heaterSetting: HeaterSetting) extends Command
 final case class UpdateHeaterSetting(license: String, heaterSetting: HeaterSetting) extends Command
 
-final case class ListMeasurements(poolId: Int) extends Command
-final case class AddMeasurement(measurement: Measurement) extends Command
-final case class UpdateMeasurement(measurement: Measurement) extends Command
+final case class ListMeasurements(license: String, poolId: Int) extends Command
+final case class AddMeasurement(license: String, measurement: Measurement) extends Command
+final case class UpdateMeasurement(license: String, measurement: Measurement) extends Command
 
 final case class ListCleanings(poolId: Int) extends Command
 final case class AddCleaning(cleaning: Cleaning) extends Command
