@@ -27,3 +27,7 @@ final case class UpdateTimer(timer: Timer) extends Command
 final case class ListTimerSetting(timerId: Int) extends Command
 final case class AddTimerSetting(timerSetting: TimerSetting) extends Command
 final case class UpdateTimerSetting(timerSetting: TimerSetting) extends Command
+
+final case class ListHeaters(poolId: Int) extends Command
+final case class AddHeater(heater: Heater) extends Command
+final case class UpdateHeater(heater: Heater) extends Command
