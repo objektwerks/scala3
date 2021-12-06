@@ -12,9 +12,9 @@ final case class ListPools(license: String) extends Command
 final case class AddPool(license: String, pool: Pool) extends Command
 final case class UpdatePool(license: String, pool: Pool) extends Command
 
-final case class ListSurfaces(poolId: Int) extends Command
-final case class AddSurface(surface: Surface) extends Command
-final case class UpdateSurface(surface: Surface) extends Command
+final case class ListSurfaces(license: String, poolId: Int) extends Command
+final case class AddSurface(license: String, surface: Surface) extends Command
+final case class UpdateSurface(license: String, surface: Surface) extends Command
 
 final case class ListPumps(poolId: Int) extends Command
 final case class AddPump(pump: Pump) extends Command
