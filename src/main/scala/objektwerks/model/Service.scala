@@ -8,9 +8,9 @@ trait Service:
   def deactivate(deactivate: Deactivate): Future[Either[Fault, Account]]
   def reactivate(reactivate: Reactivate): Future[Either[Fault, Account]]
 
-  def listPools(): Future[Either[Fault, Listed]]
-  def addPool(pool: Pool): Future[Either[Fault, Added]]
-  def updatePool(pool: Pool): Future[Either[Fault, Updated]]
+  def listPools(): Future[Either[Fault, Seq[Pool]]]
+  def addPool(pool: Pool): Future[Either[Fault, Pool]]
+  def updatePool(pool: Pool): Future[Either[Fault, Pool]]
 
   def listSurfaces(poolId: Int): Future[Either[Fault, Listed]]
   def addSurface(surface: Surface): Future[Either[Fault, Added]]
