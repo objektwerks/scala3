@@ -48,7 +48,7 @@ trait Service:
   def addChemical(chemical: Chemical): Future[Either[Fault, Chemical]]
   def updateChemical(chemical: Chemical): Future[Either[Fault, Chemical]]
 
-  def listSupplies(poolId: Int): Future[Either[Fault, Listed]]
+  def listSupplies(poolId: Int): Future[Either[Fault, Seq[Supply]]]
   def addSupply(supply: Supply): Future[Either[Fault, Added]]
   def updateSupply(supply: Supply): Future[Either[Fault, Updated]]
 
