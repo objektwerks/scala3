@@ -48,9 +48,9 @@ final case class ListChemicals(license: String, poolId: Int) extends Command
 final case class AddChemical(license: String, chemical: Chemical) extends Command
 final case class UpdateChemical(license: String, chemical: Chemical) extends Command
 
-final case class ListSupplies(poolId: Int) extends Command
-final case class AddSupply(supply: Supply) extends Command
-final case class UpdateSupply(supply: Supply) extends Command
+final case class ListSupplies(license: String, poolId: Int) extends Command
+final case class AddSupply(license: String, supply: Supply) extends Command
+final case class UpdateSupply(license: String, supply: Supply) extends Command
 
 final case class ListRepairs(poolId: Int) extends Command
 final case class AddRepair(repair: Repair) extends Command
