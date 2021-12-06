@@ -16,9 +16,9 @@ trait Service:
   def addSurface(surface: Surface): Future[Either[Fault, Surface]]
   def updateSurface(surface: Surface): Future[Either[Fault, Surface]]
 
-  def listPumps(poolId: Int): Future[Either[Fault, Listed]]
-  def addPump(pump: Pump): Future[Either[Fault, Added]]
-  def updatePump(pump: Pump): Future[Either[Fault, Updated]]
+  def listPumps(poolId: Int): Future[Either[Fault, Seq[Pump]]]
+  def addPump(pump: Pump): Future[Either[Fault, Pump]]
+  def updatePump(pump: Pump): Future[Either[Fault, Pump]]
 
   def listTimers(poolId: Int): Future[Either[Fault, Listed]]
   def addTimer(timer: Timer): Future[Either[Fault, Added]]
