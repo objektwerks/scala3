@@ -20,9 +20,9 @@ final case class ListPumps(license: String, poolId: Int) extends Command
 final case class AddPump(license: String, pump: Pump) extends Command
 final case class UpdatePump(license: String, pump: Pump) extends Command
 
-final case class ListTimers(poolId: Int) extends Command
-final case class AddTimer(timer: Timer) extends Command
-final case class UpdateTimer(timer: Timer) extends Command
+final case class ListTimers(license: String, poolId: Int) extends Command
+final case class AddTimer(license: String, timer: Timer) extends Command
+final case class UpdateTimer(license: String, timer: Timer) extends Command
 
 final case class ListTimerSettings(timerId: Int) extends Command
 final case class AddTimerSetting(timerSetting: TimerSetting) extends Command
