@@ -44,9 +44,9 @@ trait Service:
   def addCleaning(cleaning: Cleaning): Future[Either[Fault, Cleaning]]
   def updateCleaning(cleaning: Cleaning): Future[Either[Fault, Cleaning]]
 
-  def listChemicals(poolId: Int): Future[Either[Fault, Listed]]
-  def addChemical(chemical: Chemical): Future[Either[Fault, Added]]
-  def updateChemical(chemical: Chemical): Future[Either[Fault, Updated]]
+  def listChemicals(poolId: Int): Future[Either[Fault, Seq[Chemical]]]
+  def addChemical(chemical: Chemical): Future[Either[Fault, Chemical]]
+  def updateChemical(chemical: Chemical): Future[Either[Fault, Chemical]]
 
   def listSupplies(poolId: Int): Future[Either[Fault, Listed]]
   def addSupply(supply: Supply): Future[Either[Fault, Added]]
