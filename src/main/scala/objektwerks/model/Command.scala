@@ -40,9 +40,9 @@ final case class ListMeasurements(license: String, poolId: Int) extends Command
 final case class AddMeasurement(license: String, measurement: Measurement) extends Command
 final case class UpdateMeasurement(license: String, measurement: Measurement) extends Command
 
-final case class ListCleanings(poolId: Int) extends Command
-final case class AddCleaning(cleaning: Cleaning) extends Command
-final case class UpdateCleaning(cleaning: Cleaning) extends Command
+final case class ListCleanings(license: String, poolId: Int) extends Command
+final case class AddCleaning(license: String, cleaning: Cleaning) extends Command
+final case class UpdateCleaning(license: String, cleaning: Cleaning) extends Command
 
 final case class ListChemicals(poolId: Int) extends Command
 final case class AddChemical(chemical: Chemical) extends Command
