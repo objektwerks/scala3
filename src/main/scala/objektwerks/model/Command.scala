@@ -28,9 +28,9 @@ final case class ListTimerSettings(license: String, timerId: Int) extends Comman
 final case class AddTimerSetting(license: String, timerSetting: TimerSetting) extends Command
 final case class UpdateTimerSetting(license: String, timerSetting: TimerSetting) extends Command
 
-final case class ListHeaters(poolId: Int) extends Command
-final case class AddHeater(heater: Heater) extends Command
-final case class UpdateHeater(heater: Heater) extends Command
+final case class ListHeaters(license: String, poolId: Int) extends Command
+final case class AddHeater(license: String, heater: Heater) extends Command
+final case class UpdateHeater(license: String, heater: Heater) extends Command
 
 final case class ListHeaterSettings(heaterId: Int) extends Command
 final case class AddHeaterSetting(heaterSetting: HeaterSetting) extends Command
