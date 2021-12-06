@@ -10,4 +10,4 @@ final case class Reactivated(account: Account) extends Event
 
 final case class EntityListed(entities: Seq[Entity]) extends Event
 final case class EntityAdded(entity: Entity) extends Event
-final case class EntityUpdated() extends Event
+final case class EntityUpdated(entity: Entity) extends Event
