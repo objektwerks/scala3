@@ -35,3 +35,7 @@ final case class UpdateHeater(heater: Heater) extends Command
 final case class ListHeaterSettings(heaterId: Int) extends Command
 final case class AddHeaterSetting(heaterSetting: HeaterSetting) extends Command
 final case class UpdateHeaterSetting(heaterSetting: HeaterSetting) extends Command
+
+final case class ListMeasurements(poolId: Int) extends Command
+final case class AddMeasurement(measurement: Measurement) extends Command
+final case class UpdateMeasurement(measurement: Measurement) extends Command
