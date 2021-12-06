@@ -7,6 +7,7 @@ trait Service:
   def login(login: Login): Future[Either[Fault, LoggedIn]]
   def deactivate(deactivate: Deactivate): Future[Either[Fault, Deactivated]]
   def reactivate(reactivate: Reactivate): Future[Either[Fault, Reactivated]]
-  def listEntity(entity: Entity): Future[Either[Fault, EntityListed]]
-  def addEntity(entity: Entity): Future[Either[Fault, EntityAdded]]
-  def updateEntity(entity: Entity): Future[Either[Fault, EntityUpdated]]
+
+  def listPools(): Future[Either[Fault, Listed]]
+  def addPool(pool: Pool): Future[Either[Fault, Added]]
+  def updatePool(pool: Pool): Future[Either[Fault, Updated]]
