@@ -40,9 +40,9 @@ trait Service:
   def addMeasurement(measurement: Measurement): Future[Either[Fault, Measurement]]
   def updateMeasurement(measurement: Measurement): Future[Either[Fault, Measurement]]
 
-  def listCleanings(poolId: Int): Future[Either[Fault, Listed]]
-  def addCleaning(cleaning: Cleaning): Future[Either[Fault, Added]]
-  def updateCleaning(cleaning: Cleaning): Future[Either[Fault, Updated]]
+  def listCleanings(poolId: Int): Future[Either[Fault, Seq[Cleaning]]]
+  def addCleaning(cleaning: Cleaning): Future[Either[Fault, Cleaning]]
+  def updateCleaning(cleaning: Cleaning): Future[Either[Fault, Cleaning]]
 
   def listChemicals(poolId: Int): Future[Either[Fault, Listed]]
   def addChemical(chemical: Chemical): Future[Either[Fault, Added]]
