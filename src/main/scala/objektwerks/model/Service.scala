@@ -20,9 +20,9 @@ trait Service:
   def addPump(pump: Pump): Future[Either[Fault, Pump]]
   def updatePump(pump: Pump): Future[Either[Fault, Pump]]
 
-  def listTimers(poolId: Int): Future[Either[Fault, Listed]]
-  def addTimer(timer: Timer): Future[Either[Fault, Added]]
-  def updateTimer(timer: Timer): Future[Either[Fault, Updated]]
+  def listTimers(poolId: Int): Future[Either[Fault, Seq[Timer]]]
+  def addTimer(timer: Timer): Future[Either[Fault, Timer]]
+  def updateTimer(timer: Timer): Future[Either[Fault, Timer]]
 
   def listTimerSettings(timerId: Int): Future[Either[Fault, Listed]]
   def addTimerSetting(timerSetting: TimerSetting): Future[Either[Fault, Added]]
