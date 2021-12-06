@@ -31,3 +31,7 @@ trait Service:
   def listHeaters(poolId: Int): Future[Either[Fault, Listed]]
   def addHeater(heater: Heater): Future[Either[Fault, Added]]
   def updateHeater(heater: Heater): Future[Either[Fault, Updated]]
+
+  def listHeaterSettings(timerId: Int): Future[Either[Fault, Listed]]
+  def addHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Fault, Added]]
+  def updateHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Fault, Updated]]
