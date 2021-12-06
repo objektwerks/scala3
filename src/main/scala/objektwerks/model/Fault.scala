@@ -7,6 +7,8 @@ final case class Fault(dateOf: Int,
                        cause: String)
 
 object Fault {
+  val serviceFailure = 500
+
   def apply(code: Int, cause: String): Fault = Fault(
     dateOf = DateTime.currentDate,
     timeOf = DateTime.currentTime,
@@ -15,11 +17,5 @@ object Fault {
     cause = cause
   )
 
-  def apply(cause: String): Fault = Fault(
-    dateOf = 0,
-    timeOf = 0,
-    nanoOf = 0,
-    code = 0,
-    cause = cause
-  )
+  def apply(cause: String): Fault = apply(serviceFailure, cause)
 }
