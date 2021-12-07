@@ -82,7 +82,7 @@ object Store:
   def listHeaters(): Seq[Heater] = heaters.values.to(Seq)
 
   def addHeater(heater: Heater): Heater =
-    val newHeater = heater.copy(id = timers.size + 1)
+    val newHeater = heater.copy(id = heaters.size + 1)
     heaters.addOne(newHeater.id, newHeater)
     newHeater
 
@@ -91,7 +91,7 @@ object Store:
   def listHeaterSettings(): Seq[HeaterSetting] = heaterSettings.values.to(Seq)
 
   def addHeaterSetting(heaterSetting: HeaterSetting): HeaterSetting =
-    val newHeaterSetting = heaterSetting.copy(id = timers.size + 1)
+    val newHeaterSetting = heaterSetting.copy(id = heaterSettings.size + 1)
     heaterSettings.addOne(newHeaterSetting.id, newHeaterSetting)
     newHeaterSetting
 
@@ -100,7 +100,7 @@ object Store:
   def listMeasurements(): Seq[Measurement] = measurements.values.to(Seq)
 
   def addMeasurement(measurement: Measurement): Measurement =
-    val newMeasurement = measurement.copy(id = timers.size + 1)
+    val newMeasurement = measurement.copy(id = measurements.size + 1)
     measurements.addOne(newMeasurement.id, newMeasurement)
     newMeasurement
 
@@ -113,4 +113,4 @@ object Store:
     cleanings.addOne(newCleaning.id, newCleaning)
     newCleaning
 
-  def updateCleaning(cleaning: Cleaning): Unit = cleanings.update(cleaning.id, cleaning)  
+  def updateCleaning(cleaning: Cleaning): Unit = cleanings.update(cleaning.id, cleaning)
