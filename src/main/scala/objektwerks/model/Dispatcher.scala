@@ -10,7 +10,10 @@ object Dispatcher:
           case Right(account) => Registered(account)
           case Left(throwable) => Fault(throwable)
 
-      case login: Login => ???
+      case login: Login =>
+        service.login(login.email, login.pin) match
+          case Right(account) => LoggedIn(account)
+          case Left(throwable) => Fault(throwable)
 
       case deactivate: Deactivate => ???
       case reactivate: Reactivate => ???
