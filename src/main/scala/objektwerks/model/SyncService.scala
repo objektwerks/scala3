@@ -1,7 +1,9 @@
 package objektwerks.model
 
 class SyncService extends Service:
-  def register(email: String): Either[Throwable, Account] = ???
+  val store = Store.mapStore
+  def register(email: String): Either[Throwable, Account] =
+    Right( store.register(email) )
   def login(email: String, pin: String): Either[Throwable, Account] = ???
 
   def deactivate(license: String): Either[Throwable, Account] = ???
