@@ -20,7 +20,10 @@ object Dispatcher:
           case Right(account) => Deactivated(account)
           case Left(throwable) => Fault(throwable)
 
-      case reactivate: Reactivate => ???
+      case reactivate: Reactivate =>
+        service.reactivate(reactivate.license) match
+          case Right(account) => Reactivated(account)
+          case Left(throwable) => Fault(throwable)
 
       case list: ListPools => ???
       case add: AddPool => ???
