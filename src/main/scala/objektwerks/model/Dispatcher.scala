@@ -6,9 +6,7 @@ object Dispatcher:
   def dispatch(command: Command): Event =
     command match
       case register: Register =>
-        service.register(register.email) match
-          case Right(account) => Registered(account)
-          case Left(throwable) => Fault(throwable)
+        service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
 
       case login: Login =>
         service.login(login.email, login.pin) match
