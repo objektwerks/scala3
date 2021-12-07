@@ -7,6 +7,7 @@ object Store:
   private val pools = mutable.Map.empty[Int, Pool]
   private val surfaces = mutable.Map.empty[Int, Surface]
   private val pumps = mutable.Map.empty[Int, Pump]
+  private val timers = mutable.Map.empty[Int, Timer]
 
   def register(email: String): Account =
     val account = Account(email)
@@ -32,7 +33,8 @@ object Store:
 
   def addPool(pool: Pool): Pool =
     val newPool = pool.copy(id = pools.size + 1)
-    pools.addOne(newPool.id, newPool).getOrElse(newPool.id, Pool())
+    pools.addOne(newPool.id, newPool)
+    newPool
 
   def updatePool(pool: Pool): Unit = pools.update(pool.id, pool)
 
@@ -40,7 +42,8 @@ object Store:
 
   def addSurface(surface: Surface): Surface =
     val newSurface = surface.copy(id = surfaces.size + 1)
-    surfaces.addOne(newSurface.id, newSurface).getOrElse(newSurface.id, Surface())
+    surfaces.addOne(newSurface.id, newSurface)
+    newSurface
 
   def updateSurface(surface: Surface): Unit = surfaces.update(surface.id, surface)
 
@@ -48,6 +51,16 @@ object Store:
 
   def addPump(pump: Pump): Pump =
     val newPump = pump.copy(id = pumps.size + 1)
-    pumps.addOne(newPump.id, newPump).getOrElse(newPump.id, Pump())
+    pumps.addOne(newPump.id, newPump)
+    newPump
 
   def updatePump(pump: Pump): Unit = pumps.update(pump.id, pump)
+
+  def listTiimers(): Seq[Timer] = timers.values.to(Seq)
+
+  def addTimer(timer: Timer): Timer =
+    val newTimer = timer.copy(id = timers.size + 1)
+    timers.addOne(newTimer.id, newTimer)
+    newTimer
+
+  def updateTimer(timer: Timer): Unit = timers.update(timer.id, timer)
