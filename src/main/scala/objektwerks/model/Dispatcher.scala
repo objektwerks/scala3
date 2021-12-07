@@ -36,9 +36,12 @@ object Dispatcher:
       case update: UpdatePump =>
         service.updatePump(update.pump).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListTimers => ???
-      case add: AddTimer => ???
-      case update: UpdateTimer => ???
+      case list: ListTimers =>
+        service.listTimers(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddTimer =>
+        service.addTimer(add.timer).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateTimer =>
+        service.updateTimer(update.timer).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListTimerSettings => ???
       case add: AddTimerSetting => ???
