@@ -15,17 +15,26 @@ object Dispatcher:
       case reactivate: Reactivate =>
         service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
 
-      case list: ListPools => service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
-      case add: AddPool => service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
-      case update: UpdatePool => service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
+      case list: ListPools =>
+        service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddPool =>
+        service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdatePool =>
+        service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListSurfaces => service.listSurfaces().fold(throwable => Fault(throwable), entities => Listed(entities))
-      case add: AddSurface => service.addSurface(add.surface).fold(throwable => Fault(throwable), entity => Added(entity))
-      case update: UpdateSurface => service.updateSurface(update.surface).fold(throwable => Fault(throwable), _ => Updated())
+      case list: ListSurfaces =>
+        service.listSurfaces(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddSurface =>
+        service.addSurface(add.surface).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateSurface =>
+        service.updateSurface(update.surface).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListPumps => ???
-      case add: AddPump => ???
-      case update: UpdatePump => ???
+      case list: ListPumps =>
+        service.listPumps(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddPump =>
+        service.addPump(add.pump).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdatePump =>
+        service.updatePump(update.pump).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListTimers => ???
       case add: AddTimer => ???
