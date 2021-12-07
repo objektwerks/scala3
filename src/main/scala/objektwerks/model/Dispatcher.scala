@@ -7,17 +7,13 @@ object Dispatcher:
     command match
       case register: Register =>
         service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
-
       case login: Login =>
         service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
 
       case deactivate: Deactivate =>
         service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
-
       case reactivate: Reactivate =>
-        service.reactivate(reactivate.license) match
-          case Right(account) => Reactivated(account)
-          case Left(throwable) => Fault(throwable)
+        service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
 
       case list: ListPools => ???
       case add: AddPool => ???
