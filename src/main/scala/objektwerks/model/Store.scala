@@ -134,4 +134,13 @@ object Store:
     supplies.addOne(newSupply.id, newSupply)
     newSupply
 
-  def updateSupply(supply: Supply): Unit = supplies.update(supply.id, supply)  
+  def updateSupply(supply: Supply): Unit = supplies.update(supply.id, supply)
+
+  def listRepairs(): Seq[Repair] = repairs.values.to(Seq)
+
+  def addRepair(repair: Repair): Repair =
+    val newRepair = repair.copy(id = repairs.size + 1)
+    repairs.addOne(newRepair.id, newRepair)
+    newRepair
+
+  def updateRepair(repair: Repair): Unit = repairs.update(repair.id, repair)  
