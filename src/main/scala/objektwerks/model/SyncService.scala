@@ -28,9 +28,9 @@ class SyncService extends Service:
   def addSurface(surface: Surface): Either[Throwable, Surface] = Right( store.addSurface(surface) )
   def updateSurface(surface: Surface): Either[Throwable, Unit] = Right( store.updateSurface(surface) )
 
-  def listPumps(poolId: Int): Either[Throwable, Seq[Pump]] = ???
-  def addPump(pump: Pump): Either[Throwable, Pump] = ???
-  def updatePump(pump: Pump): Either[Throwable, Unit] = ???
+  def listPumps(poolId: Int): Either[Throwable, Seq[Pump]] = Right( store.listPumps() )
+  def addPump(pump: Pump): Either[Throwable, Pump] = Right( store.addPump(pump) )
+  def updatePump(pump: Pump): Either[Throwable, Unit] = Right( store.updatePump(pump) )
 
   def listTimers(poolId: Int): Either[Throwable, Seq[Timer]] = ???
   def addTimer(timer: Timer): Either[Throwable, Timer] = ???
