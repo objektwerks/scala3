@@ -10,6 +10,7 @@ object Store:
   private val timers = mutable.Map.empty[Int, Timer]
   private val timerSettings = mutable.Map.empty[Int, TimerSetting]
   private val heaters = mutable.Map.empty[Int, Heater]
+  private val heaterSettings = mutable.Map.empty[Int, HeaterSetting]
 
   def register(email: String): Account =
     val account = Account(email)
@@ -84,3 +85,12 @@ object Store:
     newHeater
 
   def updateHeater(heater: Heater): Unit = heaters.update(heater.id, heater)
+
+  def listHeaterSettings(): Seq[HeaterSetting] = heaterSettings.values.to(Seq)
+
+  def addHeaterSetting(heaterSetting: HeaterSetting): HeaterSetting =
+    val newHeaterSetting = heaterSetting.copy(id = timers.size + 1)
+    heaterSettings.addOne(newHeaterSetting.id, newHeaterSetting)
+    newHeaterSetting
+
+  def updateHeaterSetting(heaterSetting: HeaterSetting): Unit = heaterSettings.update(heaterSetting.id, heaterSetting)  
