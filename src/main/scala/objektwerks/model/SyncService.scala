@@ -60,9 +60,9 @@ class SyncService extends Service:
   def addChemical(chemical: Chemical): Either[Throwable, Chemical] = Right( store.addChemical(chemical) )
   def updateChemical(chemical: Chemical): Either[Throwable, Unit] = Right( store.updateChemical(chemical) )
 
-  def listSupplies(poolId: Int): Either[Throwable, Seq[Supply]] = ???
-  def addSupply(supply: Supply): Either[Throwable, Supply] = ???
-  def updateSupply(supply: Supply): Either[Throwable, Unit] = ???
+  def listSupplies(poolId: Int): Either[Throwable, Seq[Supply]] = Right( store.listSupplies() )
+  def addSupply(supply: Supply): Either[Throwable, Supply] = Right( store.addSupply(supply) )
+  def updateSupply(supply: Supply): Either[Throwable, Unit] = Right( store.updateSupply(supply) )
 
   def listRepairs(poolId: Int): Either[Throwable, Seq[Repair]] = ???
   def addRepair(repair: Repair): Either[Throwable, Repair] = ???
