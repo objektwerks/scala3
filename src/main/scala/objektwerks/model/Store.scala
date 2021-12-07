@@ -11,6 +11,7 @@ object Store:
   private val timerSettings = mutable.Map.empty[Int, TimerSetting]
   private val heaters = mutable.Map.empty[Int, Heater]
   private val heaterSettings = mutable.Map.empty[Int, HeaterSetting]
+  private val measurements = mutable.Map.empty[Int, Measurement]
 
   def register(email: String): Account =
     val account = Account(email)
@@ -93,4 +94,13 @@ object Store:
     heaterSettings.addOne(newHeaterSetting.id, newHeaterSetting)
     newHeaterSetting
 
-  def updateHeaterSetting(heaterSetting: HeaterSetting): Unit = heaterSettings.update(heaterSetting.id, heaterSetting)  
+  def updateHeaterSetting(heaterSetting: HeaterSetting): Unit = heaterSettings.update(heaterSetting.id, heaterSetting)
+
+  def listMeasurements(): Seq[Measurement] = measurements.values.to(Seq)
+
+  def addMeasurement(measurement: Measurement): Measurement =
+    val newMeasurement = measurement.copy(id = timers.size + 1)
+    measurements.addOne(newMeasurement.id, newMeasurement)
+    newMeasurement
+
+  def updateMeasurement(measurement: Measurement): Unit = measurements.update(measurement.id, measurement)  
