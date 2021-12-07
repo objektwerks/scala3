@@ -1,6 +1,6 @@
 Scala 3
 -------
->Scala3 feature tests.
+>Scala 3 feature tests.
 
 Test
 ----
@@ -12,9 +12,11 @@ Run
 
 Model
 -----
-1. Client --- Command ---> Dispatcher --- T... ---> Service --- T... ---> Store
-2. Service --- Either[Throwable, T] ---> Dispatcher
-3. Dispatcher --- Event ---> Client
+1. Client --- Command ---> Dispatcher
+2. Dispatcher --- T... ---> Service
+3. Service --- T... ---> Store | Service(s) ( optional )
+4. Service --- Either[Throwable, T] ---> Dispatcher
+5. Dispatcher --- Event ---> Client
 
 Docs
 ----
