@@ -10,7 +10,8 @@ object Store:
 
   def register(email: String): Account =
     val account = Account(email)
-    accounts.addOne(account.license, account).getOrElse(account.license, Account())
+    accounts.addOne(account.license, account)
+    account
 
   def login(email: String, pin: String): Option[Account] =
     accounts.values.find(account => account.email == email && account.pin == pin)
