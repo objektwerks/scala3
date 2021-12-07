@@ -15,7 +15,11 @@ object Dispatcher:
           case Right(account) => LoggedIn(account)
           case Left(throwable) => Fault(throwable)
 
-      case deactivate: Deactivate => ???
+      case deactivate: Deactivate =>
+        service.deactivate(deactivate.license) match
+          case Right(account) => Deactivated(account)
+          case Left(throwable) => Fault(throwable)
+
       case reactivate: Reactivate => ???
 
       case list: ListPools => ???
