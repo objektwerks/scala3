@@ -1,57 +1,56 @@
 package objektwerks.model
 
-import scala.concurrent.Future
-
 trait Service:
-  def register(email: String): Future[Either[Throwable, Unit]]
-  def login(email: String, pin: String): Future[Either[Throwable, Account]]
-  def deactivate(license: String): Future[Either[Throwable, Account]]
-  def reactivate(license: String): Future[Either[Throwable, Account]]
+  def register(email: String): Either[Throwable, Account]
+  def login(email: String, pin: String): Either[Throwable, Account]
+  
+  def deactivate(license: String): Either[Throwable, Account]
+  def reactivate(license: String): Either[Throwable, Account]
 
-  def listPools(): Future[Either[Throwable, Seq[Pool]]]
-  def addPool(pool: Pool): Future[Either[Throwable, Pool]]
-  def updatePool(pool: Pool): Future[Either[Throwable, Pool]]
+  def listPools(): Either[Throwable, Seq[Pool]]
+  def addPool(pool: Pool): Either[Throwable, Pool]
+  def updatePool(pool: Pool): Either[Throwable, Pool]
 
-  def listSurfaces(poolId: Int): Future[Either[Throwable, Seq[Surface]]]
-  def addSurface(surface: Surface): Future[Either[Throwable, Surface]]
-  def updateSurface(surface: Surface): Future[Either[Throwable, Surface]]
+  def listSurfaces(poolId: Int): Either[Throwable, Seq[Surface]]
+  def addSurface(surface: Surface): Either[Throwable, Surface]
+  def updateSurface(surface: Surface): Either[Throwable, Surface]
 
-  def listPumps(poolId: Int): Future[Either[Throwable, Seq[Pump]]]
-  def addPump(pump: Pump): Future[Either[Throwable, Pump]]
-  def updatePump(pump: Pump): Future[Either[Throwable, Pump]]
+  def listPumps(poolId: Int): Either[Throwable, Seq[Pump]]
+  def addPump(pump: Pump): Either[Throwable, Pump]
+  def updatePump(pump: Pump): Either[Throwable, Pump]
 
-  def listTimers(poolId: Int): Future[Either[Throwable, Seq[Timer]]]
-  def addTimer(timer: Timer): Future[Either[Throwable, Timer]]
-  def updateTimer(timer: Timer): Future[Either[Throwable, Timer]]
+  def listTimers(poolId: Int): Either[Throwable, Seq[Timer]]
+  def addTimer(timer: Timer): Either[Throwable, Timer]
+  def updateTimer(timer: Timer): Either[Throwable, Timer]
 
-  def listTimerSettings(timerId: Int): Future[Either[Throwable, Seq[TimerSetting]]]
-  def addTimerSetting(timerSetting: TimerSetting): Future[Either[Throwable, TimerSetting]]
-  def updateTimerSetting(timerSetting: TimerSetting): Future[Either[Throwable, TimerSetting]]
+  def listTimerSettings(timerId: Int): Either[Throwable, Seq[TimerSetting]]
+  def addTimerSetting(timerSetting: TimerSetting): Either[Throwable, TimerSetting]
+  def updateTimerSetting(timerSetting: TimerSetting): Either[Throwable, TimerSetting]
 
-  def listHeaters(poolId: Int): Future[Either[Throwable, Seq[Heater]]]
-  def addHeater(heater: Heater): Future[Either[Throwable, Heater]]
-  def updateHeater(heater: Heater): Future[Either[Throwable, Heater]]
+  def listHeaters(poolId: Int): Either[Throwable, Seq[Heater]]
+  def addHeater(heater: Heater): Either[Throwable, Heater]
+  def updateHeater(heater: Heater): Either[Throwable, Heater]
 
-  def listHeaterSettings(heaterId: Int): Future[Either[Throwable, Seq[HeaterSetting]]]
-  def addHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Throwable, HeaterSetting]]
-  def updateHeaterSetting(heaterSetting: HeaterSetting): Future[Either[Throwable, HeaterSetting]]
+  def listHeaterSettings(heaterId: Int): Either[Throwable, Seq[HeaterSetting]]
+  def addHeaterSetting(heaterSetting: HeaterSetting): Either[Throwable, HeaterSetting]
+  def updateHeaterSetting(heaterSetting: HeaterSetting): Either[Throwable, HeaterSetting]
 
-  def listMeasurements(poolId: Int): Future[Either[Throwable, Seq[Measurement]]]
-  def addMeasurement(measurement: Measurement): Future[Either[Throwable, Measurement]]
-  def updateMeasurement(measurement: Measurement): Future[Either[Throwable, Measurement]]
+  def listMeasurements(poolId: Int): Either[Throwable, Seq[Measurement]]
+  def addMeasurement(measurement: Measurement): Either[Throwable, Measurement]
+  def updateMeasurement(measurement: Measurement): Either[Throwable, Measurement]
 
-  def listCleanings(poolId: Int): Future[Either[Throwable, Seq[Cleaning]]]
-  def addCleaning(cleaning: Cleaning): Future[Either[Throwable, Cleaning]]
-  def updateCleaning(cleaning: Cleaning): Future[Either[Throwable, Cleaning]]
+  def listCleanings(poolId: Int): Either[Throwable, Seq[Cleaning]]
+  def addCleaning(cleaning: Cleaning): Either[Throwable, Cleaning]
+  def updateCleaning(cleaning: Cleaning): Either[Throwable, Cleaning]
 
-  def listChemicals(poolId: Int): Future[Either[Throwable, Seq[Chemical]]]
-  def addChemical(chemical: Chemical): Future[Either[Throwable, Chemical]]
-  def updateChemical(chemical: Chemical): Future[Either[Throwable, Chemical]]
+  def listChemicals(poolId: Int): Either[Throwable, Seq[Chemical]]
+  def addChemical(chemical: Chemical): Either[Throwable, Chemical]
+  def updateChemical(chemical: Chemical): Either[Throwable, Chemical]
 
-  def listSupplies(poolId: Int): Future[Either[Throwable, Seq[Supply]]]
-  def addSupply(supply: Supply): Future[Either[Throwable, Supply]]
-  def updateSupply(supply: Supply): Future[Either[Throwable, Supply]]
+  def listSupplies(poolId: Int): Either[Throwable, Seq[Supply]]
+  def addSupply(supply: Supply): Either[Throwable, Supply]
+  def updateSupply(supply: Supply): Either[Throwable, Supply]
 
-  def listRepairs(poolId: Int): Future[Either[Throwable, Seq[Repair]]]
-  def addRepair(repair: Repair): Future[Either[Throwable, Repair]]
-  def updateRepair(repair: Repair): Future[Either[Throwable, Repair]]
+  def listRepairs(poolId: Int): Either[Throwable, Seq[Repair]]
+  def addRepair(repair: Repair): Either[Throwable, Repair]
+  def updateRepair(repair: Repair): Either[Throwable, Repair]
