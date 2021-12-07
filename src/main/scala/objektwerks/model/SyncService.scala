@@ -36,9 +36,9 @@ class SyncService extends Service:
   def addTimer(timer: Timer): Either[Throwable, Timer] = Right( store.addTimer(timer) )
   def updateTimer(timer: Timer): Either[Throwable, Unit] = Right( store.updateTimer(timer) )
 
-  def listTimerSettings(timerId: Int): Either[Throwable, Seq[TimerSetting]] = ???
-  def addTimerSetting(timerSetting: TimerSetting): Either[Throwable, TimerSetting] = ???
-  def updateTimerSetting(timerSetting: TimerSetting): Either[Throwable, Unit] = ???
+  def listTimerSettings(timerId: Int): Either[Throwable, Seq[TimerSetting]] = Right( store.listTiimerSettings() )
+  def addTimerSetting(timerSetting: TimerSetting): Either[Throwable, TimerSetting] = Right( store.addTimerSetting(timerSetting) )
+  def updateTimerSetting(timerSetting: TimerSetting): Either[Throwable, Unit] = Right( store.updateTimerSetting(timerSetting) )
 
   def listHeaters(poolId: Int): Either[Throwable, Seq[Heater]] = ???
   def addHeater(heater: Heater): Either[Throwable, Heater] = ???
