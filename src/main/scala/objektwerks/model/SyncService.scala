@@ -4,7 +4,10 @@ class SyncService extends Service:
   val store = Store.mapStore
   def register(email: String): Either[Throwable, Account] =
     Right( store.register(email) )
-  def login(email: String, pin: String): Either[Throwable, Account] = ???
+  def login(email: String, pin: String): Either[Throwable, Account] =
+    store.login(email, pin) match
+      case Some(account) => Right( account )
+      case None => Left( IllegalArgumentException(s"Login failed for email: $email and pin: $pin") )
 
   def deactivate(license: String): Either[Throwable, Account] = ???
   def reactivate(license: String): Either[Throwable, Account] = ???
