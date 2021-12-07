@@ -126,3 +126,12 @@ object Store:
     newChemical
 
   def updateChemical(chemical: Chemical): Unit = chemicals.update(chemical.id, chemical)
+
+  def listSupplies(): Seq[Supply] = supplies.values.to(Seq)
+
+  def addSupply(supply: Supply): Supply =
+    val newSupply = supply.copy(id = supplies.size + 1)
+    supplies.addOne(newSupply.id, newSupply)
+    newSupply
+
+  def updateSupply(supply: Supply): Unit = supplies.update(supply.id, supply)  
