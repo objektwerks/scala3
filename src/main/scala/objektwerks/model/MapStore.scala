@@ -2,7 +2,7 @@ package objektwerks.model
 
 import scala.collection.mutable
 
-object Store:
+class MapStore:
   private val accounts = mutable.Map.empty[String, Account]
   private val pools = mutable.Map.empty[Int, Pool]
   private val surfaces = mutable.Map.empty[Int, Surface]
@@ -143,4 +143,4 @@ object Store:
     repairs.addOne(newRepair.id, newRepair)
     newRepair
 
-  def updateRepair(repair: Repair): Unit = repairs.update(repair.id, repair)  
+  def updateRepair(repair: Repair): Unit = repairs.update(repair.id, repair)
