@@ -15,9 +15,9 @@ object Dispatcher:
       case reactivate: Reactivate =>
         service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
 
-      case list: ListPools => ???
-      case add: AddPool => ???
-      case update: UpdatePool => ???
+      case list: ListPools => service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddPool => service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdatePool => service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListSurfaces => ???
       case add: AddSurface => ???
