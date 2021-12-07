@@ -43,9 +43,12 @@ object Dispatcher:
       case update: UpdateTimer =>
         service.updateTimer(update.timer).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListTimerSettings => ???
-      case add: AddTimerSetting => ???
-      case update: UpdateTimerSetting => ???
+      case list: ListTimerSettings =>
+        service.listTimerSettings(list.timerId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddTimerSetting =>
+        service.addTimerSetting(add.timerSetting).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateTimerSetting =>
+        service.updateTimerSetting(update.timerSetting).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListHeaters => ???
       case add: AddHeater => ???
