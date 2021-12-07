@@ -9,9 +9,7 @@ object Dispatcher:
         service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
 
       case login: Login =>
-        service.login(login.email, login.pin) match
-          case Right(account) => LoggedIn(account)
-          case Left(throwable) => Fault(throwable)
+        service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
 
       case deactivate: Deactivate =>
         service.deactivate(deactivate.license) match
