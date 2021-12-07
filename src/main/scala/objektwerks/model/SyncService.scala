@@ -32,9 +32,9 @@ class SyncService extends Service:
   def addPump(pump: Pump): Either[Throwable, Pump] = Right( store.addPump(pump) )
   def updatePump(pump: Pump): Either[Throwable, Unit] = Right( store.updatePump(pump) )
 
-  def listTimers(poolId: Int): Either[Throwable, Seq[Timer]] = ???
-  def addTimer(timer: Timer): Either[Throwable, Timer] = ???
-  def updateTimer(timer: Timer): Either[Throwable, Unit] = ???
+  def listTimers(poolId: Int): Either[Throwable, Seq[Timer]] = Right( store.listTiimers() )
+  def addTimer(timer: Timer): Either[Throwable, Timer] = Right( store.addTimer(timer) )
+  def updateTimer(timer: Timer): Either[Throwable, Unit] = Right( store.updateTimer(timer) )
 
   def listTimerSettings(timerId: Int): Either[Throwable, Seq[TimerSetting]] = ???
   def addTimerSetting(timerSetting: TimerSetting): Either[Throwable, TimerSetting] = ???
