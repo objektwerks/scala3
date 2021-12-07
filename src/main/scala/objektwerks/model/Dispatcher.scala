@@ -12,9 +12,7 @@ object Dispatcher:
         service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
 
       case deactivate: Deactivate =>
-        service.deactivate(deactivate.license) match
-          case Right(account) => Deactivated(account)
-          case Left(throwable) => Fault(throwable)
+        service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
 
       case reactivate: Reactivate =>
         service.reactivate(reactivate.license) match
