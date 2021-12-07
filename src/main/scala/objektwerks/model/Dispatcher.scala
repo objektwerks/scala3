@@ -50,9 +50,12 @@ object Dispatcher:
       case update: UpdateTimerSetting =>
         service.updateTimerSetting(update.timerSetting).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListHeaters => ???
-      case add: AddHeater => ???
-      case update: UpdateHeater => ???
+      case list: ListHeaters =>
+        service.listHeaters(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddHeater =>
+        service.addHeater(add.heater).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateHeater =>
+        service.updateHeater(update.heater).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListHeaterSettings => ???
       case add: AddHeaterSetting => ???
