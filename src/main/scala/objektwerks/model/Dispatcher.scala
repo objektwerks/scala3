@@ -19,9 +19,9 @@ object Dispatcher:
       case add: AddPool => service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
       case update: UpdatePool => service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListSurfaces => ???
-      case add: AddSurface => ???
-      case update: UpdateSurface => ???
+      case list: ListSurfaces => service.listSurfaces().fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddSurface => service.addSurface(add.surface).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateSurface => service.updateSurface(update.surface).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListPumps => ???
       case add: AddPump => ???
