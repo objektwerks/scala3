@@ -64,6 +64,6 @@ class SyncService extends Service:
   def addSupply(supply: Supply): Either[Throwable, Supply] = Right( store.addSupply(supply) )
   def updateSupply(supply: Supply): Either[Throwable, Unit] = Right( store.updateSupply(supply) )
 
-  def listRepairs(poolId: Int): Either[Throwable, Seq[Repair]] = ???
-  def addRepair(repair: Repair): Either[Throwable, Repair] = ???
-  def updateRepair(repair: Repair): Either[Throwable, Unit] = ???
+  def listRepairs(poolId: Int): Either[Throwable, Seq[Repair]] = Right( store.listRepairs() )
+  def addRepair(repair: Repair): Either[Throwable, Repair] = Right( store.addRepair(repair) )
+  def updateRepair(repair: Repair): Either[Throwable, Unit] = Right( store.updateRepair(repair) )
