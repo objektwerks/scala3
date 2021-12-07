@@ -16,7 +16,10 @@ class SyncService extends Service:
       case Some(account) => Right(account)
       case None => Left( IllegalArgumentException(s"License is invalid: $license") )
 
-  def reactivate(license: String): Either[Throwable, Account] = ???
+  def reactivate(license: String): Either[Throwable, Account] =
+    store.reactivate(license) match
+      case Some(account) => Right(account)
+      case None => Left( IllegalArgumentException(s"License is invalid: $license") )
 
   def listPools(): Either[Throwable, Seq[Pool]] = ???
   def addPool(pool: Pool): Either[Throwable, Pool] = ???
