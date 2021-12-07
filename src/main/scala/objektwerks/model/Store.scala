@@ -8,6 +8,7 @@ object Store:
   private val surfaces = mutable.Map.empty[Int, Surface]
   private val pumps = mutable.Map.empty[Int, Pump]
   private val timers = mutable.Map.empty[Int, Timer]
+  private val timerSettings = mutable.Map.empty[Int, TimerSetting]
 
   def register(email: String): Account =
     val account = Account(email)
@@ -64,3 +65,12 @@ object Store:
     newTimer
 
   def updateTimer(timer: Timer): Unit = timers.update(timer.id, timer)
+
+  def listTiimerSettings(): Seq[TimerSetting] = timerSettings.values.to(Seq)
+
+  def addTimerSetting(timerSetting: TimerSetting): TimerSetting =
+    val newTimerSetting = timerSetting.copy(id = timerSettings.size + 1)
+    timerSettings.addOne(newTimerSetting.id, newTimerSetting)
+    newTimerSetting
+
+  def updateTimerSetting(timerSetting: TimerSetting): Unit = timerSettings.update(timerSetting.id, timerSetting)  
