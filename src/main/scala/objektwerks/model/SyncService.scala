@@ -8,17 +8,17 @@ class SyncService extends Service:
   def login(email: String, pin: String): Either[Throwable, Account] =
     store.login(email, pin) match
       case Some(account) => Right(account)
-      case None => Left( IllegalArgumentException(s"Login failed for email: $email and pin: $pin") )
+      case None => Left(IllegalArgumentException(s"Login failed for email: $email and pin: $pin"))
 
   def deactivate(license: String): Either[Throwable, Account] =
     store.deactivate(license) match
       case Some(account) => Right(account)
-      case None => Left( IllegalArgumentException(s"License is invalid: $license") )
+      case None => Left(IllegalArgumentException(s"License is invalid: $license"))
 
   def reactivate(license: String): Either[Throwable, Account] =
     store.reactivate(license) match
       case Some(account) => Right(account)
-      case None => Left( IllegalArgumentException(s"License is invalid: $license") )
+      case None => Left(IllegalArgumentException(s"License is invalid: $license"))
 
   def listPools(): Either[Throwable, Seq[Pool]] = Right( store.listPools() )
   def addPool(pool: Pool): Either[Throwable, Pool] = Right( store.addPool(pool) )
