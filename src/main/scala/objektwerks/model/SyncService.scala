@@ -44,7 +44,7 @@ class SyncService extends Service:
   def addHeater(heater: Heater): Either[Throwable, Heater] = Right( store.addHeater(heater) )
   def updateHeater(heater: Heater): Either[Throwable, Unit] = Right( store.updateHeater(heater) )
 
-  def listHeaterSettings(heaterId: Int): Either[Throwable, Seq[HeaterSetting]] = Right( store.listTiimerSettings() )
+  def listHeaterSettings(heaterId: Int): Either[Throwable, Seq[HeaterSetting]] = Right( store.listHeaterSettings() )
   def addHeaterSetting(heaterSetting: HeaterSetting): Either[Throwable, HeaterSetting] = Right( store.addHeaterSetting(heaterSetting) )
   def updateHeaterSetting(heaterSetting: HeaterSetting): Either[Throwable, Unit] = Right( store.updateHeaterSetting(heaterSetting) )
 
