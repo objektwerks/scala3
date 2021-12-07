@@ -15,11 +15,17 @@ object Store:
   def login(email: String, pin: String): Option[Account] =
     accounts.values.find(account => account.email == email && account.pin == pin)
 
-  def deactivate(license: String): Account =
-    accounts.getOrElse(license, Account()).copy(deactivated = DateTime.currentDate, activated = 0)
+  def deactivate(license: String): Option[Account] =
+    val account = accounts.get(license)
+    if account.nonEmpty then
+      Some( account.get.copy(deactivated = DateTime.currentDate, activated = 0) )
+    else None
 
-  def reactivate(license: String): Account =
-    accounts.getOrElse(license, Account()).copy(activated = DateTime.currentDate, deactivated = 0)
+  def reactivate(license: String): Option[Account] =
+    val account = accounts.get(license)
+    if account.nonEmpty then
+      Some( account.get.copy(activated = DateTime.currentDate, deactivated = 0) )
+    else None
 
   def listPools(): Seq[Pool] = pools.values.to(Seq)
 
