@@ -14,6 +14,8 @@ object Store:
   private val measurements = mutable.Map.empty[Int, Measurement]
   private val cleanings = mutable.Map.empty[Int, Cleaning]
   private val chemicals = mutable.Map.empty[Int, Chemical]
+  private val supplies = mutable.Map.empty[Int, Supply]
+  private val repairs = mutable.Map.empty[Int, Repair]
 
   def register(email: String): Account =
     val account = Account(email)
