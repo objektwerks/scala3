@@ -3,8 +3,7 @@ package objektwerks.model
 class SyncService extends Service:
   val store = Store.mapStore
 
-  def register(email: String): Either[Throwable, Account] =
-    Right( store.register(email) )
+  def register(email: String): Either[Throwable, Account] = Right( store.register(email) )
 
   def login(email: String, pin: String): Either[Throwable, Account] =
     store.login(email, pin) match
@@ -21,9 +20,9 @@ class SyncService extends Service:
       case Some(account) => Right(account)
       case None => Left( IllegalArgumentException(s"License is invalid: $license") )
 
-  def listPools(): Either[Throwable, Seq[Pool]] = ???
-  def addPool(pool: Pool): Either[Throwable, Pool] = ???
-  def updatePool(pool: Pool): Either[Throwable, Unit] = ???
+  def listPools(): Either[Throwable, Seq[Pool]] = Right( store.listPools() )
+  def addPool(pool: Pool): Either[Throwable, Pool] = Right( store.addPool(pool) )
+  def updatePool(pool: Pool): Either[Throwable, Unit] = Right( store.updatePool(pool) )
 
   def listSurfaces(poolId: Int): Either[Throwable, Seq[Surface]] = ???
   def addSurface(surface: Surface): Either[Throwable, Surface] = ???
