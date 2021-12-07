@@ -6,7 +6,8 @@ object Store:
   private val accounts = mutable.Map.empty[String, Account]
   private val pools = mutable.Map.empty[Int, Pool]
   private val surfaces = mutable.Map.empty[Int, Surface]
-  
+  private val pumps = mutable.Map.empty[Int, Pump]
+
   def register(email: String): Account =
     val account = Account(email)
     accounts.addOne(account.license, account).getOrElse(account.license, Account())
@@ -35,3 +36,11 @@ object Store:
     surfaces.addOne(newSurface.id, newSurface).getOrElse(newSurface.id, Surface())
 
   def updateSurface(surface: Surface): Unit = surfaces.update(surface.id, surface)
+
+  def listPumps(): Seq[Pump] = pumps.values.to(Seq)
+
+  def addPump(pump: Pump): Pump =
+    val newPump = pump.copy(id = pumps.size + 1)
+    pumps.addOne(newPump.id, newPump).getOrElse(newPump.id, Pump())
+
+  def updatePump(pump: Pump): Unit = pumps.update(pump.id, pump)
