@@ -1,8 +1,6 @@
 package objektwerks.model
 
-object Dispatcher:
-  val service = Service.syncService
-
+class Dispatcher(service: Service):
   def dispatch(command: Command): Event =
     command match
       case register: Register =>
