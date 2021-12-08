@@ -1,15 +1,16 @@
 package objektwerks.model
 
-import java.util.UUID
+import objektwerks.model.Account.newLicense
 
+import java.util.UUID
 import scala.util.Random
 
 sealed trait Entity
 
-final case class Account(license: String = "",
-                         email: String = "",
-                         pin: String = "",
-                         activated: Int = 0,
+final case class Account(license: String = newLicense,
+                         email: String,
+                         pin: String = newPin,
+                         activated: Int = DateTime.currentDate,
                          deactivated: Int = 0) extends Entity
 
 object Account:
@@ -27,13 +28,6 @@ object Account:
         .prepended(newSpecialChar)
         .appended(newSpecialChar)
     ).mkString
-
-  def apply(email: String): Account = Account(
-    license = newLicense,
-    email = email,
-    pin = newPin,
-    activated = DateTime.currentDate
-  )
 
 final case class Pool(id: Int = 0,
                       license: String = "",
