@@ -123,11 +123,23 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListHeaters =>
-        service.listHeaters(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listHeaters(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddHeater =>
-        service.addHeater(add.heater).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.heater.isValid then
+            service.addHeater(add.heater).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid heater: ${add.heater}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdateHeater =>
-        service.updateHeater(update.heater).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.heater.isValid then
+            service.updateHeater(update.heater).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid heater: ${update.heater}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListHeaterSettings =>
         service.listHeaterSettings(list.heaterId).fold(throwable => Fault(throwable), entities => Listed(entities))
