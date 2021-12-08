@@ -199,11 +199,23 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListChemicals =>
-        service.listChemicals(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listChemicals(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddChemical =>
-        service.addChemical(add.chemical).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.chemical.isValid then
+            service.addChemical(add.chemical).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid chemical: ${add.chemical}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdateChemical =>
-        service.updateChemical(update.chemical).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.chemical.isValid then
+            service.updateChemical(update.chemical).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid chemical: ${update.chemical}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListSupplies =>
         service.listSupplies(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
