@@ -12,11 +12,11 @@ Run
 
 Model
 -----
-1. Client --- Command ---> SyncDispatcher
-2. SyncDispatcher --- T... ---> SyncService
-3. SyncService --- T... ---> MapStore ( via register: Emailer --- Email ---> Smtp )
-4. SyncService --- Either[Throwable, T] ---> SyncDispatcher
-5. SyncDispatcher --- Event ---> Client
+1. Client --- Command ---> Dispatcher
+2. Dispatcher --- T... ---> Service
+3. Service --- T... ---> Store --- Email ---> Emailer ( via Store.register )
+4. Service --- Either[Throwable, T] ---> Dispatcher
+5. Dispatcher --- Event ---> Client
 
 Docs
 ----
