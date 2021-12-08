@@ -14,7 +14,7 @@ Model
 -----
 1. Client --- Command ---> SyncDispatcher
 2. SyncDispatcher --- T... ---> SyncService
-3. SyncService --- T... ---> MapStore
+3. SyncService --- T... ---> MapStore ( via register: Emailer --- Email ---> Smtp )
 4. SyncService --- Either[Throwable, T] ---> SyncDispatcher
 5. SyncDispatcher --- Event ---> Client
 
