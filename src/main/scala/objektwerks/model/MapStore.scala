@@ -25,6 +25,10 @@ class MapStore extends Store:
   def login(email: String, pin: String): Option[Account] =
     accounts.values.find(account => account.email == email && account.pin == pin)
 
+  def isAuthorized(license: String): Boolean =
+    if accounts.contains(license) then true
+    else false
+
   def deactivate(license: String): Option[Account] =
     val account = accounts.get(license)
     if account.nonEmpty then
