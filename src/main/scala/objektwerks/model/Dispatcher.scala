@@ -64,9 +64,12 @@ object Dispatcher:
       case update: UpdateHeaterSetting =>
         service.updateHeaterSetting(update.heaterSetting).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListMeasurements => ???
-      case add: AddMeasurement => ???
-      case update: UpdateMeasurement => ???
+      case list: ListMeasurements =>
+        service.listMeasurements(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddMeasurement =>
+        service.addMeasurement(add.measurement).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateMeasurement =>
+        service.updateMeasurement(update.measurement).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListCleanings => ???
       case add: AddCleaning => ???
