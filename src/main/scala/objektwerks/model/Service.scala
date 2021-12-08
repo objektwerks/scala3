@@ -1,5 +1,8 @@
 package objektwerks.model
 
+object Service:
+  def syncService(store: Store): Service = SyncService(store)
+  
 trait Service:
   def register(email: String): Either[Throwable, Account]
   def login(email: String, pin: String): Either[Throwable, Account]
