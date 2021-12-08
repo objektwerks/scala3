@@ -4,7 +4,7 @@ import scala.util.Try
 
 import Validator._
 
-class SyncService(store: Store) extends Service:
+class SyncService(store: MapStore):
   def register(email: String): Either[Throwable, Account] = Try( store.register(email) ).toEither
 
   def login(email: String, pin: String): Either[Throwable, Account] =
