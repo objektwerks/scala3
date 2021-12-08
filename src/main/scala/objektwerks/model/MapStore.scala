@@ -2,7 +2,7 @@ package objektwerks.model
 
 import scala.collection.mutable
 
-class MapStore extends Store:
+class MapStore:
   private val accounts = mutable.Map.empty[String, Account]
   private val pools = mutable.Map.empty[Int, Pool]
   private val surfaces = mutable.Map.empty[Int, Surface]
