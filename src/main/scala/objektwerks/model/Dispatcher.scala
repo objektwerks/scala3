@@ -92,6 +92,9 @@ object Dispatcher:
       case update: UpdateSupply =>
         service.updateSupply(update.supply).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListRepairs => ???
-      case add: AddRepair => ???
-      case update: UpdateRepair => ???
+      case list: ListRepairs =>
+        service.listRepairs(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddRepair =>
+        service.addRepair(add.repair).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateRepair =>
+        service.updateRepair(update.repair).fold(throwable => Fault(throwable), _ => Updated())
