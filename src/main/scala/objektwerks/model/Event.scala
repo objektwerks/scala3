@@ -18,5 +18,6 @@ final case class Fault(dateOf: Int = DateTime.currentDate,
                        cause: String) extends Event
 
 object Fault {
+  def apply(message: String): Fault = Fault(cause = message)
   def apply(throwable: Throwable): Fault = Fault(cause = throwable.getMessage)
 }
