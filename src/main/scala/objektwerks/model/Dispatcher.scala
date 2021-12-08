@@ -47,11 +47,23 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListSurfaces =>
-        service.listSurfaces(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listSurfaces(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddSurface =>
-        service.addSurface(add.surface).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.surface.isValid then
+            service.addSurface(add.surface).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid surface: ${add.surface}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdateSurface =>
-        service.updateSurface(update.surface).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.surface.isValid then
+            service.updateSurface(update.surface).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid surface: ${update.surface}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListPumps =>
         service.listPumps(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
