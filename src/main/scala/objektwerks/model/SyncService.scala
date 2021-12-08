@@ -2,7 +2,7 @@ package objektwerks.model
 
 import scala.util.Try
 
-class SyncService(store: MapStore):
+class SyncService(store: Store):
   def register(email: String): Either[Throwable, Account] =
     store.register(email) match
       case Some(account) => Right(account)
