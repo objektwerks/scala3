@@ -1,7 +1,4 @@
 package objektwerks.model
-
-object Store:
-  def mapStore: Store = MapStore()
   
 trait Store:
   def register(email: String): Account
