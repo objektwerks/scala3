@@ -17,10 +17,13 @@ class MapStore:
   private val supplies = mutable.Map.empty[Int, Supply]
   private val repairs = mutable.Map.empty[Int, Repair]
 
-  def register(email: String): Account =
-    val account = Account(email)
-    accounts.addOne(account.license, account)
-    account
+  def register(email: String): Option[Account] =
+    val account = Account(email = email)
+    val message = Email(id = "1", license = account.license, address = email, message = "message")
+    if Emailer.send(message) then
+      accounts.addOne(account.license, account)
+      Some(account)
+    else None
 
   def login(email: String, pin: String): Option[Account] =
     accounts.values.find(account => account.email == email && account.pin == pin)
