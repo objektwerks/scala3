@@ -12,11 +12,11 @@ Run
 
 Model
 -----
-1. Client --- Command ---> Dispatcher
-2. Dispatcher --- T... ---> Service
-3. Service --- T... ---> Store | Service(s) ( optional )
-4. Service --- Either[Throwable, T] ---> Dispatcher
-5. Dispatcher --- Event ---> Client
+1. Client --- Command ---> SyncDispatcher
+2. SyncDispatcher --- T... ---> SyncService
+3. SyncService --- T... ---> MapStore
+4. SyncService --- Either[Throwable, T] ---> SyncDispatcher
+5. SyncDispatcher --- Event ---> Client
 
 Docs
 ----
