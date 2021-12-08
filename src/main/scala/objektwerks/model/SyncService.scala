@@ -2,8 +2,6 @@ package objektwerks.model
 
 import scala.util.Try
 
-import Validator._
-
 class SyncService(store: MapStore):
   def register(email: String): Either[Throwable, Account] =
     store.register(email) match
@@ -16,9 +14,7 @@ class SyncService(store: MapStore):
       case None => Left(IllegalArgumentException(s"Login failed for email: $email and pin: $pin"))
 
   def isAuthorized(license: String): Boolean =
-    if license.isLicense then
       Try( store.isAuthorized(license) ).fold(throwable => false, isValid => true)
-    else false
 
   def deactivate(license: String): Either[Throwable, Account] =
     store.deactivate(license) match
