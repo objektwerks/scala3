@@ -3,6 +3,7 @@ package objektwerks.model
 trait Store:
   def register(email: String): Account
   def login(email: String, pin: String): Option[Account]
+  def isAuthorized(license: String): Boolean
 
   def deactivate(license: String): Option[Account]
   def reactivate(license: String): Option[Account]
