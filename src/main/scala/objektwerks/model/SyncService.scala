@@ -1,5 +1,7 @@
 package objektwerks.model
 
+import Validator._
+
 class SyncService(store: Store) extends Service:
   def register(email: String): Either[Throwable, Account] = Right( store.register(email) )
 
@@ -7,6 +9,10 @@ class SyncService(store: Store) extends Service:
     store.login(email, pin) match
       case Some(account) => Right(account)
       case None => Left(IllegalArgumentException(s"Login failed for email: $email and pin: $pin"))
+
+  def isAuthorized(license: String): Boolean =
+    if license.isLicense then store.isAuthorized(license)
+    else false
 
   def deactivate(license: String): Either[Throwable, Account] =
     store.deactivate(license) match
