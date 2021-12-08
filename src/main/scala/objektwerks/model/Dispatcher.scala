@@ -1,10 +1,14 @@
 package objektwerks.model
 
+import Validator._
+
 class Dispatcher(service: Service):
   def dispatch(command: Command): Event =
     command match
       case register: Register =>
-        service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
+        if register.email.isEmail then
+          service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
+        else Fault(cause = s"Invalid email address: ${register.email}")
       case login: Login =>
         service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
 
