@@ -5,7 +5,10 @@ import scala.util.Try
 import Validator._
 
 class SyncService(store: MapStore):
-  def register(email: String): Either[Throwable, Account] = Try( store.register(email) ).toEither
+  def register(email: String): Either[Throwable, Account] =
+    store.register(email) match
+      case Some(account) => Right(account)
+      case None => Left(IllegalArgumentException(s"Register failed for email: $email"))
 
   def login(email: String, pin: String): Either[Throwable, Account] =
     store.login(email, pin) match
