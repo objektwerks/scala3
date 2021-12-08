@@ -29,7 +29,10 @@ class MapStore:
     accounts.values.find(account => account.email == email && account.pin == pin)
 
   def isAuthorized(license: String): Boolean =
-    accounts.get(license).filter(account => account.activated > 0).fold(false)(_ => true)
+    accounts
+      .get(license)
+      .filter(account => account.deactivated == 0 && account.activated > 0)
+      .fold(false)(_ => true)
 
   def deactivate(license: String): Option[Account] =
     val account = accounts.get(license)
