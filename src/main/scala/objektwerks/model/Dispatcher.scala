@@ -78,9 +78,12 @@ object Dispatcher:
       case update: UpdateCleaning =>
         service.updateCleaning(update.cleaning).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListChemicals => ???
-      case add: AddChemical => ???
-      case update: UpdateChemical => ???
+      case list: ListChemicals =>
+        service.listChemicals(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddChemical =>
+        service.addChemical(add.chemical).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateChemical =>
+        service.updateChemical(update.chemical).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListSupplies => ???
       case add: AddSupply => ???
