@@ -18,7 +18,10 @@ class Dispatcher(service: Service):
         else Fault(cause = s"Invalid email address: ${login.email}")
 
       case deactivate: Deactivate =>
-        service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
+        if deactivate.license.isLicense then
+          service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
+        else Fault(cause = s"Invalid license: ${deactivate.license}")
+
       case reactivate: Reactivate =>
         service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
 
