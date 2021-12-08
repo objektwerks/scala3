@@ -71,9 +71,12 @@ object Dispatcher:
       case update: UpdateMeasurement =>
         service.updateMeasurement(update.measurement).fold(throwable => Fault(throwable), _ => Updated())
 
-      case list: ListCleanings => ???
-      case add: AddCleaning => ???
-      case update: UpdateCleaning => ???
+      case list: ListCleanings =>
+        service.listCleanings(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+      case add: AddCleaning =>
+        service.addCleaning(add.cleaning).fold(throwable => Fault(throwable), entity => Added(entity))
+      case update: UpdateCleaning =>
+        service.updateCleaning(update.cleaning).fold(throwable => Fault(throwable), _ => Updated())
 
       case list: ListChemicals => ???
       case add: AddChemical => ???
