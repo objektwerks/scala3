@@ -66,11 +66,23 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListPumps =>
-        service.listPumps(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listPumps(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddPump =>
-        service.addPump(add.pump).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.pump.isValid then
+            service.addPump(add.pump).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid pump: ${add.pump}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdatePump =>
-        service.updatePump(update.pump).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.pump.isValid then
+            service.updatePump(update.pump).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid pump: ${update.pump}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListTimers =>
         service.listTimers(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
