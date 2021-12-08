@@ -10,7 +10,7 @@ object Validator:
   private val cyanuricAcid = 0 to 300
 
   extension (value: String)
-    def isLicense: Boolean = if (value.nonEmpty) value.length == 36 else false
+    def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
     def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
     def isPin: Boolean = value.length == 9
 
