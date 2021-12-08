@@ -13,7 +13,8 @@ class SyncService(store: Store) extends Service:
       case None => Left(IllegalArgumentException(s"Login failed for email: $email and pin: $pin"))
 
   def isAuthorized(license: String): Boolean =
-    if license.isLicense then store.isAuthorized(license)
+    if license.isLicense then
+      Try( store.isAuthorized(license) ).fold(throwable => false, isValid => true)
     else false
 
   def deactivate(license: String): Either[Throwable, Account] =
