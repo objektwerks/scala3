@@ -6,7 +6,7 @@ class Dispatcher(service: Service):
   def dispatch(command: Command): Event =
     command match
       case register: Register =>
-        if register.email.isEmail then
+        if register.isValid then
           service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
         else Fault(s"Invalid email address: ${register.email}")
 
