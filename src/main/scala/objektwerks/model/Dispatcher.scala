@@ -237,8 +237,20 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListRepairs =>
-        service.listRepairs(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listRepairs(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddRepair =>
-        service.addRepair(add.repair).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.repair.isValid then
+            service.addRepair(add.repair).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid repair: ${add.repair}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdateRepair =>
-        service.updateRepair(update.repair).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.repair.isValid then
+            service.updateRepair(update.repair).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid repair: ${update.repair}")
+        else Fault(s"Invalid license: ${update.license}")
