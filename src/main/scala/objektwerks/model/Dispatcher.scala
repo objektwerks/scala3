@@ -8,24 +8,24 @@ class Dispatcher(service: Service):
       case register: Register =>
         if register.email.isEmail then
           service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
-        else Fault(cause = s"Invalid email address: ${register.email}")
+        else Fault(s"Invalid email address: ${register.email}")
 
       case login: Login =>
         if login.email.isEmail then
           if login.pin.isPin then
             service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
-          else Fault(cause = s"Invalid pin: ${login.pin}")
-        else Fault(cause = s"Invalid email address: ${login.email}")
+          else Fault(s"Invalid pin: ${login.pin}")
+        else Fault(s"Invalid email address: ${login.email}")
 
       case deactivate: Deactivate =>
         if deactivate.license.isLicense then
           service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
-        else Fault(cause = s"Invalid license: ${deactivate.license}")
+        else Fault(s"Invalid license: ${deactivate.license}")
 
       case reactivate: Reactivate =>
         if reactivate.license.isLicense then
           service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
-        else Fault(cause = s"Invalid license: ${reactivate.license}")
+        else Fault(s"Invalid license: ${reactivate.license}")
 
       case list: ListPools =>
         service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
