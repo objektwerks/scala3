@@ -23,7 +23,9 @@ class Dispatcher(service: Service):
         else Fault(cause = s"Invalid license: ${deactivate.license}")
 
       case reactivate: Reactivate =>
-        service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
+        if reactivate.license.isLicense then
+          service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
+        else Fault(cause = s"Invalid license: ${reactivate.license}")
 
       case list: ListPools =>
         service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
