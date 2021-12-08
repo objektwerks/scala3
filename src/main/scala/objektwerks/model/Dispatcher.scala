@@ -104,11 +104,23 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid license: ${update.license}")
 
       case list: ListTimerSettings =>
-        service.listTimerSettings(list.timerId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listTimerSettings(list.timerId).fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddTimerSetting =>
-        service.addTimerSetting(add.timerSetting).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.timerSetting.isValid then
+            service.addTimerSetting(add.timerSetting).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid timer setting: ${add.timerSetting}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdateTimerSetting =>
-        service.updateTimerSetting(update.timerSetting).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.timerSetting.isValid then
+            service.updateTimerSetting(update.timerSetting).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid timer setting: ${update.timerSetting}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListHeaters =>
         service.listHeaters(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
