@@ -18,21 +18,33 @@ class Dispatcher(service: Service):
         else Fault(s"Invalid email address: ${login.email}")
 
       case deactivate: Deactivate =>
-        if deactivate.license.isLicense then
+        if service.isAuthorized(deactivate.license) then
           service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
         else Fault(s"Invalid license: ${deactivate.license}")
 
       case reactivate: Reactivate =>
-        if reactivate.license.isLicense then
+        if service.isAuthorized(reactivate.license) then
           service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
         else Fault(s"Invalid license: ${reactivate.license}")
 
       case list: ListPools =>
-        service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
+        if service.isAuthorized(list.license) then
+          service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
+        else Fault(s"Invalid license: ${list.license}")
+
       case add: AddPool =>
-        service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
+        if service.isAuthorized(add.license) then
+          if add.pool.isValid then
+            service.addPool(add.pool).fold(throwable => Fault(throwable), entity => Added(entity))
+          else Fault(s"Invalid pool: ${add.pool}")
+        else Fault(s"Invalid license: ${add.license}")
+
       case update: UpdatePool =>
-        service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
+        if service.isAuthorized(update.license) then
+          if update.pool.isValid then
+            service.updatePool(update.pool).fold(throwable => Fault(throwable), _ => Updated())
+          else Fault(s"Invalid pool: ${update.pool}")
+        else Fault(s"Invalid license: ${update.license}")
 
       case list: ListSurfaces =>
         service.listSurfaces(list.poolId).fold(throwable => Fault(throwable), entities => Listed(entities))
