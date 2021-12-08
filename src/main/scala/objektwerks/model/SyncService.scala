@@ -1,8 +1,6 @@
 package objektwerks.model
 
-class SyncService extends Service:
-  val store = Store.mapStore
-
+class SyncService(store: Store) extends Service:
   def register(email: String): Either[Throwable, Account] = Right( store.register(email) )
 
   def login(email: String, pin: String): Either[Throwable, Account] =
