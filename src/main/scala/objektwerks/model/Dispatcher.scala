@@ -9,8 +9,13 @@ class Dispatcher(service: Service):
         if register.email.isEmail then
           service.register(register.email).fold(throwable => Fault(throwable), account => Registered(account))
         else Fault(cause = s"Invalid email address: ${register.email}")
+
       case login: Login =>
-        service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
+        if login.email.isEmail then
+          if login.pin.isPin then
+            service.login(login.email, login.pin).fold(throwable => Fault(throwable), account => LoggedIn(account))
+          else Fault(cause = s"Invalid pin: ${login.pin}")
+        else Fault(cause = s"Invalid email address: ${login.email}")
 
       case deactivate: Deactivate =>
         service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
