@@ -2,7 +2,7 @@ package objektwerks.model
 
 import Validator._
 
-class Dispatcher(service: Service):
+class SyncDispatcher(service: Service):
   def dispatch(command: Command): Event =
     command match
       case register: Register =>
