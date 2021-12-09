@@ -25,6 +25,9 @@ class ModelTest extends AnyFunSuite with Matchers:
     surface = testAddSurface(pool, surface)
     testListSurfaces(pool)
     surface = testUpdateSurface(pool, surface)
+
+    var pump = Pump(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), model = "hayward")
+    pump = testAddPump(pool, pump)
   }
 
   def testRegister(): Account =
@@ -96,3 +99,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateSurface(pool.license, updatedSurface)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedSurface
+
+  def testAddPump(pool: Pool, pump: Pump): Pump =
+    val add = AddPump(pool.license, pump)
+    dispatcher.dispatch(add) match
+      case Added(pump: Pump) =>
+        pump.id > 0 shouldBe true
+        pump
+      case _ => fail()
