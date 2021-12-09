@@ -9,11 +9,20 @@ class ModelTest extends AnyFunSuite with Matchers:
   val store = Store()
   val service = Service(store)
   val dispatcher = Dispatcher(service)
+  var account = Account(email = "test@test.com")
 
   test("register") {
-    val command = Register("test@test.com")
-    dispatcher.dispatch(command) match {
-      case Registered(account) => account.isActivated shouldBe true
+    val command = Register(email = "test@test.com")
+    dispatcher.dispatch(command) match
+      case Registered(account) =>
+        account.isActivated shouldBe true
+        this.account = account
       case _ => fail()
-    }
+  }
+
+  test("login") {
+    val command = Login(account.email, account.pin)
+    dispatcher.dispatch(command) match
+      case LoggedIn(account) => this.account shouldBe account
+      case _ => fail()
   }
