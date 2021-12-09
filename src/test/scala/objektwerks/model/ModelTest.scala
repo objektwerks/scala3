@@ -34,6 +34,17 @@ class ModelTest extends AnyFunSuite with Matchers:
     dispatcher.dispatch(command) match
       case Deactivated(account) =>
         account.deactivated > 0 shouldBe true
+        account.activated == 0 shouldBe true
+        this.account = account
+      case _ => fail()
+  }
+
+  test("reactivate") {
+    val command = Reactivate(account.license)
+    dispatcher.dispatch(command) match
+      case Reactivated(account) =>
+        account.activated > 0 shouldBe true
+        account.deactivated == 0 shouldBe true
         this.account = account
       case _ => fail()
   }
