@@ -8,5 +8,3 @@ libraryDependencies ++= {
     "org.scalatest" %% "scalatest" % "3.2.10" % Test
   )
 }
-Test / fork := false
-Test / parallelExecution := false
