@@ -29,6 +29,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var pump = Pump(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), model = "hayward")
     pump = testAddPump(pool, pump)
     testListPumps(pool)
+    pump = testUpdatePump(pool, pump)
   }
 
   def testRegister(): Account =
@@ -114,3 +115,9 @@ class ModelTest extends AnyFunSuite with Matchers:
     dispatcher.dispatch(list) match
       case Listed(pumps) => pumps.size shouldBe 1
       case _ => fail()
+
+  def testUpdatePump(pool: Pool, pump: Pump): Pump =
+    val updatedPump = pump.copy(model = "pentair")
+    val update = UpdatePump(pool.license, updatedPump)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedPump
