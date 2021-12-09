@@ -23,6 +23,17 @@ class ModelTest extends AnyFunSuite with Matchers:
   test("login") {
     val command = Login(account.email, account.pin)
     dispatcher.dispatch(command) match
-      case LoggedIn(account) => this.account shouldBe account
+      case LoggedIn(account) =>
+        this.account shouldBe account
+        this.account = account
+      case _ => fail()
+  }
+
+  test("deactivate") {
+    val command = Deactivate(account.license)
+    dispatcher.dispatch(command) match
+      case Deactivated(account) =>
+        account.deactivated > 0 shouldBe true
+        this.account = account
       case _ => fail()
   }
