@@ -60,7 +60,6 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Listed(pools) => pools.size shouldBe 1
       case _ => fail()
 
-    val updatedPool = pool.copy(volume = 10000)
-    val update = UpdatePool(account.license, updatedPool)
+    val update = UpdatePool(account.license, pool.copy(volume = 10000))
     dispatcher.dispatch(update) shouldBe Updated()
   }
