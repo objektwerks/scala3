@@ -46,3 +46,21 @@ class ModelTest extends AnyFunSuite with Matchers:
         this.account = account
       case _ => fail()
   }
+
+  test("pool") {
+    val pool = Pool(license = account.license, name = "test", built = DateTime.localDateToInt(2001, 10, 15))
+
+    val add = AddPool(account.license, pool)
+    dispatcher.dispatch(add) match
+      case Added(pool: Pool) => pool.id > 0 shouldBe true
+      case _ => fail()
+
+    val list = ListPools(account.license)
+    dispatcher.dispatch(list) match
+      case Listed(pools) => pools.size shouldBe 1
+      case _ => fail()
+
+    val updatedPool = pool.copy(volume = 10000)
+    val update = UpdatePool(account.license, updatedPool)
+    dispatcher.dispatch(update) shouldBe Updated()
+  }
