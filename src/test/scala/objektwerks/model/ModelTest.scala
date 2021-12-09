@@ -33,8 +33,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     val command = Deactivate(account.license)
     dispatcher.dispatch(command) match
       case Deactivated(account) =>
-        account.deactivated > 0 shouldBe true
-        account.activated == 0 shouldBe true
+        account.isDeactivated shouldBe true
         this.account = account
       case _ => fail()
   }
@@ -43,8 +42,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     val command = Reactivate(account.license)
     dispatcher.dispatch(command) match
       case Reactivated(account) =>
-        account.activated > 0 shouldBe true
-        account.deactivated == 0 shouldBe true
+        account.isActivated shouldBe true
         this.account = account
       case _ => fail()
   }
