@@ -19,7 +19,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var pool = Pool(license = account.license, name = "test", built = DateTime.localDateToInt(2001, 10, 15))
     pool = testAddPool(pool)
     testListPools(account)
-    pool = testUpdatePool(pool)
+    pool = testUpdatePool(pool.copy(volume = 10000))
 
     var surface = Surface(poolId = pool.id, installed = 1, kind = "concrete")
     surface = testAddSurface(pool, surface)
@@ -128,10 +128,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case _ => fail()
 
   def testUpdatePool(pool: Pool): Pool =
-    val updatedPool = pool.copy(volume = 10000)
-    val update = UpdatePool(pool.license, updatedPool)
+    val update = UpdatePool(pool.license, pool)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedPool
+    update.pool
 
   def testAddSurface(pool: Pool, surface: Surface): Surface =
     val add = AddSurface(pool.license, surface)
