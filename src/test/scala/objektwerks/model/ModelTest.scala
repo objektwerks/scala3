@@ -40,6 +40,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     timerSetting = testAddTimerSetting(pool, timerSetting)
     testListTimerSettings(pool, timer)
     timerSetting = testUpdateTimerSetting(pool, timerSetting)
+
+    var heater = Heater(poolId = pool.id, installed = 1, model = "hayward")
+    heater = testAddHeater(pool, heater)
+    testListHeaters(pool)
+    heater = testUpdateHeater(pool, heater)
   }
 
   def testRegister(): Account =
@@ -172,3 +177,23 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateTimerSetting(pool.license, updatedTimerSetting)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedTimerSetting
+
+  def testAddHeater(pool: Pool, heater: Heater): Heater =
+    val add = AddHeater(pool.license, heater)
+    dispatcher.dispatch(add) match
+      case Added(heater: Heater) =>
+        heater.id > 0 shouldBe true
+        heater
+      case _ => fail()
+
+  def testListHeaters(pool: Pool): Unit =
+    val list = ListHeaters(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(heaters) => heaters.size shouldBe 1
+      case _ => fail()
+
+  def testUpdateHeater(pool: Pool, heater: Heater): Heater =
+    val updatedHeater = heater.copy(model = "pentair")
+    val update = UpdateHeater(pool.license, updatedHeater)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedHeater
