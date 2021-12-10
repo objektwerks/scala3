@@ -21,20 +21,25 @@ class ModelTest extends AnyFunSuite with Matchers:
     testListPools(account)
     pool = testUpdatePool(pool)
 
-    var surface = Surface(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), kind = "concrete")
+    var surface = Surface(poolId = pool.id, installed = 1, kind = "concrete")
     surface = testAddSurface(pool, surface)
     testListSurfaces(pool)
     surface = testUpdateSurface(pool, surface)
 
-    var pump = Pump(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), model = "hayward")
+    var pump = Pump(poolId = pool.id, installed = 1, model = "hayward")
     pump = testAddPump(pool, pump)
     testListPumps(pool)
     pump = testUpdatePump(pool, pump)
 
-    var timer = Timer(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), model = "intermatic")
+    var timer = Timer(poolId = pool.id, installed = 1, model = "intermatic")
     timer = testAddTimer(pool, timer)
     testListTimers(pool)
     timer = testUpdateTimer(pool, timer)
+
+    var timerSetting = TimerSetting(timerId = timer.id, created = 1, timeOn = 1, timeOff = 2)
+    timerSetting = testAddTimerSetting(pool, timerSetting)
+    testListTimerSettings(pool, timer)
+    timerSetting = testUpdateTimerSetting(pool, timerSetting)
   }
 
   def testRegister(): Account =
@@ -146,3 +151,24 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateTimer(pool.license, updatedTimer)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedTimer
+
+  def testAddTimerSetting(pool: Pool, timerSetting: TimerSetting): TimerSetting =
+    val add = AddTimerSetting(pool.license, timerSetting)
+    dispatcher.dispatch(add) match
+      case Added(timerSetting: TimerSetting) =>
+        timerSetting.id > 0 shouldBe true
+        timerSetting
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testListTimerSettings(pool: Pool, timer: Timer): Unit =
+    val list = ListTimerSettings(pool.license, timer.id)
+    dispatcher.dispatch(list) match
+      case Listed(timerSettings) => timerSettings.size shouldBe 1
+      case _ => fail()
+
+  def testUpdateTimerSetting(pool: Pool, timerSetting: TimerSetting): TimerSetting =
+    val updatedTimerSetting = timerSetting.copy(timeOff = 3)
+    val update = UpdateTimerSetting(pool.license, updatedTimerSetting)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedTimerSetting
