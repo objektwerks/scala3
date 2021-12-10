@@ -127,15 +127,15 @@ object Validator:
       supply.id >= 0 &&
       supply.poolId > 0 &&
       supply.purchased > 0 &&
-      supply.cost > 0.00 &&
       supply.item.nonEmpty &&
       supply.amount > 0.00 &&
-      supply.unit.nonEmpty
+      supply.unit.nonEmpty &&
+      supply.cost > 0.00
 
   extension (repair: Repair)
     def isValid: Boolean =
       repair.id >= 0 &&
       repair.poolId > 0 &&
       repair.repaired > 0 &&
-      repair.cost > 0.00 &&
-      repair.repair.nonEmpty
+      repair.repair.nonEmpty &&
+      repair.cost > 0.00
