@@ -34,7 +34,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var timer = Timer(poolId = pool.id, installed = 1, model = "intermatic")
     timer = testAddTimer(pool, timer)
     testListTimers(pool)
-    timer = testUpdateTimer(pool, timer)
+    testUpdateTimer(pool, timer.copy(model = "smartpool"))
 
     var timerSetting = TimerSetting(timerId = timer.id, created = 1, timeOn = 1, timeOff = 2)
     timerSetting = testAddTimerSetting(pool, timerSetting)
@@ -187,11 +187,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdateTimer(pool: Pool, timer: Timer): Timer =
-    val updatedTimer = timer.copy(model = "smartpool")
-    val update = UpdateTimer(pool.license, updatedTimer)
+  def testUpdateTimer(pool: Pool, timer: Timer): Unit =
+    val update = UpdateTimer(pool.license, timer)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedTimer
 
   def testAddTimerSetting(pool: Pool, timerSetting: TimerSetting): TimerSetting =
     val add = AddTimerSetting(pool.license, timerSetting)
