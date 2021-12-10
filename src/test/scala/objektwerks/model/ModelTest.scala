@@ -54,7 +54,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var measurement = Measurement(poolId = pool.id, measured = 1)
     measurement = testAddMeasurement(pool, measurement)
     testListMeasurements(pool)
-    measurement = testUpdateMeasurement(pool, measurement)
+    testUpdateMeasurement(pool, measurement.copy(freeChlorine = 5))
 
     var cleaning = Cleaning(poolId = pool.id, cleaned = 1)
     cleaning = testAddCleaning(pool, cleaning)
@@ -267,11 +267,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdateMeasurement(pool: Pool, measurement: Measurement): Measurement =
-    val updatedMeasurement = measurement.copy(freeChlorine = 5)
-    val update = UpdateMeasurement(pool.license, updatedMeasurement)
+  def testUpdateMeasurement(pool: Pool, measurement: Measurement): Unit =
+    val update = UpdateMeasurement(pool.license, measurement)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedMeasurement
 
   def testAddCleaning(pool: Pool, cleaning: Cleaning): Cleaning =
     val add = AddCleaning(pool.license, cleaning)
