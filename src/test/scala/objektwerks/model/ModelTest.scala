@@ -66,10 +66,15 @@ class ModelTest extends AnyFunSuite with Matchers:
     testListChemicals(pool)
     chemical = testUpdateChemical(pool, chemical)
 
-    var supply = Supply(poolId = pool.id, purchased = 1, cost = 1.0, item = "brush", amount = 10.0, unit = "usd")
+    var supply = Supply(poolId = pool.id, purchased = 1, item = "chlorine", amount = 1.0, unit = "gallon", cost = 5.00)
     supply = testAddSupply(pool, supply)
     testListSupplies(pool)
     supply = testUpdateSupply(pool, supply)
+
+    var repair = Repair(poolId = pool.id, repaired = 1, repair = "pump", cost = 100.0)
+    repair = testAddRepair(pool, repair)
+    testListRepairs(pool)
+    repair = testUpdateRepair(pool, repair)
   }
 
   def testRegister(): Account =
@@ -343,7 +348,29 @@ class ModelTest extends AnyFunSuite with Matchers:
       case _ => fail()
 
   def testUpdateSupply(pool: Pool, supply: Supply): Supply =
-    val updatedSupply = supply.copy(amount = 15.0)
+    val updatedSupply = supply.copy(cost = 6.0)
     val update = UpdateSupply(pool.license, updatedSupply)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedSupply
+
+  def testAddRepair(pool: Pool, repair: Repair): Repair =
+    val add = AddRepair(pool.license, repair)
+    dispatcher.dispatch(add) match
+      case Added(repair: Repair) =>
+        repair.id > 0 shouldBe true
+        repair
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testListRepairs(pool: Pool): Unit =
+    val list = ListRepairs(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(repairs) => repairs.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testUpdateRepair(pool: Pool, repair: Repair): Repair =
+    val updatedRepair = repair.copy(cost = 105.0)
+    val update = UpdateRepair(pool.license, updatedRepair)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedRepair
