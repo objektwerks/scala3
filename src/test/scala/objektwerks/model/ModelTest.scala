@@ -39,7 +39,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var timerSetting = TimerSetting(timerId = timer.id, created = 1, timeOn = 1, timeOff = 2)
     timerSetting = testAddTimerSetting(pool, timerSetting)
     testListTimerSettings(pool, timer)
-    timerSetting = testUpdateTimerSetting(pool, timerSetting)
+    testUpdateTimerSetting(pool, timerSetting.copy(timeOff = 3))
 
     var heater = Heater(poolId = pool.id, installed = 1, model = "hayward")
     heater = testAddHeater(pool, heater)
@@ -207,11 +207,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdateTimerSetting(pool: Pool, timerSetting: TimerSetting): TimerSetting =
-    val updatedTimerSetting = timerSetting.copy(timeOff = 3)
-    val update = UpdateTimerSetting(pool.license, updatedTimerSetting)
+  def testUpdateTimerSetting(pool: Pool, timerSetting: TimerSetting): Unit =
+    val update = UpdateTimerSetting(pool.license, timerSetting)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedTimerSetting
 
   def testAddHeater(pool: Pool, heater: Heater): Heater =
     val add = AddHeater(pool.license, heater)
