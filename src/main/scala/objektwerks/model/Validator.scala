@@ -51,28 +51,28 @@ object Validator:
   extension (surface: Surface)
     def isValid: Boolean =
       surface.id >= 0 &&
-      surface.poolId >= 0 &&
+      surface.poolId > 0 &&
       surface.installed > 0 &&
       surface.kind.nonEmpty
 
   extension (pump: Pump)
     def isValid: Boolean =
       pump.id >= 0 &&
-      pump.poolId >= 0 &&
+      pump.poolId > 0 &&
       pump.installed > 0 &&
       pump.model.nonEmpty
 
   extension (timer: Timer)
     def isValid: Boolean =
       timer.id >= 0 &&
-      timer.poolId >= 0 &&
+      timer.poolId > 0 &&
       timer.installed > 0 &&
       timer.model.nonEmpty
 
   extension (timerSetting: TimerSetting)
     def isValid: Boolean =
       timerSetting.id >= 0 &&
-      timerSetting.timerId >= 0 &&
+      timerSetting.timerId > 0 &&
       timerSetting.created > 0 &&
       timerSetting.timeOn > 0 &&
       timerSetting.timeOff > 0 &&
@@ -81,14 +81,14 @@ object Validator:
   extension (heater: Heater)
     def isValid: Boolean =
       heater.id >= 0 &&
-      heater.poolId >= 0 &&
+      heater.poolId > 0 &&
       heater.installed > 0 &&
       heater.model.nonEmpty
 
   extension (heaterSetting: HeaterSetting)
     def isValid: Boolean =
       heaterSetting.id >= 0 &&
-      heaterSetting.heaterId >= 0 &&
+      heaterSetting.heaterId > 0 &&
       heaterSetting.temp > 0 &&
       heaterSetting.dateOn > 0 &&
       heaterSetting.dateOff >= 0
@@ -96,7 +96,7 @@ object Validator:
   extension (measurement: Measurement)
     def isValid: Boolean =
       measurement.id >= 0 &&
-      measurement.poolId >= 0 &&
+      measurement.poolId > 0 &&
       measurement.measured > 0 &&
       temp.contains(measurement.temp) &&
       totalHardness.contains(measurement.totalHardness) &&
@@ -110,13 +110,13 @@ object Validator:
   extension (cleaning: Cleaning)
     def isValid: Boolean =
       cleaning.id >= 0 &&
-      cleaning.poolId >= 0 &&
+      cleaning.poolId > 0 &&
       cleaning.cleaned > 0
 
   extension (chemical: Chemical)
     def isValid: Boolean =
       chemical.id >= 0 &&
-      chemical.poolId >= 0 &&
+      chemical.poolId > 0 &&
       chemical.added > 0 &&
       chemical.chemical.nonEmpty &&
       chemical.amount > 0.00 &&
@@ -125,7 +125,7 @@ object Validator:
   extension (supply: Supply)
     def isValid: Boolean =
       supply.id >= 0 &&
-      supply.poolId >= 0 &&
+      supply.poolId > 0 &&
       supply.purchased > 0 &&
       supply.cost > 0.00 &&
       supply.item.nonEmpty &&
@@ -135,7 +135,7 @@ object Validator:
   extension (repair: Repair)
     def isValid: Boolean =
       repair.id >= 0 &&
-      repair.poolId >= 0 &&
+      repair.poolId > 0 &&
       repair.repaired > 0 &&
       repair.cost > 0.00 &&
       repair.repair.nonEmpty
