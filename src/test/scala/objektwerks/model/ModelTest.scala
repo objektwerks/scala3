@@ -74,7 +74,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var repair = Repair(poolId = pool.id, repaired = 1, repair = "pump", cost = 100.0)
     repair = testAddRepair(pool, repair)
     testListRepairs(pool)
-    repair = testUpdateRepair(pool, repair)
+    testUpdateRepair(pool, repair.copy(cost = 105.0))
   }
 
   def testRegister(): Account =
@@ -347,8 +347,6 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdateRepair(pool: Pool, repair: Repair): Repair =
-    val updatedRepair = repair.copy(cost = 105.0)
-    val update = UpdateRepair(pool.license, updatedRepair)
+  def testUpdateRepair(pool: Pool, repair: Repair): Unit =
+    val update = UpdateRepair(pool.license, repair)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedRepair
