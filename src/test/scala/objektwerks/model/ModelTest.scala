@@ -30,6 +30,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     pump = testAddPump(pool, pump)
     testListPumps(pool)
     pump = testUpdatePump(pool, pump)
+
+    var timer = Timer(poolId = pool.id, installed = DateTime.localDateToInt(2001, 10, 15), model = "intermatic")
+    timer = testAddTimer(pool, timer)
+    testListTimers(pool)
+    timer = testUpdateTimer(pool, timer)
   }
 
   def testRegister(): Account =
@@ -121,3 +126,23 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdatePump(pool.license, updatedPump)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedPump
+
+  def testAddTimer(pool: Pool, timer: Timer): Timer =
+    val add = AddTimer(pool.license, timer)
+    dispatcher.dispatch(add) match
+      case Added(timer: Timer) =>
+        timer.id > 0 shouldBe true
+        timer
+      case _ => fail()
+
+  def testListTimers(pool: Pool): Unit =
+    val list = ListTimers(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(timers) => timers.size shouldBe 1
+      case _ => fail()
+
+  def testUpdateTimer(pool: Pool, timer: Timer): Timer =
+    val updatedTimer = timer.copy(model = "smartpool")
+    val update = UpdateTimer(pool.license, updatedTimer)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedTimer
