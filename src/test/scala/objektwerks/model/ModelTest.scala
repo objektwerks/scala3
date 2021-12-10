@@ -53,12 +53,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Registered(account) =>
         account.isActivated shouldBe true
         account
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testLogin(account: Account): Unit =
     val command = Login(account.email, account.pin)
     dispatcher.dispatch(command) match
       case loggedIn: LoggedIn => account shouldBe loggedIn.account
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testDeactivate(account: Account): Account =
@@ -67,6 +69,7 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Deactivated(account) =>
         account.isDeactivated shouldBe true
         account
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testReactivate(account: Account): Account =
@@ -75,6 +78,7 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Reactivated(account) =>
         account.isActivated shouldBe true
         account
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testAddPool(pool: Pool): Pool =
@@ -83,12 +87,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Added(pool: Pool) =>
         pool.id > 0 shouldBe true
         pool
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testListPools(account: Account): Unit =
     val list = ListPools(account.license)
     dispatcher.dispatch(list) match
       case Listed(pools) => pools.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdatePool(pool: Pool): Pool =
@@ -103,12 +109,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Added(surface: Surface) =>
         surface.id > 0 shouldBe true
         surface
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testListSurfaces(pool: Pool): Unit =
     val list = ListSurfaces(pool.license, pool.id)
     dispatcher.dispatch(list) match
       case Listed(surfaces) => surfaces.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdateSurface(pool: Pool, surface: Surface): Surface =
@@ -123,12 +131,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Added(pump: Pump) =>
         pump.id > 0 shouldBe true
         pump
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testListPumps(pool: Pool): Unit =
     val list = ListPumps(pool.license, pool.id)
     dispatcher.dispatch(list) match
       case Listed(pumps) => pumps.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdatePump(pool: Pool, pump: Pump): Pump =
@@ -143,12 +153,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Added(timer: Timer) =>
         timer.id > 0 shouldBe true
         timer
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testListTimers(pool: Pool): Unit =
     val list = ListTimers(pool.license, pool.id)
     dispatcher.dispatch(list) match
       case Listed(timers) => timers.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdateTimer(pool: Pool, timer: Timer): Timer =
@@ -170,6 +182,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     val list = ListTimerSettings(pool.license, timer.id)
     dispatcher.dispatch(list) match
       case Listed(timerSettings) => timerSettings.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdateTimerSetting(pool: Pool, timerSetting: TimerSetting): TimerSetting =
@@ -184,12 +197,14 @@ class ModelTest extends AnyFunSuite with Matchers:
       case Added(heater: Heater) =>
         heater.id > 0 shouldBe true
         heater
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testListHeaters(pool: Pool): Unit =
     val list = ListHeaters(pool.license, pool.id)
     dispatcher.dispatch(list) match
       case Listed(heaters) => heaters.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
       case _ => fail()
 
   def testUpdateHeater(pool: Pool, heater: Heater): Heater =
