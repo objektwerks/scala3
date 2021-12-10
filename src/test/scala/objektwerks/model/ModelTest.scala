@@ -60,6 +60,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     cleaning = testAddCleaning(pool, cleaning)
     testListCleanings(pool)
     cleaning = testUpdateCleaning(pool, cleaning)
+
+    var chemical = Chemical(poolId = pool.id, added = 1, chemical = "chlorine", amount = 1.0, unit = "gallon")
+    chemical = testAddChemical(pool, chemical)
+    testListChemicals(pool)
+    chemical = testUpdateChemical(pool, chemical)
   }
 
   def testRegister(): Account =
@@ -293,3 +298,25 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateCleaning(pool.license, updatedCleaning)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedCleaning
+
+  def testAddChemical(pool: Pool, chemical: Chemical): Chemical =
+    val add = AddChemical(pool.license, chemical)
+    dispatcher.dispatch(add) match
+      case Added(chemical: Chemical) =>
+        chemical.id > 0 shouldBe true
+        chemical
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testListChemicals(pool: Pool): Unit =
+    val list = ListChemicals(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(chemicals) => chemicals.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testUpdateChemical(pool: Pool, chemical: Chemical): Chemical =
+    val updatedChemical = chemical.copy(amount = 2.0)
+    val update = UpdateChemical(pool.license, updatedChemical)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedChemical
