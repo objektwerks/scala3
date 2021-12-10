@@ -19,12 +19,12 @@ class ModelTest extends AnyFunSuite with Matchers:
     var pool = Pool(license = account.license, name = "test", built = DateTime.localDateToInt(2001, 10, 15))
     pool = testAddPool(pool)
     testListPools(account)
-    pool = testUpdatePool(pool.copy(volume = 10000))
+    testUpdatePool(pool.copy(volume = 10000))
 
     var surface = Surface(poolId = pool.id, installed = 1, kind = "concrete")
     surface = testAddSurface(pool, surface)
     testListSurfaces(pool)
-    surface = testUpdateSurface(pool, surface)
+    testUpdateSurface(pool, surface.copy(kind = "pebble"))
 
     var pump = Pump(poolId = pool.id, installed = 1, model = "hayward")
     pump = testAddPump(pool, pump)
@@ -127,10 +127,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdatePool(pool: Pool): Pool =
+  def testUpdatePool(pool: Pool): Unit =
     val update = UpdatePool(pool.license, pool)
     dispatcher.dispatch(update) shouldBe Updated()
-    update.pool
 
   def testAddSurface(pool: Pool, surface: Surface): Surface =
     val add = AddSurface(pool.license, surface)
@@ -148,11 +147,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdateSurface(pool: Pool, surface: Surface): Surface =
-    val updatedSurface = surface.copy(kind = "pebble")
-    val update = UpdateSurface(pool.license, updatedSurface)
+  def testUpdateSurface(pool: Pool, surface: Surface): Unit =
+    val update = UpdateSurface(pool.license, surface)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedSurface
 
   def testAddPump(pool: Pool, pump: Pump): Pump =
     val add = AddPump(pool.license, pump)
