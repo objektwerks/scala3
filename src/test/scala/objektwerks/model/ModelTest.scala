@@ -50,6 +50,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     heaterSetting = testAddHeaterSetting(pool, heaterSetting)
     testListHeaterSettings(pool, heater)
     heaterSetting = testUpdateHeaterSetting(pool, heaterSetting)
+
+    var measurement = Measurement(poolId = pool.id, measured = 1)
+    measurement = testAddMeasurement(pool, measurement)
+    testListMeasurements(pool)
+    measurement = testUpdateMeasurement(pool, measurement)
   }
 
   def testRegister(): Account =
@@ -239,3 +244,25 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateHeaterSetting(pool.license, updatedHeaterSetting)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedHeaterSetting
+
+  def testAddMeasurement(pool: Pool, measurement: Measurement): Measurement =
+    val add = AddMeasurement(pool.license, measurement)
+    dispatcher.dispatch(add) match
+      case Added(measurement: Measurement) =>
+        measurement.id > 0 shouldBe true
+        measurement
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testListMeasurements(pool: Pool): Unit =
+    val list = ListMeasurements(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(measurements) => measurements.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testUpdateMeasurement(pool: Pool, measurement: Measurement): Measurement =
+    val updatedMeasurement = measurement.copy(freeChlorine = 5)
+    val update = UpdateMeasurement(pool.license, updatedMeasurement)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedMeasurement
