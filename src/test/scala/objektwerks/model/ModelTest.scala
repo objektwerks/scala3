@@ -55,6 +55,11 @@ class ModelTest extends AnyFunSuite with Matchers:
     measurement = testAddMeasurement(pool, measurement)
     testListMeasurements(pool)
     measurement = testUpdateMeasurement(pool, measurement)
+
+    var cleaning = Cleaning(poolId = pool.id, cleaned = 1)
+    cleaning = testAddCleaning(pool, cleaning)
+    testListCleanings(pool)
+    cleaning = testUpdateCleaning(pool, cleaning)
   }
 
   def testRegister(): Account =
@@ -266,3 +271,25 @@ class ModelTest extends AnyFunSuite with Matchers:
     val update = UpdateMeasurement(pool.license, updatedMeasurement)
     dispatcher.dispatch(update) shouldBe Updated()
     updatedMeasurement
+
+  def testAddCleaning(pool: Pool, cleaning: Cleaning): Cleaning =
+    val add = AddCleaning(pool.license, cleaning)
+    dispatcher.dispatch(add) match
+      case Added(cleaning: Cleaning) =>
+        cleaning.id > 0 shouldBe true
+        cleaning
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testListCleanings(pool: Pool): Unit =
+    val list = ListCleanings(pool.license, pool.id)
+    dispatcher.dispatch(list) match
+      case Listed(cleanings) => cleanings.size shouldBe 1
+      case fault: Fault => fail(fault.cause)
+      case _ => fail()
+
+  def testUpdateCleaning(pool: Pool, cleaning: Cleaning): Cleaning =
+    val updatedCleaning = cleaning.copy(deck = true)
+    val update = UpdateCleaning(pool.license, updatedCleaning)
+    dispatcher.dispatch(update) shouldBe Updated()
+    updatedCleaning
