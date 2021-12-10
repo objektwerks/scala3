@@ -29,7 +29,7 @@ class ModelTest extends AnyFunSuite with Matchers:
     var pump = Pump(poolId = pool.id, installed = 1, model = "hayward")
     pump = testAddPump(pool, pump)
     testListPumps(pool)
-    pump = testUpdatePump(pool, pump)
+    testUpdatePump(pool, pump.copy(model = "pentair"))
 
     var timer = Timer(poolId = pool.id, installed = 1, model = "intermatic")
     timer = testAddTimer(pool, timer)
@@ -167,11 +167,9 @@ class ModelTest extends AnyFunSuite with Matchers:
       case fault: Fault => fail(fault.cause)
       case _ => fail()
 
-  def testUpdatePump(pool: Pool, pump: Pump): Pump =
-    val updatedPump = pump.copy(model = "pentair")
-    val update = UpdatePump(pool.license, updatedPump)
+  def testUpdatePump(pool: Pool, pump: Pump): Unit =
+    val update = UpdatePump(pool.license, pump)
     dispatcher.dispatch(update) shouldBe Updated()
-    updatedPump
 
   def testAddTimer(pool: Pool, timer: Timer): Timer =
     val add = AddTimer(pool.license, timer)
