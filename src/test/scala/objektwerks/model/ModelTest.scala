@@ -61,12 +61,12 @@ class ModelTest extends AnyFunSuite with Matchers:
     testListCleanings(pool)
     testUpdateCleaning(pool, cleaning.copy(deck = true))
 
-    var chemical = Chemical(poolId = pool.id, added = 20010101, chemical = "chlorine", amount = 1.0, unit = UoM.gallon.abbv)
+    var chemical = Chemical(poolId = pool.id, added = 20010101, chemical = "chlorine", amount = 1.0, unit = UoM.gallon.abrv)
     chemical = testAddChemical(pool, chemical)
     testListChemicals(pool)
     testUpdateChemical(pool, chemical.copy(amount = 2.0))
 
-    var supply = Supply(poolId = pool.id, purchased = 20010101, item = "chlorine", amount = 1.0, unit = UoM.gallon.abbv, cost = 5.00)
+    var supply = Supply(poolId = pool.id, purchased = 20010101, item = "chlorine", amount = 1.0, unit = UoM.gallon.abrv, cost = 5.00)
     supply = testAddSupply(pool, supply)
     testListSupplies(pool)
     testUpdateSupply(pool, supply.copy(cost = 6.0))
