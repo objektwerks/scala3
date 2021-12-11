@@ -36,10 +36,10 @@ class DateTimeTest extends AnyFunSuite with Matchers:
   }
 
   test("high time") {
-    val localTime = LocalTime.of(23, 33)
-    localTimeToInt(localTime) shouldEqual 2333
-    localTimeToInt(23, 33) shouldEqual 2333
-    localTimeToString(localTime) shouldEqual "23:33"
-    localTimeAsStringToInt(localTimeToString(localTime)) shouldEqual 2333
-    localTimeAsIntToString(localTimeToInt(localTime)) shouldEqual "23:33"
+    val localTime = LocalTime.of(18, 14)
+    localTimeToInt(localTime) shouldEqual 1814
+    localTimeToInt(18, 14) shouldEqual 1814
+    localTimeToString(localTime) shouldEqual "18:14"
+    localTimeAsStringToInt(localTimeToString(localTime)) shouldEqual 1814
+    localTimeAsIntToString(localTimeToInt(localTime)) shouldEqual "18:14"
   }
