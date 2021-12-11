@@ -24,22 +24,22 @@ class EnumTest extends AnyFunSuite with Matchers:
     def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
   test("enum") {
-    val closed = Gate.closed
-    closed shouldBe Gate.closed
-    closed.ordinal shouldBe 0
-    closed.state shouldBe 0
-    Gate.valueOf("closed") shouldBe closed
+    val closedGate = Gate.closed
+    closedGate shouldBe Gate.closed
+    closedGate.ordinal shouldBe 0
+    closedGate.state shouldBe 0
+    Gate.valueOf("closed") shouldBe closedGate
 
-    val open = Gate.open
-    open shouldBe Gate.open
-    open.ordinal shouldBe 1
-    open.state shouldBe 1
-    Gate.valueOf("open") shouldBe open
+    val openGate = Gate.open
+    openGate shouldBe Gate.open
+    openGate.ordinal shouldBe 1
+    openGate.state shouldBe 1
+    Gate.valueOf("open") shouldBe openGate
 
     val values = Gate.values
     values.length shouldBe 2
-    values(0) shouldBe closed
-    values(1) shouldBe open
+    values(0) shouldBe closedGate
+    values(1) shouldBe openGate
 
     val mars = Planet.Mars
     mars.surfaceGravity shouldBe 3.7126290961053403
