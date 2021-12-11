@@ -3,8 +3,8 @@ package objektwerks.model
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import Validator._
 import UoM._
+import Validator._
 
 class ModelTest extends AnyFunSuite with Matchers:
   val store = Store()
