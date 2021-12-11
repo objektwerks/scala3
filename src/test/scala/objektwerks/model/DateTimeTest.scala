@@ -9,12 +9,12 @@ import DateTime._
 
 class DateTimeTest extends AnyFunSuite with Matchers:
   test("low date") {
-    val localDate = LocalDate.of(1999, 3, 3)
-    localDateToInt(localDate) shouldEqual 19990303
-    localDateToInt(1999, 3, 3) shouldEqual 19990303
-    localDateToString(localDate) shouldEqual "1999-03-03"
-    localDateAsStringToInt(localDateToString(localDate)) shouldEqual 19990303
-    localDateAsIntToString(localDateToInt(localDate)) shouldEqual "1999-03-03"
+    val localDate = LocalDate.of(2001, 1, 1)
+    localDateToInt(localDate) shouldEqual 20010101
+    localDateToInt(2001, 1, 1) shouldEqual 20010101
+    localDateToString(localDate) shouldEqual "2001-01-01"
+    localDateAsStringToInt(localDateToString(localDate)) shouldEqual 20010101
+    localDateAsIntToString(localDateToInt(localDate)) shouldEqual "2001-01-01"
   }
 
   test("high date") {
