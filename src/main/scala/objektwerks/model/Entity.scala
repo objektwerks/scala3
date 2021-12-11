@@ -5,6 +5,11 @@ import objektwerks.model.Account.newLicense
 import java.util.UUID
 import scala.util.Random
 
+enum Unit(val abbv: String):
+  case ounce extends Unit("oz")
+  case gallon extends Unit("gl")
+  case pounds extends Unit("lb")
+
 sealed trait Entity
 
 final case class Account(license: String = newLicense,
