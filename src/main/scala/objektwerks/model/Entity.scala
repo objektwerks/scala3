@@ -5,7 +5,7 @@ import objektwerks.model.Account.newLicense
 import java.util.UUID
 import scala.util.Random
 
-enum UoM(val abbv: String):
+enum UoM(val abrv: String):
   case ounce extends UoM("oz")
   case gallon extends UoM("gl")
   case pounds extends UoM("lb")
