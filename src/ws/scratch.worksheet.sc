@@ -45,3 +45,10 @@ def matchOn(z: Z): String =
 
 matchOn( X() )
 matchOn( Y() )
+
+enum U(val abbv: String):
+  case ounce extends U("oz")
+  case gallon extends U("gl")
+  case pounds extends U("lb")
+
+U.ounce.abbv
