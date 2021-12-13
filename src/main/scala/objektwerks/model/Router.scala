@@ -6,12 +6,16 @@ import cask.endpoints.postJson
 
 import upickle.default._
 
-class Router extends MainRoutes:
+abstract class Router extends MainRoutes:
   val store = Store()
   val service = Service(store)
   val dispatcher = Dispatcher(service)
 
   override def port: Int = 7272
+
+  override def host: String = "localhost"
+
+  override def main(args: Array[String]): Unit = ()
 
   @postJson("/command")
   def onCommand(request: Request) =
