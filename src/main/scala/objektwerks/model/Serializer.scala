@@ -26,10 +26,13 @@ object Serializer:
   given loginRW: ReadWriter[Login] = macroRW
   given deactivateRW: ReadWriter[Deactivate] = macroRW
   given reactivateRW: ReadWriter[Reactivate] = macroRW
+
   given listPoolsRW: ReadWriter[ListPools] = macroRW
+  given addPoolRW: ReadWriter[AddPool] = macroRW
+  given updatePoolRW: ReadWriter[UpdatePool] = macroRW
 
   given commandRW: ReadWriter[Command] = ReadWriter.merge(
-    registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW
+    registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW, addPoolRW, updatePoolRW
   )
 
   given registeringRW: ReadWriter[Registered] = macroRW
