@@ -39,9 +39,14 @@ object Serializer:
   given addPumpRW: ReadWriter[AddPump] = macroRW
   given updatePumpRW: ReadWriter[UpdatePump] = macroRW
 
+  given listTimersRW: ReadWriter[ListTimers] = macroRW
+  given addTimerRW: ReadWriter[AddTimer] = macroRW
+  given updateTimerRW: ReadWriter[UpdateTimer] = macroRW
+
   given commandRW: ReadWriter[Command] = ReadWriter.merge(
     registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW, addPoolRW, updatePoolRW,
-    listSurfacesRW, addSurfaceRW, updateSurfaceRW, listPumpsRW, addPumpRW, updatePumpRW
+    listSurfacesRW, addSurfaceRW, updateSurfaceRW, listPumpsRW, addPumpRW, updatePumpRW,
+    listTimersRW, addTimerRW, updateTimerRW
   )
 
   given registeringRW: ReadWriter[Registered] = macroRW
