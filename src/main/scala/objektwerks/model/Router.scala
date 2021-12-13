@@ -6,7 +6,7 @@ import cask.endpoints.postJson
 
 import upickle.default._
 
-object Server extends MainRoutes:
+class Router extends MainRoutes:
   val store = Store()
   val service = Service(store)
   val dispatcher = Dispatcher(service)
