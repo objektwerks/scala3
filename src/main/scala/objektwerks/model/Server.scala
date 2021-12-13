@@ -2,11 +2,21 @@ package objektwerks.model
 
 import cask.main.MainRoutes
 import cask.model.Request
-import cask.endpoints.post
+import cask.endpoints.postJson
+
+import upickle.default._
 
 object Server extends MainRoutes:
-  @post("/command")
+  val store = Store()
+  val service = Service(store)
+  val dispatcher = Dispatcher(service)
+
+  override def port: Int = 7272
+
+  @postJson("/command")
   def onCommand(request: Request) =
-    request.text("Todo")
+    val command = read[Command](request.bytes)(using Serializer.commandRW)
+    val event = dispatcher.dispatch(command)
+    write(event)(using Serializer.eventRW)
 
   initialize()
