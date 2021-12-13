@@ -19,8 +19,13 @@ abstract class Router extends MainRoutes:
 
   @postJson("/command")
   def onCommand(request: Request) =
+    println(s"*** Request: $request")
+
     val command = read[Command](request.bytes)(using Serializer.commandRW)
+    println(s"*** Command: $command")
+
     val event = dispatcher.dispatch(command)
+    println(s"*** Event: $event")
     write(event)(using Serializer.eventRW)
 
   initialize()
