@@ -18,8 +18,8 @@ object Serializer:
   given repairRW: ReadWriter[Repair] = macroRW
 
   given entityRW: ReadWriter[Entity] = ReadWriter.merge(
-    accountRW, poolRW, surfaceRW, pumpRW, timerRW, timerSettingRW,
-    heaterRW, heaterSettingRW, measurementRW, cleaningRW, chemicalRW, supplyRW, repairRW
+    accountRW, poolRW, surfaceRW, pumpRW, timerRW, timerSettingRW, heaterRW,
+    heaterSettingRW, measurementRW, cleaningRW, chemicalRW, supplyRW, repairRW
   )
 
   given registerRW: ReadWriter[Register] = macroRW
@@ -71,13 +71,20 @@ object Serializer:
   given addSupplyRW: ReadWriter[AddSupply] = macroRW
   given updateSupplyRW: ReadWriter[UpdateSupply] = macroRW
 
+  given listRepairsRW: ReadWriter[ListRepairs] = macroRW
+  given addRepairRW: ReadWriter[AddRepair] = macroRW
+  given updateRepairRW: ReadWriter[UpdateRepair] = macroRW
+
   given commandRW: ReadWriter[Command] = ReadWriter.merge(
-    registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW, addPoolRW, updatePoolRW,
-    listSurfacesRW, addSurfaceRW, updateSurfaceRW, listPumpsRW, addPumpRW, updatePumpRW,
-    listTimersRW, addTimerRW, updateTimerRW, listTimerSettingsRW, addTimerSettingRW, updateTimerSettingRW,
-    listHeatersRW, addHeaterRW, updateHeaterRW, listHeaterSettingsRW, addHeaterSettingRW, updateHeaterSettingRW,
-    listMeasurementsRW, addMeasurementRW, updateMeasurementRW, listCleaningsRW, addCleaningRW, updateCleaningRW,
-    listChemicalsRW, addChemicalRW, updateChemicalRW, listSuppliesRW, addSupplyRW, updateSupplyRW
+    registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW, addPoolRW,
+    updatePoolRW, listSurfacesRW, addSurfaceRW, updateSurfaceRW, listPumpsRW,
+    addPumpRW, updatePumpRW, listTimersRW, addTimerRW, updateTimerRW,
+    listTimerSettingsRW, addTimerSettingRW, updateTimerSettingRW, listHeatersRW,
+    addHeaterRW, updateHeaterRW, listHeaterSettingsRW, addHeaterSettingRW,
+    updateHeaterSettingRW, listMeasurementsRW, addMeasurementRW, updateMeasurementRW,
+    listCleaningsRW, addCleaningRW, updateCleaningRW, listChemicalsRW, addChemicalRW,
+    updateChemicalRW, listSuppliesRW, addSupplyRW, updateSupplyRW, listRepairsRW,
+    addRepairRW, updateRepairRW
   )
 
   given registeringRW: ReadWriter[Registered] = macroRW
