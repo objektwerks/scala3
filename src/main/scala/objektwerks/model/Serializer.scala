@@ -3,41 +3,44 @@ package objektwerks.model
 object Serializer:
   import upickle.default._
 
-  implicit val faultRW: ReadWriter[Fault] = macroRW
+  given accountRW: ReadWriter[Account] = macroRW
+  given poolRW: ReadWriter[Pool] = macroRW
+  given surfaceRW: ReadWriter[Surface] = macroRW
+  given pumpRW: ReadWriter[Pump] = macroRW
+  given timerRW: ReadWriter[Timer] = macroRW
+  given timerSettingRW: ReadWriter[TimerSetting] = macroRW
+  given heaterRW: ReadWriter[Heater] = macroRW
+  given heaterSettingRW: ReadWriter[HeaterSetting] = macroRW
+  given measurementRW: ReadWriter[Measurement] = macroRW
+  given cleaningRW: ReadWriter[Cleaning] = macroRW
+  given chemicalRW: ReadWriter[Chemical] = macroRW
+  given supplyRW: ReadWriter[Supply] = macroRW
+  given repairRW: ReadWriter[Repair] = macroRW
 
-  implicit val registerRW: ReadWriter[Register] = macroRW
-  implicit val loginRW: ReadWriter[Login] = macroRW
-  implicit val deactivateRW: ReadWriter[Deactivate] = macroRW
-  implicit val reactivateRW: ReadWriter[Reactivate] = macroRW
-
-  implicit val commandRW: ReadWriter[Command] = ReadWriter.merge(
-    registerRW, loginRW, deactivateRW, reactivateRW
-  )
-
-  implicit val registeringRW: ReadWriter[Registered] = macroRW
-  implicit val loggedInRW: ReadWriter[LoggedIn] = macroRW
-  implicit val deactivatedRW: ReadWriter[Deactivated] = macroRW
-  implicit val reactivatedRW: ReadWriter[Reactivated] = macroRW
-
-  implicit val eventRW: ReadWriter[Event] = ReadWriter.merge(
-    registeringRW, loggedInRW, deactivatedRW, reactivatedRW
-  )
-
-  implicit val accountRW: ReadWriter[Account] = macroRW
-  implicit val poolRW: ReadWriter[Pool] = macroRW
-  implicit val surfaceRW: ReadWriter[Surface] = macroRW
-  implicit val pumpRW: ReadWriter[Pump] = macroRW
-  implicit val timerRW: ReadWriter[Timer] = macroRW
-  implicit val timerSettingRW: ReadWriter[TimerSetting] = macroRW
-  implicit val heaterRW: ReadWriter[Heater] = macroRW
-  implicit val heaterSettingRW: ReadWriter[HeaterSetting] = macroRW
-  implicit val measurementRW: ReadWriter[Measurement] = macroRW
-  implicit val cleaningRW: ReadWriter[Cleaning] = macroRW
-  implicit val chemicalRW: ReadWriter[Chemical] = macroRW
-  implicit val supplyRW: ReadWriter[Supply] = macroRW
-  implicit val repairRW: ReadWriter[Repair] = macroRW
-
-  implicit val entityRW: ReadWriter[Entity] = ReadWriter.merge(
+  given entityRW: ReadWriter[Entity] = ReadWriter.merge(
     accountRW, poolRW, surfaceRW, pumpRW, timerRW, timerSettingRW,
     heaterRW, heaterSettingRW, measurementRW, cleaningRW, chemicalRW, supplyRW, repairRW
+  )
+
+  given registerRW: ReadWriter[Register] = macroRW
+  given loginRW: ReadWriter[Login] = macroRW
+  given deactivateRW: ReadWriter[Deactivate] = macroRW
+  given reactivateRW: ReadWriter[Reactivate] = macroRW
+  given listPoolsRW: ReadWriter[ListPools] = macroRW
+
+  given commandRW: ReadWriter[Command] = ReadWriter.merge(
+    registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW
+  )
+
+  given registeringRW: ReadWriter[Registered] = macroRW
+  given loggedInRW: ReadWriter[LoggedIn] = macroRW
+  given deactivatedRW: ReadWriter[Deactivated] = macroRW
+  given reactivatedRW: ReadWriter[Reactivated] = macroRW
+  given listedRW: ReadWriter[Listed] = macroRW
+  given addedRW: ReadWriter[Added] = macroRW
+  given updatedRW: ReadWriter[Updated] = macroRW
+  given faultRW: ReadWriter[Fault] = macroRW
+
+  given eventRW: ReadWriter[Event] = ReadWriter.merge(
+    registeringRW, loggedInRW, deactivatedRW, reactivatedRW, listedRW, addedRW, updatedRW, faultRW
   )
