@@ -47,10 +47,15 @@ object Serializer:
   given addTimerSettingRW: ReadWriter[AddTimerSetting] = macroRW
   given updateTimerSettingRW: ReadWriter[UpdateTimerSetting] = macroRW
 
+  given listHeatersRW: ReadWriter[ListHeaters] = macroRW
+  given addHeaterRW: ReadWriter[AddHeater] = macroRW
+  given updateHeaterRW: ReadWriter[UpdateHeater] = macroRW  
+
   given commandRW: ReadWriter[Command] = ReadWriter.merge(
     registerRW, loginRW, deactivateRW, reactivateRW, listPoolsRW, addPoolRW, updatePoolRW,
     listSurfacesRW, addSurfaceRW, updateSurfaceRW, listPumpsRW, addPumpRW, updatePumpRW,
-    listTimersRW, addTimerRW, updateTimerRW, listTimerSettingsRW, addTimerSettingRW, updateTimerSettingRW
+    listTimersRW, addTimerRW, updateTimerRW, listTimerSettingsRW, addTimerSettingRW, updateTimerSettingRW,
+    listHeatersRW, addHeaterRW, updateHeaterRW
   )
 
   given registeringRW: ReadWriter[Registered] = macroRW
