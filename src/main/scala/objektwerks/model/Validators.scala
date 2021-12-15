@@ -91,14 +91,14 @@ object Validators:
       measurement.id >= 0 &&
       measurement.poolId > 0 &&
       measurement.measured > 0 &&
-      temp.contains(measurement.temp) &&
-      totalHardness.contains(measurement.totalHardness) &&
-      totalChlorine.contains(measurement.totalChlorine) &&
-      totalBromine.contains(measurement.totalBromine) &&
-      freeChlorine.contains(measurement.freeChlorine) &&
+      tempRange.contains(measurement.temp) &&
+      totalHardnessRange.contains(measurement.totalHardness) &&
+      totalChlorineRange.contains(measurement.totalChlorine) &&
+      totalBromineRange.contains(measurement.totalBromine) &&
+      freeChlorineRange.contains(measurement.freeChlorine) &&
       (measurement.ph >= 6.2 && measurement.ph <= 8.4) &&
-      totalAlkalinity.contains(measurement.totalAlkalinity) &&
-      cyanuricAcid.contains(measurement.cyanuricAcid)
+      totalAlkalinityRange.contains(measurement.totalAlkalinity) &&
+      cyanuricAcidRange.contains(measurement.cyanuricAcid)
 
   extension (cleaning: Cleaning)
     def isValid: Boolean =
