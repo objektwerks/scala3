@@ -3,6 +3,7 @@ package objektwerks.model
 import objektwerks.model.Account.newLicense
 
 import java.util.UUID
+
 import scala.util.Random
 
 enum UoM(val abrv: String):
