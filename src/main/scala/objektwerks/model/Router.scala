@@ -10,7 +10,9 @@ trait Router extends MainRoutes:
   val store = Store()
   val service = Service(store)
   val authorizor = Authorizor(service)
-  val dispatcher = Dispatcher(authorizor, service)
+  val handler = Handler(service)
+  val dispatcher = Dispatcher(authorizor, handler)
+  
   override def port: Int = 7272
 
   override def host: String = "localhost"

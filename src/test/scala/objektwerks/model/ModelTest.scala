@@ -10,7 +10,8 @@ class ModelTest extends AnyFunSuite with Matchers:
   val store = Store()
   val service = Service(store)
   val authorizor = Authorizor(service)
-  val dispatcher = Dispatcher(authorizor, service)
+  val handler = Handler(service)
+  val dispatcher = Dispatcher(authorizor, handler)
 
   test("model") {
     var account = testRegister()
