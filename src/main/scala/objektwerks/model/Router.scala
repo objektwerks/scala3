@@ -21,11 +21,11 @@ trait Router extends MainRoutes:
   def onCommand(request: Request) =
     println(s"*** Request: $request")
 
-    val command = read[Command](request.bytes)(using Serializer.commandRW)
+    val command = read[Command](request.bytes)(using Serializers.commandRW)
     println(s"*** Command: $command")
 
     val event = dispatcher.dispatch(command)
     println(s"*** Event: $event")
-    write(event)(using Serializer.eventRW)
+    write(event)(using Serializers.eventRW)
 
   initialize()

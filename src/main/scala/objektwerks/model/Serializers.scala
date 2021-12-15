@@ -1,6 +1,6 @@
 package objektwerks.model
 
-object Serializer:
+object Serializers:
   import upickle.default._
 
   given accountRW: ReadWriter[Account] = macroRW
