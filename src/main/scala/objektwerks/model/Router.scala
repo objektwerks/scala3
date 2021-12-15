@@ -9,8 +9,8 @@ import upickle.default._
 trait Router extends MainRoutes:
   val store = Store()
   val service = Service(store)
-  val dispatcher = Dispatcher(service)
-
+  val authorizor = Authorizor(service)
+  val dispatcher = Dispatcher(authorizor, service)
   override def port: Int = 7272
 
   override def host: String = "localhost"
