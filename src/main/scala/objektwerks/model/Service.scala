@@ -18,7 +18,7 @@ class Service(store: Store):
         store.isAuthorized(license)
       ).fold(
         throwable => Unauthorized(s"Authorization failed for: $license"),
-        isValid => Authorized(license)
+        authorized => Authorized(license)
       )
 
   def deactivate(license: String): Either[Throwable, Account] =
