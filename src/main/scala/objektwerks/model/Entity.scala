@@ -84,6 +84,14 @@ final case class Measurement(id: Int = 0,
                              ph: Double = 7.4,
                              totalAlkalinity: Int = 100,
                              cyanuricAcid: Int = 50) extends Entity
+object Measurement:
+  val temp = 0 to 100
+  val totalHardness = 1 to 1000
+  val totalChlorine = 0 to 10
+  val totalBromine = 0 to 20
+  val freeChlorine = 0 to 10
+  val totalAlkalinity = 0 to 240
+  val cyanuricAcid = 0 to 300
 
 final case class Cleaning(id: Int = 0,
                           poolId: Int = 0,

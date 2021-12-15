@@ -1,14 +1,6 @@
 package objektwerks.model
 
 object Validators:
-  private val temp = 0 to 100
-  private val totalHardness = 1 to 1000
-  private val totalChlorine = 0 to 10
-  private val totalBromine = 0 to 20
-  private val freeChlorine = 0 to 10
-  private val totalAlkalinity = 0 to 240
-  private val cyanuricAcid = 0 to 300
-
   extension (value: String)
     def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
     def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
@@ -95,6 +87,7 @@ object Validators:
 
   extension (measurement: Measurement)
     def isValid: Boolean =
+      import Measurement._
       measurement.id >= 0 &&
       measurement.poolId > 0 &&
       measurement.measured > 0 &&
