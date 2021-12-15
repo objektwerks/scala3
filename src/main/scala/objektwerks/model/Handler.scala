@@ -16,7 +16,9 @@ class Handler(service: Service):
         else Fault(s"Invalid login: $login")
 
       case deactivate: Deactivate =>
-        service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
+        if deactivate.isValid then
+          service.deactivate(deactivate.license).fold(throwable => Fault(throwable), account => Deactivated(account))
+        else Fault(s"Invalid deactivate: $deactivate")
 
       case reactivate: Reactivate =>
         service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
