@@ -17,7 +17,7 @@ class Service(store: Store):
       Try(
         store.isAuthorized(license)
       ).fold(
-        throwable => Unauthorized(s"Authorization failed: $license"),
+        throwable => Unauthorized(s"Authorization failed for: $license"),
         isValid => Authorized(license)
       )
 
