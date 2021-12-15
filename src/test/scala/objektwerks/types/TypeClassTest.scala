@@ -20,7 +20,7 @@ class TypeClassTest extends AnyFunSuite with Matchers:
 
   def joinAll[T: Monoid](ts: Seq[T]): T = ts.foldLeft( summon[Monoid[T]].zero )( _.join(_) )
 
-  trait Mimicable[A]:
+  sealed trait Mimicable[A]:
     extension(a: A) def mimic: String
 
   given Mimicable[String] with
