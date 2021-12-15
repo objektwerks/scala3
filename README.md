@@ -13,12 +13,14 @@ Run
 Model
 -----
 1. Client --- Command ---> Dispatcher
-2. Dispatcher --- license ---> Authorizor
-3. Dispatcher --- T... ---> Validator
-4. Dispatcher --- T... ---> Service
-5. Service --- T... ---> Store --- Email ---> Emailer ( via Store.register )
-6. Service --- Either[Throwable, T] ---> Dispatcher
-7. Dispatcher --- Event ---> Client
+2. Dispatcher --- Command ---> Authorizor
+3. Dispatcher --- Command ---> Handler
+4. Handler --- T... ---> Validators
+5. Handler --- T... ---> Service
+6. Service --- T... ---> Store --- Email ---> Emailer ( via Store.register )
+7. Service --- Either[Throwable, T] ---> Handler
+8. Handler --- Event ---> Dispatcher
+9. Dispatcher --- Event ---> Client
 
 Docs
 ----
