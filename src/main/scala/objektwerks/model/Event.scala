@@ -4,7 +4,6 @@ sealed trait Event
 
 final case class Authorized(license: String) extends Event
 final case class Unauthorized(license: String) extends Event
-final case class AuthorizationNotRequired() extends Event
 
 final case class Validated() extends Event
 final case class ValidationFailed() extends Event
