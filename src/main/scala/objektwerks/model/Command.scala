@@ -3,10 +3,12 @@ package objektwerks.model
 sealed trait License:
   val license: String
 
+sealed trait NoLicense  
+
 sealed trait Command
 
-final case class Register(email: String) extends Command
-final case class Login(email: String, pin: String) extends Command
+final case class Register(email: String) extends Command with NoLicense
+final case class Login(email: String, pin: String) extends Command with NoLicense
 
 final case class Deactivate(license: String) extends Command with License
 final case class Reactivate(license: String) extends Command with License
