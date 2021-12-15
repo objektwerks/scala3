@@ -4,7 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import UoM._
-import Validator._
+import Validators._
 
 class ModelTest extends AnyFunSuite with Matchers:
   val store = Store()

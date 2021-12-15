@@ -1,6 +1,6 @@
 package objektwerks.model
 
-import Validator._
+import Validators._
 
 class Dispatcher(service: Service):
   def dispatch(command: Command): Event =

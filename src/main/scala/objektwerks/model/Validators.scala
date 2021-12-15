@@ -1,6 +1,6 @@
 package objektwerks.model
 
-object Validator:
+object Validators:
   private val temp = 0 to 100
   private val totalHardness = 1 to 1000
   private val totalChlorine = 0 to 10
