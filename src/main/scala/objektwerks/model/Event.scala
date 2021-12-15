@@ -2,6 +2,9 @@ package objektwerks.model
 
 sealed trait Event
 
+final case class Authorized(license: String) extends cask.util.Ws.Event
+final case class Validated() extends Event
+
 final case class Registered(account: Account) extends Event
 final case class LoggedIn(account: Account) extends Event
 
