@@ -20,7 +20,6 @@ final case class Fault(dateOf: Int = DateTime.currentDate,
                        nanoOf: Int = DateTime.nano,
                        cause: String) extends Event
 
-object Fault {
+object Fault:
   def apply(message: String): Fault = Fault(cause = message)
   def apply(throwable: Throwable): Fault = Fault(cause = throwable.getMessage)
-}
