@@ -21,7 +21,9 @@ class Handler(service: Service):
         else Fault(s"Invalid deactivate: $deactivate")
 
       case reactivate: Reactivate =>
-        service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
+        if reactivate.isValid then
+          service.reactivate(reactivate.license).fold(throwable => Fault(throwable), account => Reactivated(account))
+        else Fault(s"Invalid reactivate: $reactivate")
 
       case list: ListPools =>
         service.listPools().fold(throwable => Fault(throwable), entities => Listed(entities))
