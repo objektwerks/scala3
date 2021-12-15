@@ -13,8 +13,13 @@ class Service(store: Store):
       case Some(account) => Right(account)
       case None => Left(IllegalArgumentException(s"Login failed for email: $email and pin: $pin"))
 
-  def isAuthorized(license: String): Boolean =
-      Try( store.isAuthorized(license) ).fold(throwable => false, isValid => true)
+  def authorize(license: String): Event =
+      Try(
+        store.isAuthorized(license)
+      ).fold(
+        throwable => Fault( IllegalArgumentException(s"Authorization failed: $license") ),
+        isValid => Authorized(license)
+      )
 
   def deactivate(license: String): Either[Throwable, Account] =
     store.deactivate(license) match
