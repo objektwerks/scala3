@@ -1,7 +1,5 @@
 package objektwerks.model
 
-import Validators._
-
 class Handler(service: Service):
   def handle(command: Command): Event =
     command match

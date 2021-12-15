@@ -1,7 +1,5 @@
 package objektwerks.model
 
-import Validators._
-
 class Dispatcher(authorizer: Authorizer, handler: Handler):
   def dispatch(command: Command): Event =
     authorizer.authorize(command) match

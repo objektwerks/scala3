@@ -1,41 +1,44 @@
 package objektwerks.model
 
-sealed trait Validator[T]:
+extension (value: String)
+  def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
+  def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
+  def isPin: Boolean = value.length == 9
+
+extension (account: Account)
+  def isActivated: Boolean =
+    account.license.isLicense &&
+      account.email.isEmail &&
+      account.pin.isPin &&
+      account.activated > 0 &&
+      account.deactivated == 0
+  def isDeactivated: Boolean =
+    account.license.isLicense &&
+      account.email.isEmail &&
+      account.pin.isPin &&
+      account.activated == 0 &&
+      account.deactivated > 0  
+
+trait Validator[T]:
   extension (t: T) def isValid: Boolean
 
-  extension (value: String)
-    def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
-    def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
-    def isPin: Boolean = value.length == 9
+def validate[T](t: T)(using validator: Validator[T]): Boolean = validator.isValid(t)
 
+given Validator[Register] with
   extension (register: Register)
     def isValid: Boolean = register.email.isEmail
 
+given Validator[Login] with
   extension (login: Login)
     def isValid: Boolean = login.email.isEmail && login.pin.isPin
 
+given Validator[Deactivate] with
   extension (deactivate: Deactivate)
     def isValid: Boolean = deactivate.license.isLicense
 
+given Validator[Reactivate] with
   extension (reactivate: Reactivate)
     def isValid: Boolean = reactivate.license.isLicense
-
-  extension (account: Account)
-    def isActivated: Boolean =
-      account.license.isLicense &&
-        account.email.isEmail &&
-        account.pin.isPin &&
-        account.activated > 0 &&
-        account.deactivated == 0
-    def isDeactivated: Boolean =
-      account.license.isLicense &&
-        account.email.isEmail &&
-        account.pin.isPin &&
-        account.activated == 0 &&
-        account.deactivated > 0
-
-object Validator:
-  def isValid[T](t: T)(using validator: Validator[T]): Boolean = validator.isValid(t)
 
 given Validator[Pool] with
   extension (pool: Pool) def isValid =
