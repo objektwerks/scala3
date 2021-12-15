@@ -22,7 +22,8 @@ extension (account: Account)
 trait Validator[T]:
   extension (t: T) def isValid: Boolean
 
-def validate[T](t: T)(using validator: Validator[T]): Boolean = validator.isValid(t)
+object Validator:
+  def validate[T](t: T)(using validator: Validator[T]): Boolean = validator.isValid(t)
 
 given Validator[Register] with
   extension (register: Register)
