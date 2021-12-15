@@ -1,5 +1,8 @@
 package objektwerks.model
 
+trait Validator:
+  def isValid: Boolean
+
 object Validators:
   private val temp = 0 to 100
   private val totalHardness = 1 to 1000
