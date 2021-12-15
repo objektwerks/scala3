@@ -84,6 +84,7 @@ final case class Measurement(id: Int = 0,
                              ph: Double = 7.4,
                              totalAlkalinity: Int = 100,
                              cyanuricAcid: Int = 50) extends Entity
+
 object Measurement:
   val tempRange = 0 to 100
   val totalHardnessRange = 1 to 1000
