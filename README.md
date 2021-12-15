@@ -13,7 +13,7 @@ Run
 Model
 -----
 1. Client --- Command ---> Dispatcher
-2. Dispatcher --- Command ---> Authorizor
+2. Dispatcher --- Command ---> Authorizer
 3. Dispatcher --- Command ---> Handler
 4. Handler --- T... ---> Validators
 5. Handler --- T... ---> Service
