@@ -3,7 +3,7 @@ package objektwerks.model
 sealed trait License:
   val license: String
 
-sealed trait NoLicense  
+sealed trait NoLicense
 
 sealed trait Command
 
