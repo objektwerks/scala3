@@ -55,7 +55,9 @@ class Validator(handler: Handler):
       case add: AddSupply => add.supply.isValid
       case update: UpdateSupply => update.supply.isValid
 
-      case _ => false
+      case list: ListRepairs => true
+      case add: AddRepair => add.repair.isValid
+      case update: UpdateRepair => update.repair.isValid
 
     if isValid then handler.handle(command)
     else Fault(s"Invalid command: $command")
