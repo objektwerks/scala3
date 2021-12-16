@@ -19,29 +19,29 @@ extension (account: Account)
       account.activated == 0 &&
       account.deactivated > 0  
 
-trait Validator[T]:
+trait Validation[T]:
   extension (t: T) def isValid: Boolean
 
-object Validator:
-  def validate[T: Validator](t: T)(using validator: Validator[T]): Boolean = validator.isValid(t)
+object Validation:
+  def validate[T: Validation](t: T)(using validator: Validation[T]): Boolean = validator.isValid(t)
 
-given Validator[Register] with
+given Validation[Register] with
   extension (register: Register)
     def isValid: Boolean = register.email.isEmail
 
-given Validator[Login] with
+given Validation[Login] with
   extension (login: Login)
     def isValid: Boolean = login.email.isEmail && login.pin.isPin
 
-given Validator[Deactivate] with
+given Validation[Deactivate] with
   extension (deactivate: Deactivate)
     def isValid: Boolean = deactivate.license.isLicense
 
-given Validator[Reactivate] with
+given Validation[Reactivate] with
   extension (reactivate: Reactivate)
     def isValid: Boolean = reactivate.license.isLicense
 
-given Validator[Pool] with
+given Validation[Pool] with
   extension (pool: Pool) def isValid =
     pool.id >= 0 &&
     pool.license.isLicense &&
@@ -49,7 +49,7 @@ given Validator[Pool] with
     pool.built > 0 &&
     pool.volume >= 1000
 
-given Validator[Surface] with
+given Validation[Surface] with
   extension (surface: Surface)
     def isValid: Boolean =
       surface.id >= 0 &&
@@ -57,7 +57,7 @@ given Validator[Surface] with
         surface.installed > 0 &&
         surface.kind.nonEmpty
 
-given Validator[Pump] with
+given Validation[Pump] with
   extension (pump: Pump)
     def isValid: Boolean =
       pump.id >= 0 &&
@@ -65,7 +65,7 @@ given Validator[Pump] with
         pump.installed > 0 &&
         pump.model.nonEmpty
 
-given Validator[Timer] with
+given Validation[Timer] with
   extension (timer: Timer)
     def isValid: Boolean =
       timer.id >= 0 &&
@@ -73,7 +73,7 @@ given Validator[Timer] with
         timer.installed > 0 &&
         timer.model.nonEmpty
 
-given Validator[TimerSetting] with
+given Validation[TimerSetting] with
   extension (timerSetting: TimerSetting)
     def isValid: Boolean =
       timerSetting.id >= 0 &&
@@ -83,7 +83,7 @@ given Validator[TimerSetting] with
         timerSetting.timeOff > 0 &&
         timerSetting.timeOff > timerSetting.timeOn
 
-given Validator[Heater] with
+given Validation[Heater] with
   extension (heater: Heater)
     def isValid: Boolean =
       heater.id >= 0 &&
@@ -91,7 +91,7 @@ given Validator[Heater] with
         heater.installed > 0 &&
         heater.model.nonEmpty
 
-given Validator[HeaterSetting] with
+given Validation[HeaterSetting] with
   extension (heaterSetting: HeaterSetting)
     def isValid: Boolean =
       heaterSetting.id >= 0 &&
@@ -100,7 +100,7 @@ given Validator[HeaterSetting] with
         heaterSetting.dateOn > 0 &&
         heaterSetting.dateOff >= 0
 
-given Validator[Measurement] with
+given Validation[Measurement] with
   extension (measurement: Measurement)
     def isValid: Boolean =
       import Measurement._
@@ -116,14 +116,14 @@ given Validator[Measurement] with
         totalAlkalinityRange.contains(measurement.totalAlkalinity) &&
         cyanuricAcidRange.contains(measurement.cyanuricAcid)
 
-given Validator[Cleaning] with
+given Validation[Cleaning] with
   extension (cleaning: Cleaning)
     def isValid: Boolean =
       cleaning.id >= 0 &&
         cleaning.poolId > 0 &&
         cleaning.cleaned > 0
 
-given Validator[Chemical] with
+given Validation[Chemical] with
   extension (chemical: Chemical)
     def isValid: Boolean =
       chemical.id >= 0 &&
@@ -133,7 +133,7 @@ given Validator[Chemical] with
         chemical.amount > 0.00 &&
         chemical.unit.nonEmpty
 
-given Validator[Supply] with
+given Validation[Supply] with
   extension (supply: Supply)
     def isValid: Boolean =
       supply.id >= 0 &&
@@ -144,7 +144,7 @@ given Validator[Supply] with
         supply.unit.nonEmpty &&
         supply.cost > 0.00
 
-given Validator[Repair] with
+given Validation[Repair] with
   extension (repair: Repair)
     def isValid: Boolean =
       repair.id >= 0 &&
