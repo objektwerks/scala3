@@ -27,6 +27,10 @@ class Validator(handler: Handler):
       case add: AddTimer => add.timer.isValid
       case update: UpdateTimer => update.timer.isValid
 
+      case list: ListTimerSettings => true
+      case add: AddTimerSetting => add.timerSetting.isValid
+      case update: UpdateTimerSetting => update.timerSetting.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
