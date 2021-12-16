@@ -11,7 +11,8 @@ trait Router extends MainRoutes:
   val service = Service(store)
   val authorizer = Authorizer(service)
   val handler = Handler(service)
-  val dispatcher = Dispatcher(authorizer, handler)
+  val validator = Validator(handler)
+  val dispatcher = Dispatcher(authorizer, validator)
   
   override def port: Int = 7272
 
