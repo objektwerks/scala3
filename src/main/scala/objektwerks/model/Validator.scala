@@ -43,6 +43,10 @@ class Validator(handler: Handler):
       case add: AddMeasurement => add.measurement.isValid
       case update: UpdateMeasurement => update.measurement.isValid
 
+      case list: ListCleanings => true
+      case add: AddCleaning => add.cleaning.isValid
+      case update: UpdateCleaning => update.cleaning.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
