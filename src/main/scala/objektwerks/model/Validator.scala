@@ -47,6 +47,10 @@ class Validator(handler: Handler):
       case add: AddCleaning => add.cleaning.isValid
       case update: UpdateCleaning => update.cleaning.isValid
 
+      case list: ListChemicals => true
+      case add: AddChemical => add.chemical.isValid
+      case update: UpdateChemical => update.chemical.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
