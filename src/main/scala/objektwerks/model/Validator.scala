@@ -3,7 +3,7 @@ package objektwerks.model
 import Validation._
 
 class Validator(handler: Handler):
-  def isValid(command: Command): Event =
+  def validate(command: Command): Event =
     val isValid = command match
       case register: Register => register.isValid
       case login: Login => login.isValid
