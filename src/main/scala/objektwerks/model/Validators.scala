@@ -1,6 +1,6 @@
 package objektwerks.model
 
-object Validation:
+object Validators:
   extension (value: String)
     def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
     def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
