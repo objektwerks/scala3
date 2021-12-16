@@ -1,5 +1,4 @@
 package objektwerks.model
 
-object Emailer {
+object Emailer:
   def send(email: Email): Boolean = true
-}
