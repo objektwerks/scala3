@@ -19,6 +19,10 @@ class Validator(handler: Handler):
       case add: AddSurface => add.surface.isValid
       case update: UpdateSurface => update.surface.isValid
 
+      case list: ListPumps => true
+      case add: AddPump => add.pump.isValid
+      case update: UpdatePump => update.pump.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
