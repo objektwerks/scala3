@@ -23,6 +23,10 @@ class Validator(handler: Handler):
       case add: AddPump => add.pump.isValid
       case update: UpdatePump => update.pump.isValid
 
+      case list: ListTimers => true
+      case add: AddTimer => add.timer.isValid
+      case update: UpdateTimer => update.timer.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
