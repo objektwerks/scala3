@@ -14,13 +14,13 @@ Model
 -----
 1. Client --- Command ---> Dispatcher
 2. Dispatcher --- Command ---> Authorizer
-3. Dispatcher --- Command ---> Handler
-4. Handler --- T... ---> Validators
+3. Dispatcher --- Command ---> Validator
+4. Validator --- Command ---> Handler
 5. Handler --- T... ---> Service
 6. Service --- T... ---> Store --- Email ---> Emailer ( via Store.register )
 7. Service --- Either[Throwable, T] ---> Handler
 8. Handler --- Event ---> Dispatcher
-9. Dispatcher --- Event ---> Client
+9.  Dispatcher --- Event ---> Client
 
 Docs
 ----
