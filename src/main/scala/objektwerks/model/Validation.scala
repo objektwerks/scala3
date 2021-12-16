@@ -1,47 +1,37 @@
 package objektwerks.model
 
-extension (value: String)
-  def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
-  def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
-  def isPin: Boolean = value.length == 9
-
-extension (account: Account)
-  def isActivated: Boolean =
-    account.license.isLicense &&
-      account.email.isEmail &&
-      account.pin.isPin &&
-      account.activated > 0 &&
-      account.deactivated == 0
-  def isDeactivated: Boolean =
-    account.license.isLicense &&
-      account.email.isEmail &&
-      account.pin.isPin &&
-      account.activated == 0 &&
-      account.deactivated > 0  
-
-trait Validation[T]:
-  extension (t: T) def isValid: Boolean
-
 object Validation:
-  def validate[T: Validation](t: T)(using validator: Validation[T]): Boolean = validator.isValid(t)
+  extension (value: String)
+    def isLicense: Boolean = if value.nonEmpty then value.length == 36 else false
+    def isEmail: Boolean = value.nonEmpty && value.length >=3 && value.contains("@")
+    def isPin: Boolean = value.length == 9
 
-given Validation[Register] with
   extension (register: Register)
     def isValid: Boolean = register.email.isEmail
 
-given Validation[Login] with
   extension (login: Login)
     def isValid: Boolean = login.email.isEmail && login.pin.isPin
 
-given Validation[Deactivate] with
   extension (deactivate: Deactivate)
     def isValid: Boolean = deactivate.license.isLicense
 
-given Validation[Reactivate] with
   extension (reactivate: Reactivate)
     def isValid: Boolean = reactivate.license.isLicense
 
-given Validation[Pool] with
+  extension (account: Account)
+    def isActivated: Boolean =
+      account.license.isLicense &&
+        account.email.isEmail &&
+        account.pin.isPin &&
+        account.activated > 0 &&
+        account.deactivated == 0
+    def isDeactivated: Boolean =
+      account.license.isLicense &&
+        account.email.isEmail &&
+        account.pin.isPin &&
+        account.activated == 0 &&
+        account.deactivated > 0
+
   extension (pool: Pool) def isValid =
     pool.id >= 0 &&
     pool.license.isLicense &&
@@ -49,7 +39,6 @@ given Validation[Pool] with
     pool.built > 0 &&
     pool.volume >= 1000
 
-given Validation[Surface] with
   extension (surface: Surface)
     def isValid: Boolean =
       surface.id >= 0 &&
@@ -57,7 +46,6 @@ given Validation[Surface] with
         surface.installed > 0 &&
         surface.kind.nonEmpty
 
-given Validation[Pump] with
   extension (pump: Pump)
     def isValid: Boolean =
       pump.id >= 0 &&
@@ -65,7 +53,6 @@ given Validation[Pump] with
         pump.installed > 0 &&
         pump.model.nonEmpty
 
-given Validation[Timer] with
   extension (timer: Timer)
     def isValid: Boolean =
       timer.id >= 0 &&
@@ -73,7 +60,6 @@ given Validation[Timer] with
         timer.installed > 0 &&
         timer.model.nonEmpty
 
-given Validation[TimerSetting] with
   extension (timerSetting: TimerSetting)
     def isValid: Boolean =
       timerSetting.id >= 0 &&
@@ -83,7 +69,6 @@ given Validation[TimerSetting] with
         timerSetting.timeOff > 0 &&
         timerSetting.timeOff > timerSetting.timeOn
 
-given Validation[Heater] with
   extension (heater: Heater)
     def isValid: Boolean =
       heater.id >= 0 &&
@@ -91,7 +76,6 @@ given Validation[Heater] with
         heater.installed > 0 &&
         heater.model.nonEmpty
 
-given Validation[HeaterSetting] with
   extension (heaterSetting: HeaterSetting)
     def isValid: Boolean =
       heaterSetting.id >= 0 &&
@@ -100,7 +84,6 @@ given Validation[HeaterSetting] with
         heaterSetting.dateOn > 0 &&
         heaterSetting.dateOff >= 0
 
-given Validation[Measurement] with
   extension (measurement: Measurement)
     def isValid: Boolean =
       import Measurement._
@@ -116,14 +99,12 @@ given Validation[Measurement] with
         totalAlkalinityRange.contains(measurement.totalAlkalinity) &&
         cyanuricAcidRange.contains(measurement.cyanuricAcid)
 
-given Validation[Cleaning] with
   extension (cleaning: Cleaning)
     def isValid: Boolean =
       cleaning.id >= 0 &&
         cleaning.poolId > 0 &&
         cleaning.cleaned > 0
 
-given Validation[Chemical] with
   extension (chemical: Chemical)
     def isValid: Boolean =
       chemical.id >= 0 &&
@@ -133,7 +114,6 @@ given Validation[Chemical] with
         chemical.amount > 0.00 &&
         chemical.unit.nonEmpty
 
-given Validation[Supply] with
   extension (supply: Supply)
     def isValid: Boolean =
       supply.id >= 0 &&
@@ -144,11 +124,10 @@ given Validation[Supply] with
         supply.unit.nonEmpty &&
         supply.cost > 0.00
 
-given Validation[Repair] with
   extension (repair: Repair)
     def isValid: Boolean =
       repair.id >= 0 &&
         repair.poolId > 0 &&
         repair.repaired > 0 &&
         repair.repair.nonEmpty &&
-        repair.cost > 0.00
+          repair.cost > 0.00
