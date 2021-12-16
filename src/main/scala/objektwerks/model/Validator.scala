@@ -39,6 +39,10 @@ class Validator(handler: Handler):
       case add: AddHeaterSetting => add.heaterSetting.isValid
       case update: UpdateHeaterSetting => update.heaterSetting.isValid
 
+      case list: ListMeasurements => true
+      case add: AddMeasurement => add.measurement.isValid
+      case update: UpdateMeasurement => update.measurement.isValid
+
       case _ => false
 
     if isValid then handler.handle(command)
