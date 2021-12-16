@@ -4,13 +4,15 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import UoM._
+import Validation._
 
 class ModelTest extends AnyFunSuite with Matchers:
   val store = Store()
   val service = Service(store)
   val authorizer = Authorizer(service)
   val handler = Handler(service)
-  val dispatcher = Dispatcher(authorizer, handler)
+  val validator = Validator(handler)
+  val dispatcher = Dispatcher(authorizer, validator)
 
   test("model") {
     var account = testRegister()
