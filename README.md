@@ -1,6 +1,6 @@
 Scala 3
 -------
->Scala 3 feature tests and model.
+>Scala 3 feature tests, to include model with uPickle and scala-java-time.
 
 Test
 ----
