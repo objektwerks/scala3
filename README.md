@@ -1,6 +1,6 @@
 Scala 3
 -------
->Scala 3 feature tests.
+>Scala 3 feature tests and model.
 
 Test
 ----
