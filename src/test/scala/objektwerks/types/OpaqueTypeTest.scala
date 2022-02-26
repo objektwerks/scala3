@@ -3,26 +3,38 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import scala.language.strictEquality
+import scala.collection.mutable
+
+opaque type MAC = String
+type MACError = String
+
+object MAC:
+  def apply(mac: String): Either[MACError, MAC] =
+    Either.cond(
+      mac.length == 12,
+      mac,
+      s"MAC length must be 12, not ${mac.length} for $mac."
+    )
+
+given CanEqual[MAC, MAC] = CanEqual.derived
+
+extension (mac: MAC)
+  def address: String = mac
+  def display: String =
+    val colon = ':'
+    val chars = mac.toArray
+    val builder = mutable.StringBuilder()
+    builder += chars(0) += chars(1) += colon
+    builder += chars(2) += chars(3) += colon
+    builder += chars(4) += chars(5) += colon
+    builder += chars(6) += chars(7) += colon
+    builder += chars(8) += chars(9) += colon
+    builder += chars(10) += chars(11)
+    builder.toString
+  def number: Long = java.lang.Long.parseLong(address, 16)
+
 class OpaqueTypeTest extends AnyFunSuite with Matchers:
-  object Pulses:
-    opaque type Pulse = Int
-
-    object Pulse:
-      def apply(pulse: Int): Pulse = pulse
-
-    extension (pulse: Pulse)
-      def asInt: Int = pulse
-
-    extension (pulses: List[Pulse])
-      def avg: Double = pulses.sum / pulses.length
-
-  test("opaque") {
-    import Pulses.*
+  test("mac") {
     
-    val pulse = Pulse(59)
-    pulse shouldBe Pulse(59)
-    pulse.asInt shouldBe 59
-
-    val pulses = List(Pulse(59), Pulse(60), Pulse(61))
-    pulses.avg shouldBe 60
   }
