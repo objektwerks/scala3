@@ -34,6 +34,7 @@ class EnumTest extends AnyFunSuite with Matchers:
     val openGate = Gate.open
     openGate shouldBe Gate.open
     openGate.ordinal shouldBe 1
+    Gate.fromOrdinal(1) shouldBe Gate.open
     openGate.state shouldBe 1
     Gate.valueOf("open") shouldBe openGate
 
