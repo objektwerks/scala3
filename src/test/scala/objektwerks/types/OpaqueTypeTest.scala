@@ -10,6 +10,8 @@ opaque type MAC = String
 type MACError = String
 
 object MAC:
+  val colon = ':'
+
   def apply(mac: String): Either[MACError, MAC] =
     Either.cond(
       mac.length == 12,
@@ -22,7 +24,7 @@ given CanEqual[MAC, MAC] = CanEqual.derived
 extension (mac: MAC)
   def address: String = mac
   def display: String =
-    val colon = ':'
+    import MAC.colon
     val chars = mac.toArray
     val builder = mutable.StringBuilder()
     builder += chars(0) += chars(1) += colon
