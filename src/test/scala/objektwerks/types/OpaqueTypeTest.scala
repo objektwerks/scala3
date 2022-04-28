@@ -6,8 +6,8 @@ import org.scalatest.matchers.should.Matchers
 import scala.language.strictEquality
 import scala.collection.mutable
 
-opaque type MAC = String
 type MACError = String
+opaque type MAC = String
 
 object MAC:
   val colon = ':'
