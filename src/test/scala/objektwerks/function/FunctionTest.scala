@@ -43,9 +43,7 @@ class FunctionTest extends AnyFunSuite with Matchers:
     def multiply(x: Int): Int => Int = (y: Int) => x * y
     multiply(3)(3) shouldBe 9
 
-    def greeting(greeting: String): String => String = (name: String) => {
-      greeting + ", " + name + "!"
-    }
+    def greeting(greeting: String): String => String = (name: String) => greeting + ", " + name + "!"
     val curriedHello = greeting("Hello")
     curriedHello("John") shouldBe "Hello, John!"
 
@@ -97,9 +95,9 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("partial function") {
-    val multipleByOne: PartialFunction[Int, Int] = {
+    val multipleByOne: PartialFunction[Int, Int] =
       case i: Int if i != 0 => i * 1
-    }
+    
     ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) shouldBe true
     ( List(0, 1, 2) collect multipleByOne ) shouldBe List(1, 2)
     ( List(42, "cat") collect { case i: Int => multipleByOne(i) } ) shouldBe List(42)
@@ -121,19 +119,19 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("non-tailrec") {
-    def factorial(n: Int): Int = n match {
+    def factorial(n: Int): Int = n match
       case i if i < 1 => 1
       case _ => n * factorial(n - 1) // non-tailrec
-    }
+    
     factorial(3) shouldBe 6
   }
 
   test("tailrec") {
     @tailrec
-    def factorial(n: Int, acc: Int = 1): Int = n match {
+    def factorial(n: Int, acc: Int = 1): Int = n match
       case i if i < 1 => acc
       case _ => factorial(n - 1, acc * n) // tailrec
-    }
+    
     factorial(9) shouldBe 362880
   }
 
@@ -143,11 +141,11 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("impure function") {
-    def add(x: Int, y: Int): Int = {
+    def add(x: Int, y: Int): Int =
       val sum = x + y
       println(s"Side-effeecting impure function using println: $sum.")
       sum
-    }
+
     add(1, 2) shouldBe 3
   }
 
@@ -205,9 +203,7 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("intersection") {
-    def intersection[A](as: List[A], bs: List[A]): List[A] = {
-      for (i <- as if bs.contains(i)) yield i
-    }
+    def intersection[A](as: List[A], bs: List[A]): List[A] = for (i <- as if bs.contains(i)) yield i
 
     val xs = List.range(1, 10)
     val ys = List.range(1, 20)
@@ -219,9 +215,8 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("does List A contain List B") {
-    def doesListAcontainListB[A](listA: List[A], listB: List[A]): Boolean = {
+    def doesListAcontainListB[A](listA: List[A], listB: List[A]): Boolean =
       listB.count(b => listA.contains(b)) == listB.length
-    }
 
     doesListAcontainListB( listA = (1 to 20).toList, listB = (5 to 15).toList ) shouldBe true
     doesListAcontainListB( listA = (15 to 50).toList, listB = (10 to 30).toList ) shouldBe false
@@ -229,18 +224,16 @@ class FunctionTest extends AnyFunSuite with Matchers:
 
   test("timer") {
     @tailrec
-    def factorial(n: Int, acc: Int = 1): Int = n match {
+    def factorial(n: Int, acc: Int = 1): Int = n match
       case i if i < 1 => acc
       case _ => factorial(n - 1, acc * n) // tailrec
-    }
 
-    def timer[A](codeblock: => A): (A, Double) = {
+    def timer[A](codeblock: => A): (A, Double) =
       val startTime = System.nanoTime
       val result = codeblock
       val stopTime = System.nanoTime
       val delta = stopTime - startTime
       (result, delta/1000000d)
-    }
 
     val (result, time) = timer { factorial(19) }
     result shouldBe 109641728
@@ -248,12 +241,11 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("diff as percentage") {
-    def diffAsPercentage(previous: Double, current: Double): Int = {
+    def diffAsPercentage(previous: Double, current: Double): Int =
       val dividend = current - previous
       val divisor = ( current + previous ) / 2
       val delta = Math.abs( dividend / divisor ) * 100
       delta.round.toInt
-    }
 
     diffAsPercentage(70.0, 75.0) shouldBe 7
     diffAsPercentage(75.0, 70.0) shouldBe 7
