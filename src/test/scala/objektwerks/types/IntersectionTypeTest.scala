@@ -10,10 +10,13 @@ class IntersectionTypeTest extends AnyFunSuite with Matchers:
   sealed trait Mic:
     def micEnabled: Boolean = true
 
-  open class MobilePhone
+  open class BasicPhone extends Camera with Mic
+
+  open class SuperPhone
 
   def verifyMobilePhone(mobilePhone: Camera & Mic): Boolean = mobilePhone.cameraEnabled && mobilePhone.micEnabled
 
   test("intersection") {
-    verifyMobilePhone( new MobilePhone with Camera with Mic ) shouldBe true
-  }
+    verifyMobilePhone( new BasicPhone ) shouldBe true
+    verifyMobilePhone( new SuperPhone with Camera with Mic ) shouldBe true
+ }
