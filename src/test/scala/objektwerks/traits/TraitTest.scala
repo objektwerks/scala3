@@ -2,6 +2,7 @@ package objektwerks.traits
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+import javax.swing.text.html.parser.Entity
 
 class TraitTest extends AnyFunSuite with Matchers:
   enum Honorific(honorific: String):
@@ -55,4 +56,13 @@ class TraitTest extends AnyFunSuite with Matchers:
     val coach = Coach("barney rebel")
     coach.topic shouldBe "football"
     coach.speak() shouldBe "go team go!"
+  }
+
+  sealed transparent trait Entity
+  final case class Person(name: String, age: Int)
+
+  test("transparent") {
+    val persons = Set( Person("fred", 25), Person("barney", 28) )
+    persons.size shouldBe 2
+    // Persons is of type Set[Person] --- not Set[Person & Product & Serializable]
   }
