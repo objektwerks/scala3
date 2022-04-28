@@ -19,4 +19,4 @@ class IntersectionTypeTest extends AnyFunSuite with Matchers:
   test("intersection") {
     verifyMobilePhone( new BasicPhone ) shouldBe true
     verifyMobilePhone( new SuperPhone with Camera with Mic ) shouldBe true
- }
+  }
