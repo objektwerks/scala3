@@ -25,5 +25,5 @@ class TypesTest extends AnyFunSuite with Matchers:
     assert( bounce(two) == two )
     // assert( bounceStrict(n) == n ) Found: (n : Int) Required: (2 : Int)
     assert( bounceStrict(two) == two )
-    assert( pi == pi )
+    assert( 3.14 == pi )
   }
