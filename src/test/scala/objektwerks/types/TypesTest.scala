@@ -18,7 +18,10 @@ class TypesTest extends AnyFunSuite with Matchers:
     val two: 2 = 2
 
     def bounce(n: Int): Int = n
+    def bounceStrict(two: 2): Int = n
 
     assert( bounce(n) == n )
     assert( bounce(two) == two )
+    // assert( bounceStrict(n) == n ) Found: (n : Int) Required: (2 : Int)
+    assert( bounceStrict(two) == two )
   }
