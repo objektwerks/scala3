@@ -14,8 +14,8 @@ class UnionTypeTest extends AnyFunSuite with Matchers:
     def cheers: Pilsner = this
 
   def drink(beer: Lager | Pilsner): Beer = beer match
-    case lager @ Lager(name) => lager.prost
-    case pilsner @ Pilsner(name) => pilsner.cheers
+    case lager @ Lager(_) => lager.prost
+    case pilsner @ Pilsner(_) => pilsner.cheers
 
   test("union") {
     val lager = Lager("Song of Joy")
