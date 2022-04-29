@@ -12,8 +12,8 @@ class DependentTypeTest extends AnyFunSuite with Matchers:
   
   val unboxer: (c: Container) => c.Value = unbox  // dependent function, on unbox
 
-  def box[T](t: T) = new Container {
-    type Value = T
+  def box[T](t: T): Container = new Container {
+    override type Value = T
     val value: T = t
   }
 
