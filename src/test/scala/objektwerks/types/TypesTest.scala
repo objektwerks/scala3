@@ -21,9 +21,9 @@ class TypesTest extends AnyFunSuite with Matchers:
     def bounce(n: Int): Int = n
     def bounceStrict(two: 2): Int = n
 
-    assert( bounce(n) == n )
-    assert( bounce(two) == two )
-    // assert( bounceStrict(n) == n ) Found: (n : Int) Required: (2 : Int)
-    assert( bounceStrict(two) == two )
-    assert( 3.14 == pi )
+    bounce(n) shouldBe n
+    bounce(two) shouldBe two
+    // bounceStrict(n) shouldBe n Found: (n : Int) Required: (2 : Int)
+    bounceStrict(two) shouldBe two
+    3.14 shouldBe pi
   }
