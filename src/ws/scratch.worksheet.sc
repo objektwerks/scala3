@@ -52,3 +52,5 @@ enum U(val abbv: String):
   case pounds extends U("lb")
 
 U.ounce.abbv
+U.gallon.abbv
+U.pounds.abbv
