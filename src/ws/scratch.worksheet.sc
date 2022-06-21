@@ -54,3 +54,4 @@ enum U(val abbv: String):
 U.ounce.abbv
 U.gallon.abbv
 U.pounds.abbv
+U.values.foreach(println)
