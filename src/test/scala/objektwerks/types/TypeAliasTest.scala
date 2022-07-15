@@ -11,3 +11,4 @@ class TypeAliasTest extends AnyFunSuite with Matchers:
 
     users("john") shouldEqual 21
     users("jane") shouldEqual 19
+  }
