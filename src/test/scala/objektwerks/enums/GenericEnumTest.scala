@@ -12,7 +12,7 @@ class GenericEnumTest extends AnyFunSuite with Matchers:
     expr match
       case IntExpr(int) => int
       case BoolExpr(boolean) => boolean
-      case _ => fail()
+      case null => fail()
 
   enum Box[T](content: T):
     case IntBox(number: Int) extends Box[Int](number)
