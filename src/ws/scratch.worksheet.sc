@@ -55,3 +55,9 @@ U.ounce.abbv
 U.gallon.abbv
 U.pounds.abbv
 U.values.foreach(println)
+
+final case class ImageFile(number: Int, filename: String, url: String)
+val imageFile = ImageFile(1, "file.txt", "/images/file.txt")
+val imageFileAsOption = Some(imageFile)
+
+imageFileAsOption.fold("")(i => i.url)
