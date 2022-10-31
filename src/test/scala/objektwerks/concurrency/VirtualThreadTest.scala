@@ -9,20 +9,23 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ArrayBuffer
+import scala.math.*
 import scala.jdk.CollectionConverters.*
-import scala.util.Using
+import scala.util.{Failure, Success, Try, Using}
 
 class VirtualThreadTest extends AnyFunSuite with Matchers:
   test("virtual threads") {
     val tasks = ArrayBuffer.empty[FibonacciTask]
     for(i <- 1 to 100) tasks += FibonacciTask(i)
 
-    var sum = 0L
-    Using.resource(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
+    val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(tasks.asJava)
+      var sum = 0L
       futures.asScala.foreach { future => sum += future.get() }
+      sum
     }
 
-    System.out.println("sum: " + Math.abs(sum));
-    assert(84580933396L == Math.abs(sum));
+    result match
+      case Success(sum) => assert(84580933396L == abs(sum))
+      case Failure(error) => fail(error.getMessage())
   }
