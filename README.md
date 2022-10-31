@@ -2,6 +2,11 @@ Scala 3
 -------
 >Scala 3 feature tests.
 
+JDK
+---
+>To enable preview features and load modules see .jvmopts, configured
+>as: ```-D="--enable-preview --add-modules jdk.incubator.concurrent"```
+
 Test
 ----
 1. sbt clean test
