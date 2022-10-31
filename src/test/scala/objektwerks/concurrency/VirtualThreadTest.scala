@@ -24,6 +24,6 @@ class VirtualThreadTest extends AnyFunSuite with Matchers:
     }
 
     result match
-      case Success(sum) => assert(84580933396L == abs(sum))
+      case Success(sum) => assert(7144671097L == abs(sum))
       case Failure(error) => fail(error.getMessage())
   }
