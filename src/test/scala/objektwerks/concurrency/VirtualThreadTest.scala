@@ -20,9 +20,7 @@ class VirtualThreadTest extends AnyFunSuite with Matchers:
 
     val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(tasks.asJava)
-      var sum = 0L
-      futures.asScala.foreach { future => sum += future.get() }
-      sum
+      futures.asScala.map(_.get()).sum
     }
 
     result match
