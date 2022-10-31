@@ -18,10 +18,10 @@ class StructuredConcurrencyTest extends AnyFunSuite with Matchers:
       scope.join();
       scope.throwIfFailed();
 
-      factorial.get() + fibonacci.get();
+      factorial.get() + fibonacci.get()
     }
 
     result match
-      case Success(sum) => assert(7144671097L == abs(sum))
+      case Success(sum) => assert(298632863L == abs(sum))
       case Failure(error) => fail(error.getMessage())
   }
