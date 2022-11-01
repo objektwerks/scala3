@@ -1,14 +1,13 @@
 package objektwerks.concurrency
 
-import java.util.concurrent.Executors
-import java.util.concurrent.Future
+import java.util.concurrent.{Executors, Future}
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ArrayBuffer
-import scala.math.*
 import scala.jdk.CollectionConverters.*
+import scala.math.*
 import scala.util.{Failure, Success, Try, Using}
 
 class VirtualThreadTest extends AnyFunSuite with Matchers:
