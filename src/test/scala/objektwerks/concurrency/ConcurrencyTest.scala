@@ -12,6 +12,13 @@ import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
 
+object FileLineCountTask:
+  def defaultTasks: ArrayBuffer[FileLineCountTask] =
+    val tasks = ArrayBuffer.empty[FileLineCountTask]
+    tasks += FileLineCountTask("./data/data.a.csv")
+    tasks += FileLineCountTask("./data/data.b.csv")
+    tasks
+
 final class FileLineCountTask(file: String) extends Callable[Int]:
   def fileLineCount(file: String): Int = 
     Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
@@ -26,12 +33,8 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   */
 class ConcurrencyTest extends AnyFunSuite with Matchers:
   test("virtual threads") {
-    val tasks = ArrayBuffer.empty[FileLineCountTask]
-    tasks += FileLineCountTask("./data/data.a.csv")
-    tasks += FileLineCountTask("./data/data.b.csv")
-
     val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
-      val futures = executor.invokeAll(tasks.asJava)
+      val futures = executor.invokeAll(FileLineCountTask.defaultTasks.asJava)
       futures.asScala.map(future => future.get()).sum
     }
 
