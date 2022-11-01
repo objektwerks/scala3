@@ -17,7 +17,7 @@ final class FactorialTask(n: Int) extends Callable[Long]:
     case i if i < 1 => acc
     case _ => factorial(n - 1, acc * n)
 
-  def call(): Long = factorial(n, 1)
+  def call(): Long = factorial(n)
 
 final class FibonacciTask(n: Int) extends Callable[Long]:
   def fibonacci(n: Int, a: Int, b: Int): Long =
