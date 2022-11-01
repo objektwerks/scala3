@@ -35,7 +35,7 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
 
     val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(tasks.asJava)
-      futures.asScala.map(_.get()).sum
+      futures.asScala.map(future => future.get()).sum
     }
 
     result match
