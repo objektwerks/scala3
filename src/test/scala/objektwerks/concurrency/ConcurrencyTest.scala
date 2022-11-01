@@ -20,11 +20,9 @@ final class FactorialTask(n: Int) extends Callable[Long]:
   def call(): Long = factorial(n)
 
 final class FibonacciTask(n: Int) extends Callable[Long]:
-  def fibonacci(n: Int): Long =
-    @tailrec def loop(n: Int, a: Long, b: Long): Long = n match
-      case 0 => a
-      case _ => loop(n - 1, b, a + b)
-    loop(n, 0, 1)
+  @tailrec def fibonacci(n: Int, a: Long = 0, b: Long = 1): Long = n match
+    case 0 => a
+    case _ => fibonacci(n - 1, b, a + b)
 
   def call(): Long = fibonacci(n)
 
