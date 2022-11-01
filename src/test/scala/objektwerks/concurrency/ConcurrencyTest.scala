@@ -1,0 +1,43 @@
+package objektwerks.concurrency
+
+import java.util.concurrent.{Executors, Future}
+import jdk.incubator.concurrent.StructuredTaskScope
+
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+
+import scala.collection.mutable.ArrayBuffer
+import scala.jdk.CollectionConverters.*
+import scala.math.*
+import scala.util.{Failure, Success, Try, Using}
+
+class ConcurrencyTest extends AnyFunSuite with Matchers:
+  test("unstructured") {
+    val tasks = ArrayBuffer.empty[FibonacciTask]
+    for(i <- 1 to 100) tasks += FibonacciTask(i)
+
+    val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
+      val futures = executor.invokeAll(tasks.asJava)
+      futures.asScala.map(_.get()).sum
+    }
+
+    result match
+      case Success(sum) => assert(7144671097L == abs(sum))
+      case Failure(error) => fail(error.getMessage())
+  }
+
+  test("structured") {
+    val result: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
+      val factorial = scope.fork(() => new FactorialTask(50).call())
+      val fibonacci = scope.fork(() => new FibonacciTask(50).call())
+
+      scope.join();
+      scope.throwIfFailed();
+
+      factorial.get() + fibonacci.get()
+    }
+
+    result match
+      case Success(sum) => assert(298632863L == abs(sum))
+      case Failure(error) => fail(error.getMessage())
+  }
