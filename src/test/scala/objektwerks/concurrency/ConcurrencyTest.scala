@@ -28,8 +28,8 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
 class ConcurrencyTest extends AnyFunSuite with Matchers:
   test("virtual threads") {
     val tasks = ArrayBuffer.empty[FileLineCountTask]
-    tasks += FileLineCountTask("./LICENSE")
-    tasks += FileLineCountTask("./.gitignore")
+    tasks += FileLineCountTask("./data/data.a.csv")
+    tasks += FileLineCountTask("./data/data.b.csv")
 
     val result: Try[Long] = Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(tasks.asJava)
@@ -37,14 +37,14 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
     }
 
     result match
-      case Success(sum) => assert(54 == abs(sum))
+      case Success(sum) => assert(540959 == abs(sum))
       case Failure(error) => fail(error.getMessage())
   }
 
   test("structured concurrency") {
     val result: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
-      val factorial = scope.fork(() => new FileLineCountTask("./LICENSE").call())
-      val fibonacci = scope.fork(() => new FileLineCountTask("./.gitignore").call())
+      val factorial = scope.fork(() => new FileLineCountTask("./data/data.a.csv").call())
+      val fibonacci = scope.fork(() => new FileLineCountTask("./data/data.b.csv").call())
 
       scope.join();
       scope.throwIfFailed();
@@ -53,6 +53,6 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
     }
 
     result match
-      case Success(sum) => assert(54 == abs(sum))
+      case Success(sum) => assert(540959 == abs(sum))
       case Failure(error) => fail(error.getMessage())
   }
