@@ -30,7 +30,7 @@ class ConcurrencyTest extends AnyFunSuite:
     Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(FileLineCountTask.defaultTasks.asJava)
       futures.asScala.map(future => future.get()).sum
-    }.fold( error => fail(error.getMessage()), lines => assert(lines == 540959) )
+    }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
 
   test("structured concurrency") {
@@ -43,6 +43,6 @@ class ConcurrencyTest extends AnyFunSuite:
     }
 
     result match
-      case Success(lines) => assert(lines == 540959)
+      case Success(lines) => assert(lines == 540_959)
       case Failure(error) => fail(error.getMessage())
   }
