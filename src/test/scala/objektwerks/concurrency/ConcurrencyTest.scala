@@ -6,15 +6,16 @@ import jdk.incubator.concurrent.StructuredTaskScope
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters.*
 import scala.math.*
 import scala.util.{Failure, Success, Try, Using}
 
 final class FactorialTask(n: Int) extends Callable[Long]:
-  def factorial(n: Int, acc: Int): Long =
-      if (n < 1) then acc
-      else factorial(n - 1, acc * n)
+  @tailrec final def factorial(n: Int, acc: Int = 1): Int = n match
+    case i if i < 1 => acc
+    case _ => factorial(n - 1, acc * n)
 
   def call(): Long = factorial(n, 1)
 
