@@ -22,8 +22,8 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   def call(): Int = fileLineCount(file)
 
 /**
-  * Virtual Threads: https://openjdk.org/jeps/425
-  * Structured Concurrency: https://openjdk.org/jeps/428
+  * Virtual Threads: openjdk.org/jeps/425
+  * Structured Concurrency: openjdk.org/jeps/428
   */
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
