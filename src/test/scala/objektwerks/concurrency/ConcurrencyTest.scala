@@ -35,11 +35,11 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("structured concurrency") {
     val result: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
-      val factorial = scope.fork(() => FileLineCountTask("./data/data.a.csv").call())
-      val fibonacci = scope.fork(() => FileLineCountTask("./data/data.b.csv").call())
+      val alines = scope.fork(() => FileLineCountTask("./data/data.a.csv").call())
+      val blines = scope.fork(() => FileLineCountTask("./data/data.b.csv").call())
       scope.join();
       scope.throwIfFailed();
-      factorial.resultNow() + fibonacci.resultNow()
+      alines.resultNow() + blines.resultNow()
     }
 
     result match
