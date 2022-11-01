@@ -41,7 +41,6 @@ class ConcurrencyTest extends AnyFunSuite:
       scope.throwIfFailed();
       alines.resultNow() + blines.resultNow()
     }
-
     lines match
       case Success(count) => assert(count == 540_959)
       case Failure(error) => fail(error.getMessage())
