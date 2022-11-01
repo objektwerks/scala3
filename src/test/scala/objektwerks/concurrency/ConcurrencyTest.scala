@@ -10,7 +10,6 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
-import scala.math.*
 import scala.util.{Failure, Success, Try, Using}
 
 final class FileLineCountTask(file: String) extends Callable[Int]:
@@ -37,7 +36,7 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
     }
 
     result match
-      case Success(sum) => assert(540959 == abs(sum))
+      case Success(lines) => assert(lines == 540959)
       case Failure(error) => fail(error.getMessage())
   }
 
@@ -53,6 +52,6 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
     }
 
     result match
-      case Success(sum) => assert(540959 == abs(sum))
+      case Success(lines) => assert(lines == 540959)
       case Failure(error) => fail(error.getMessage())
   }
