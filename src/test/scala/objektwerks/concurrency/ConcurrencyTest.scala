@@ -7,17 +7,13 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.tailrec
-import scala.collection.mutable.ArrayBuffer
 import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
 
 object FileLineCountTask:
-  def defaultTasks: ArrayBuffer[FileLineCountTask] =
-    val tasks = ArrayBuffer.empty[FileLineCountTask]
-    tasks += FileLineCountTask("./data/data.a.csv")
-    tasks += FileLineCountTask("./data/data.b.csv")
-    tasks
+  def defaultTasks: List[FileLineCountTask] =
+    List[FileLineCountTask]( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
 
 final class FileLineCountTask(file: String) extends Callable[Int]:
   def fileLineCount(file: String): Int = 
