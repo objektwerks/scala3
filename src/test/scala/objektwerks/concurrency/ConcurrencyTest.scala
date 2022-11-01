@@ -39,7 +39,7 @@ class ConcurrencyTest extends AnyFunSuite:
       val fibonacci = scope.fork(() => new FileLineCountTask("./data/data.b.csv").call())
       scope.join();
       scope.throwIfFailed();
-      factorial.get() + fibonacci.get()
+      factorial.resultNow() + fibonacci.resultNow()
     }
 
     result match
