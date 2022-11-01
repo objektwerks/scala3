@@ -11,8 +11,7 @@ import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
 
 object FileLineCountTask:
-  def defaultTasks: List[FileLineCountTask] =
-    List[FileLineCountTask]( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
+  def defaultTasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
 
 final class FileLineCountTask(file: String) extends Callable[Int]:
   def fileLineCount(file: String): Int = 
