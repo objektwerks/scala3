@@ -4,7 +4,6 @@ import java.util.concurrent.{Callable, Executors, Future}
 import jdk.incubator.concurrent.StructuredTaskScope
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.tailrec
 import scala.io.{Codec, Source}
@@ -27,7 +26,7 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   * Virtual Threads: https://openjdk.org/jeps/425
   * Structured Concurrency: https://openjdk.org/jeps/428
   */
-class ConcurrencyTest extends AnyFunSuite with Matchers:
+class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
     Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
       val futures = executor.invokeAll(FileLineCountTask.defaultTasks.asJava)
