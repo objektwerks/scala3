@@ -29,7 +29,7 @@ final class FibonacciTask(n: Int) extends Callable[Long]:
   def call(): Long = fibonacci(n)
 
 class ConcurrencyTest extends AnyFunSuite with Matchers:
-  test("unstructured") {
+  test("virtual threads") {
     val tasks = ArrayBuffer.empty[FibonacciTask]
     for(i <- 1 to 30) tasks += FibonacciTask(i)
 
@@ -43,7 +43,7 @@ class ConcurrencyTest extends AnyFunSuite with Matchers:
       case Failure(error) => fail(error.getMessage())
   }
 
-  test("structured") {
+  test("structured concurrency") {
     val result: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
       val factorial = scope.fork(() => new FactorialTask(10).call())
       val fibonacci = scope.fork(() => new FibonacciTask(20).call())
