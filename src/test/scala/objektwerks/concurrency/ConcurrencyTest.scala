@@ -28,6 +28,9 @@ final class FibonacciTask(n: Int) extends Callable[Long]:
 
   def call(): Long = fibonacci(n)
 
+/**
+  * See: https://openjdk.org/jeps/425 and https://openjdk.org/jeps/428
+  */
 class ConcurrencyTest extends AnyFunSuite with Matchers:
   test("virtual threads") {
     val tasks = ArrayBuffer.empty[FibonacciTask]
