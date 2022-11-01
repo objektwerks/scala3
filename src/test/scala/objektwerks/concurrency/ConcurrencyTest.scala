@@ -13,7 +13,7 @@ import scala.math.*
 import scala.util.{Failure, Success, Try, Using}
 
 final class FactorialTask(n: Int) extends Callable[Long]:
-  @tailrec final def factorial(n: Long, acc: Long = 1): Long = n match
+  @tailrec def factorial(n: Long, acc: Long = 1): Long = n match
     case i if i < 1 => acc
     case _ => factorial(n - 1, acc * n)
 

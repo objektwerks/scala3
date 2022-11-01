@@ -30,7 +30,7 @@ def findNthElementFromRight[A](list: List[A], nthElement: Int): Option[A] =
   Try { reverse(list)(nthElement - 1) }.toOption
 
 @tailrec
-final def factorial(n: Int, acc: Int = 1): Int = n match
+def factorial(n: Int, acc: Int = 1): Int = n match
   case i if i < 1 => acc
   case _ => factorial(n - 1, acc * n)
 
@@ -50,9 +50,9 @@ def isPrime(n: Int): Boolean =
   if (n == -1 || n == 0 || n == 1) false else loop(2)
 
 @tailrec
-final def intersectLists[A](listA: List[A],
-                            listB: List[A],
-                            acc: List[A] = List.empty[A]): List[A] =
+def intersectLists[A](listA: List[A],
+                      listB: List[A],
+                      acc: List[A] = List.empty[A]): List[A] =
   listA match {
     case Nil => acc
     case head :: tail =>
