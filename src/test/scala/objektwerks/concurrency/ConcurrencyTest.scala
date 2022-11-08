@@ -1,5 +1,6 @@
 package objektwerks.concurrency
 
+import java.time.Instant
 import java.util.concurrent.{ Callable, Executors, Future }
 import jdk.incubator.concurrent.StructuredTaskScope
 
@@ -9,7 +10,6 @@ import scala.annotation.tailrec
 import scala.io.{ Codec, Source }
 import scala.jdk.CollectionConverters.*
 import scala.util.{ Failure, Success, Try, Using }
-import java.time.Instant
 
 object FileLineCountTask:
   def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
