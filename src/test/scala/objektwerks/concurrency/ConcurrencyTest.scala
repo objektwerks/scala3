@@ -9,6 +9,7 @@ import scala.annotation.tailrec
 import scala.io.{ Codec, Source }
 import scala.jdk.CollectionConverters.*
 import scala.util.{ Failure, Success, Try, Using }
+import java.time.Instant
 
 object FileLineCountTask:
   def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
@@ -51,7 +52,8 @@ class ConcurrencyTest extends AnyFunSuite:
   test("structured concurrency x") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
       val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
-      scope.join()
+      // A time limit of 3 seconds to complete task evaluation!
+      scope.joinUntil(Instant.now().plusMillis(3000))
       scope.throwIfFailed()
       futures.map( future => future.resultNow() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
