@@ -24,6 +24,7 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
 /**
   * Virtual Threads: openjdk.org/jeps/425
   * Structured Concurrency: openjdk.org/jeps/428
+  * Article: www.marcobehler.com/guides/java-project-loom
   */
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
