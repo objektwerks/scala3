@@ -10,10 +10,10 @@ import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
 
-object FileLineCountTask:
-  def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
+object FileLinesTask:
+  def tasks: List[FileLinesTask] = List( FileLinesTask("./data/data.a.csv"), FileLinesTask("./data/data.b.csv") )
 
-final class FileLineCountTask(file: String) extends Callable[Int]:
+final class FileLinesTask(file: String) extends Callable[Int]:
   def fileLineCount(file: String): Int = 
     Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
       source.getLines().length
@@ -29,15 +29,15 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
     Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
-      val futures = executor.invokeAll( FileLineCountTask.tasks.asJava )
+      val futures = executor.invokeAll( FileLinesTask.tasks.asJava )
       futures.asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
 
   test("structured concurrency") {
     val lines = Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
-      val alines = scope.fork( () => FileLineCountTask("./data/data.a.csv").call() )
-      val blines = scope.fork( () => FileLineCountTask("./data/data.b.csv").call() )
+      val alines = scope.fork( () => FileLinesTask("./data/data.a.csv").call() )
+      val blines = scope.fork( () => FileLinesTask("./data/data.b.csv").call() )
       scope.join()
       scope.throwIfFailed()
       alines.resultNow() + blines.resultNow()
@@ -49,7 +49,7 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("structured concurrency x") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
-      val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
+      val futures = FileLinesTask.tasks.map( task => scope.fork( () => task.call() ) )
       scope.join()
       scope.throwIfFailed()
       futures.map(future => future.get()).sum
