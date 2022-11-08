@@ -28,7 +28,7 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   */
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
-    Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
+    Using( Executors.newVirtualThreadPerTaskExecutor() ) { executor =>
       val futures = executor.invokeAll( FileLineCountTask.tasks.asJava )
       futures.asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
