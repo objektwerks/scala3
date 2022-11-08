@@ -52,7 +52,6 @@ class ConcurrencyTest extends AnyFunSuite:
   test("structured concurrency x") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
       val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
-      // A time limit of 3 seconds to complete evaluation of all task futures!
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.throwIfFailed()
       futures.map( future => future.resultNow() ).sum
