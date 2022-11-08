@@ -11,7 +11,7 @@ import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
 
 object FileLineCountTask:
-  def defaultTasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
+  def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
 
 final class FileLineCountTask(file: String) extends Callable[Int]:
   def fileLineCount(file: String): Int = 
@@ -29,8 +29,8 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
     Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
-      val futures = executor.invokeAll( FileLineCountTask.defaultTasks.asJava )
-      futures.asScala.map(future => future.get()).sum
+      val futures = executor.invokeAll( FileLineCountTask.tasks.asJava )
+      futures.asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
 
@@ -49,7 +49,7 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("structured concurrency x") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
-      val futures = FileLineCountTask.defaultTasks.map( task => scope.fork( () => task.call() ) )
+      val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
       scope.join()
       scope.throwIfFailed()
       futures.map(future => future.get()).sum
