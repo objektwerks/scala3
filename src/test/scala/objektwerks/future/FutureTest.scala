@@ -7,7 +7,9 @@ import scala.concurrent.{Future, Promise}
 import scala.util.{Failure, Success, Try}
 
 class FutureTest extends AsyncFunSuite with Matchers:
-  Future { "3".toInt }.onComplete {
+  // Not compatible with AsyncFunSuite,
+  // but a useful callback example
+  Future("3".toInt).onComplete {
     case Success(value) => value shouldBe 3
     case Failure(throwable) => fail(throwable.getMessage())
   }
