@@ -52,6 +52,6 @@ class ConcurrencyTest extends AnyFunSuite:
       val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
       scope.join()
       scope.throwIfFailed()
-      futures.map(future => future.get()).sum
+      futures.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
