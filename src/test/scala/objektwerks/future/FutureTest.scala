@@ -7,6 +7,11 @@ import scala.concurrent.{Future, Promise}
 import scala.util.{Failure, Success, Try}
 
 class FutureTest extends AsyncFunSuite with Matchers:
+  Future { "3".toInt }.onComplete {
+    case Success(value) => value shouldBe 3
+    case Failure(throwable) => fail(throwable.getMessage())
+  }
+
   test("promise") {
     def send(message: String): Future[String] = {
       val promise = Promise[String] ()
