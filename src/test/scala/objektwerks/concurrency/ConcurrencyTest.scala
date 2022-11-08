@@ -48,13 +48,10 @@ class ConcurrencyTest extends AnyFunSuite:
   }
 
   test("structured concurrency x") {
-    val lines: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
+    Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
       val futures = FileLineCountTask.defaultTasks.map(task => scope.fork(() => task.call()))
       scope.join()
       scope.throwIfFailed()
       futures.map(future => future.get()).sum
-    }
-    lines match
-      case Success(count) => assert(count == 540_959)
-      case Failure(error) => fail(error.getMessage())
+    }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
