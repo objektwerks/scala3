@@ -29,15 +29,15 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
 class ConcurrencyTest extends AnyFunSuite:
   test("virtual threads") {
     Using(Executors.newVirtualThreadPerTaskExecutor()) { executor =>
-      val futures = executor.invokeAll(FileLineCountTask.defaultTasks.asJava)
+      val futures = executor.invokeAll( FileLineCountTask.defaultTasks.asJava )
       futures.asScala.map(future => future.get()).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
   }
 
   test("structured concurrency") {
-    val lines: Try[Long] = Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
-      val alines = scope.fork(() => FileLineCountTask("./data/data.a.csv").call())
-      val blines = scope.fork(() => FileLineCountTask("./data/data.b.csv").call())
+    val lines: Try[Long] = Using(new StructuredTaskScope.ShutdownOnFailure()) { scope =>
+      val alines = scope.fork( () => FileLineCountTask("./data/data.a.csv").call() )
+      val blines = scope.fork( () => FileLineCountTask("./data/data.b.csv").call() )
       scope.join()
       scope.throwIfFailed()
       alines.resultNow() + blines.resultNow()
@@ -48,8 +48,8 @@ class ConcurrencyTest extends AnyFunSuite:
   }
 
   test("structured concurrency x") {
-    Using (new StructuredTaskScope.ShutdownOnFailure()) { scope =>
-      val futures = FileLineCountTask.defaultTasks.map(task => scope.fork(() => task.call()))
+    Using(new StructuredTaskScope.ShutdownOnFailure()) { scope =>
+      val futures = FileLineCountTask.defaultTasks.map( task => scope.fork( () => task.call() ) )
       scope.join()
       scope.throwIfFailed()
       futures.map(future => future.get()).sum
