@@ -29,11 +29,13 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   * Using: scala-lang.org/api/3.x/scala/util/Using$.html# | www.baeldung.com/scala/try-with-resources
   */
 class ConcurrencyTest extends AnyFunSuite:
+  val expectedLineCount = 540_959
+
   test("virtual threads") {
     Using( Executors.newVirtualThreadPerTaskExecutor() ) { executor =>
       val futures = executor.invokeAll( FileLineCountTask.tasks.asJava )
       futures.asScala.map( future => future.get() ).sum
-    }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
+    }.fold( error => fail(error.getMessage()), lines => assert(lines == expectedLineCount) )
   }
 
   test("structured concurrency") {
@@ -45,7 +47,7 @@ class ConcurrencyTest extends AnyFunSuite:
       alines.resultNow() + blines.resultNow()
     }
     lines match
-      case Success(count) => assert(count == 540_959)
+      case Success(count) => assert(count == expectedLineCount)
       case Failure(error) => fail(error.getMessage())
   }
 
@@ -55,5 +57,5 @@ class ConcurrencyTest extends AnyFunSuite:
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.throwIfFailed()
       futures.map( future => future.resultNow() ).sum
-    }.fold( error => fail(error.getMessage()), lines => assert(lines == 540_959) )
+    }.fold( error => fail(error.getMessage()), lines => assert(lines == expectedLineCount) )
   }
