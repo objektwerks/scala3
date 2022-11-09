@@ -11,9 +11,6 @@ import scala.io.{ Codec, Source }
 import scala.jdk.CollectionConverters.*
 import scala.util.{ Failure, Success, Try, Using }
 
-object FileLineCountTask:
-  def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
-
 final class FileLineCountTask(file: String) extends Callable[Int]:
   def call(): Int =
      Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
@@ -27,11 +24,12 @@ final class FileLineCountTask(file: String) extends Callable[Int]:
   * Using: scala-lang.org/api/3.x/scala/util/Using$.html# | www.baeldung.com/scala/try-with-resources
   */
 class ConcurrencyTest extends AnyFunSuite:
+  val tasks = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
   val expectedLineCount = 540_959
 
   test("virtual threads") {
     Using( Executors.newVirtualThreadPerTaskExecutor() ) { executor =>
-      val futures = executor.invokeAll( FileLineCountTask.tasks.asJava )
+      val futures = executor.invokeAll( tasks.asJava )
       futures.asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == expectedLineCount) )
   }
@@ -51,7 +49,7 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("structured concurrency x") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
-      val futures = FileLineCountTask.tasks.map( task => scope.fork( () => task.call() ) )
+      val futures = tasks.map( task => scope.fork( () => task.call() ) )
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.throwIfFailed()
       futures.map( future => future.resultNow() ).sum
