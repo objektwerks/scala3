@@ -12,10 +12,7 @@ import scala.jdk.CollectionConverters.*
 import scala.util.{ Failure, Success, Try, Using }
 
 class FileLineCountTask(file: String) extends Callable[Int]:
-  def call(): Int =
-    Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
-      source.getLines().length
-    }.get
+  def call(): Int = Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().length }.get
 
 /**
   * Virtual Threads: openjdk.org/jeps/425
