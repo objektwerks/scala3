@@ -52,3 +52,11 @@ class ConcurrencyTest extends AnyFunSuite:
       futures.map( future => future.resultNow() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == expectedLineCount) )
   }
+
+  test("structured concurrency race") {
+    Using( StructuredTaskScope.ShutdownOnSuccess[Int]() ) { scope =>
+      tasks.foreach( task => scope.fork( () => task.call() ) )
+      scope.joinUntil( Instant.now().plusMillis(3000) )
+      scope.result()
+    }.fold( error => fail(error.getMessage()), lines => assert(lines == 270_562 || lines == 270_397) )
+  }
