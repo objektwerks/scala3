@@ -44,7 +44,7 @@ class ConcurrencyTest extends AnyFunSuite:
       case Failure(error) => fail(error.getMessage())
   }
 
-  test("structured concurrency x") {
+  test("structured concurrency join until") {
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
       val futures = tasks.map( task => scope.fork( () => task.call() ) )
       scope.joinUntil( Instant.now().plusMillis(3000) )
