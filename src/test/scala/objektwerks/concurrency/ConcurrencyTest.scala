@@ -26,8 +26,7 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("virtual threads") {
     Using( Executors.newVirtualThreadPerTaskExecutor() ) { executor =>
-      val futures = executor.invokeAll( tasks.asJava )
-      futures.asScala.map( future => future.get() ).sum
+      executor.invokeAll( tasks.asJava ).asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage()), lines => assert(lines == expectedLineCount) )
   }
 
