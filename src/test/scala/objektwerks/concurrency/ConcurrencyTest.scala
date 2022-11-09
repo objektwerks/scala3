@@ -15,12 +15,10 @@ object FileLineCountTask:
   def tasks: List[FileLineCountTask] = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
 
 final class FileLineCountTask(file: String) extends Callable[Int]:
-  def fileLineCount(file: String): Int = 
-    Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
+  def call(): Int =
+     Using( Source.fromFile(file, Codec.UTF8.name) ) { source =>
       source.getLines().length
     }.get
-
-  def call(): Int = fileLineCount(file)
 
 /**
   * Virtual Threads: openjdk.org/jeps/425
