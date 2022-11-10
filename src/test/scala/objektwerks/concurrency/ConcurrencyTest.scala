@@ -1,15 +1,15 @@
 package objektwerks.concurrency
 
 import java.time.Instant
-import java.util.concurrent.{ Callable, Executors, Future }
+import java.util.concurrent.{Callable, Executors, Future}
 import jdk.incubator.concurrent.StructuredTaskScope
 
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.annotation.tailrec
-import scala.io.{ Codec, Source }
+import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
-import scala.util.{ Failure, Success, Try, Using }
+import scala.util.{Failure, Success, Try, Using}
 
 class FileLineCountTask(file: String) extends Callable[Int]:
   def call(): Int = Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().length }.get
