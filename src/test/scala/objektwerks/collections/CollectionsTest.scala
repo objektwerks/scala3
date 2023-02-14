@@ -5,9 +5,9 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.collection.{MapView, View}
 import scala.collection.concurrent
-import scala.collection.immutable._
+import scala.collection.immutable.*
 import scala.collection.mutable
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 class CollectionsTest extends AnyFunSuite with Matchers:
   def toList(i: Int): List[Int] = List(i - 1, i, i + 1)
