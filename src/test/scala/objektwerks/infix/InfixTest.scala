@@ -3,10 +3,12 @@ package objektwerks.infix
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import scala.annotation.targetName
+
 class InfixTest extends AnyFunSuite with Matchers:
   case class Amount(value: Double):
-    def +(other: Amount): Amount = Amount(value + other.value)
-    def -(other: Amount): Amount = Amount(value - other.value)
+    @targetName("+") def +(other: Amount): Amount = Amount(value + other.value)
+    @targetName("-")  def -(other: Amount): Amount = Amount(value - other.value)
     infix def add(other: Amount): Amount = this + other
     infix def subtract(other: Amount): Amount = this - other
 
