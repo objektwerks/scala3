@@ -136,7 +136,7 @@ class ForTest extends AnyFunSuite with Matchers:
   }
 
   test("for comprehension with recover") {
-    implicit val ec = ExecutionContext.global
+    given ec: ExecutionContext = ExecutionContext.global
     val future = Future(Integer.parseInt("one"))
     val result = ( for {
       i <- future 
