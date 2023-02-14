@@ -21,7 +21,7 @@ class CanEqualTest extends AnyFunSuite with Matchers:
     val pb1 = PrintedBook("Beer Bible", "Fred Flintstone", 2000, 425)
     val pb2 = PrintedBook("Beer Bible", "Fred Flintstone", 2000, 425)
     val pb3 = PrintedBook("IPA Recipes", "Barney Rebel", 2001, 325)
-    val ab1 = AudioBook("IPA Recipes", "Barney Rebel", 2001, 650)
+    // See below. val ab1 = AudioBook("IPA Recipes", "Barney Rebel", 2001, 650)
 
     (pb1 == pb2) shouldBe true
     (pb1 == pb3) shouldBe false
