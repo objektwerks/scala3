@@ -98,7 +98,7 @@ class FunctionTest extends AnyFunSuite with Matchers:
     val multipleByOne: PartialFunction[Int, Int] =
       case i: Int if i != 0 => i * 1
     
-    ( Try { List(0, 1, 2) map multipleByOne }.isFailure ) shouldBe true
+    Try { List(0, 1, 2) map multipleByOne }.isFailure shouldBe true
     ( List(0, 1, 2) collect multipleByOne ) shouldBe List(1, 2)
     ( List(42, "cat") collect { case i: Int => multipleByOne(i) } ) shouldBe List(42)
 
