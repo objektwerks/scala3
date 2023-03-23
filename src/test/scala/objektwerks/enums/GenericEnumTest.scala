@@ -26,6 +26,7 @@ class GenericEnumTest extends AnyFunSuite with Matchers:
 
   test("enum > gadt") {
     import Box.*
+    
     IntBox(3).unbox shouldBe 3
     BoolBox(true).unbox shouldBe true
   }
