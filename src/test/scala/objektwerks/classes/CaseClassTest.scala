@@ -25,7 +25,7 @@ class CaseClassTest extends AnyFunSuite with Matchers:
   case class Foot(value: Double):
     def toMeter: Meter = Meter(value / 0.3048)
 
-  test("case classes") {
+  test("case class") {
     val animals = ZooKeeper.openCages
     for (animal <- animals) {
       animal.speak.nonEmpty shouldBe true
