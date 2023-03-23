@@ -21,6 +21,7 @@ class CaseClassTest extends AnyFunSuite with Matchers:
   case object ZooKeeper:
     def openCages: Set[Animal] = Set(Tiger("prrrr"), Panther("woosh"), Bear("grrrr"))
 
+  // Value Classes ( See types.OpaqueTypeTest )
   case class Meter(value: Double):
     def toFeet: Foot = Foot(value * 0.3048)
 
