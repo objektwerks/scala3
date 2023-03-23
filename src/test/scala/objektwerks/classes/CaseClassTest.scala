@@ -4,6 +4,18 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class CaseClassTest extends AnyFunSuite with Matchers:
+  // Algebraic Data Types ( ADTs )
+  sealed abstract class Command // Sum Type, Move and Rotate is a Command
+  object Command {
+    final case class Move(meters: Int) extends Command // Product Type, Move contains meters
+    final case class Rotate(degrees: Int) extends Command // Product Type, Rotate contains degrees
+
+    def handle(command: Command): String = command match {
+      case Move(meters)    => s"Moving by ${meters} meter(s)."
+      case Rotate(degrees) => s"Rotating by ${degrees} degree(s)."
+    }
+  }
+
   // ADT Sum Type Pattern - Is-A, Inheritence - Tiger, Panther and Bear is an Animal
   sealed trait Animal:
     def speak: String
@@ -27,6 +39,13 @@ class CaseClassTest extends AnyFunSuite with Matchers:
 
   case class Foot(value: Double):
     def toMeter: Meter = Meter(value / 0.3048)
+
+  test("adt") {
+    import Command._
+
+    handle( Move(1) ) shouldBe "Moving by 1 meter(s)."
+    handle( Rotate(2)) shouldBe "Rotating by 2 degree(s)."
+  }
 
   test("case class") {
     val animals = ZooKeeper.openCages
