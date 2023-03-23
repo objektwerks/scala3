@@ -7,8 +7,8 @@ class CaseClassTest extends AnyFunSuite with Matchers:
   // Algebraic Data Types ( ADTs )
   sealed abstract class Command // Sum Type, Move and Rotate is a Command
   object Command {
-    final case class Move(meters: Int) extends Command // Product Type, Move contains meters
-    final case class Rotate(degrees: Int) extends Command // Product Type, Rotate contains degrees
+    final case class Move(meters: Int) extends Command // Product Type, Move has meters
+    final case class Rotate(degrees: Int) extends Command // Product Type, Rotate has degrees
 
     def handle(command: Command): String = command match {
       case Move(meters)    => s"Moving by ${meters} meter(s)."
