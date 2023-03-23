@@ -46,6 +46,9 @@ class OptionTest extends AnyFunSuite with Matchers:
     def toInt(s: String): Option[Int] = s.toIntOption
 
     val strings = List("1", "2", "3", "four")
+    strings.map(toInt) shouldBe List(Some(1), Some(2), Some(3), None)
+    strings.map(toInt).collect { case Some(i) => i } shouldBe List(1, 2, 3)
+    strings.map(toInt).flatten shouldBe List(1, 2, 3)
     strings.flatMap(toInt) shouldBe List(1, 2, 3)
     strings.flatMap(toInt).sum shouldBe 6
 
