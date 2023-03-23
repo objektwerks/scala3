@@ -24,7 +24,7 @@ class IOTest extends AnyFunSuite with Matchers:
   test("from url") {
     Using( Source.fromURL("http://api.icndb.com/jokes/random/", utf8) ) { 
       source => source.mkString.split("\\W+").nonEmpty shouldBe true
-    }
+    }.isSuccess shouldBe true
   }
 
   test("from file") {
