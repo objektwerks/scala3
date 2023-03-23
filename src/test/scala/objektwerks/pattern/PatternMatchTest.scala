@@ -10,13 +10,22 @@ import scala.util.matching.Regex
 class PatternMatchTest extends AnyFunSuite with Matchers:
   test("case class") {
     final case class Order(product: String, quantity: Int)
-
     def byCaseClass(order: Order): (String, Int) = order match
       case Order(beer, quantity) => (beer, quantity)
 
     val (product, quanity) = byCaseClass(Order("Dogfish Head 60' IPA", 6))
     product shouldBe "Dogfish Head 60' IPA"
     quanity shouldBe 6
+
+    final case class Person(name: String)
+    def byPerson(person: Person): String = person match
+      case p @ Person("John") => "Mr. " + p.name
+      case p @ Person("Jane") => "Ms. " + p.name
+      case Person(name) => s"Mr. $name"
+
+    byPerson(Person("John")) shouldBe "Mr. John"
+    byPerson(Person("Jane")) shouldBe "Ms. Jane"
+    byPerson(Person("Jake")) shouldBe "Mr. Jake"
   }
 
   test("type") {
@@ -45,19 +54,6 @@ class PatternMatchTest extends AnyFunSuite with Matchers:
     isZeroOrEmpty(1) shouldBe false
     isZeroOrEmpty(0) shouldBe true
     isZeroOrEmpty("") shouldBe true
-  }
-
-  test("case class") {
-    final case class Person(name: String)
-
-    def byPerson(person: Person): String = person match
-      case p @ Person("John") => "Mr. " + p.name
-      case p @ Person("Jane") => "Ms. " + p.name
-      case Person(name) => s"Mr. $name"
-
-    byPerson(Person("John")) shouldBe "Mr. John"
-    byPerson(Person("Jane")) shouldBe "Ms. Jane"
-    byPerson(Person("Jake")) shouldBe "Mr. Jake"
   }
 
   test("tailrec") {
