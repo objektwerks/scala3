@@ -4,16 +4,18 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class CaseClassTest extends AnyFunSuite with Matchers:
+  // ADT Sum Type Pattern - Is-A, Inheritence - Tiger, Panther and Bear is an Animal
   sealed trait Animal:
     def speak: String
 
-  case class Tiger(speach: String) extends Animal:
+  // ADT Product Type Pattern - Has-A, Composition
+  case class Tiger(speach: String) extends Animal: // Tiger is an Animal
     override def speak: String = speach
 
-  case class Panther(speach: String) extends Animal:
+  case class Panther(speach: String) extends Animal: // Panther is an Animal
     override def speak: String = speach
 
-  case class Bear(speach: String) extends Animal:
+  case class Bear(speach: String) extends Animal: // Bear is an Animal
     override def speak: String = speach
 
   case object ZooKeeper:
