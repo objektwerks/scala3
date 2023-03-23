@@ -140,7 +140,7 @@ class FutureTest extends AsyncFunSuite with Matchers:
     future map { _ shouldBe 3 }
   }
 
-  test("recover > map > recover") {
+  test("map > recover") {
     val future = Future(Integer.parseInt("one")) map { _ * 3 } recover { case _ => -1 }
     future map { _ shouldBe -1 }
  }
