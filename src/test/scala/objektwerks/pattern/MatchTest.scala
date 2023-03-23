@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 import scala.util.matching.Regex
 
-class PatternMatchTest extends AnyFunSuite with Matchers:
+class MatchTest extends AnyFunSuite with Matchers:
   test("case class") {
     final case class Order(product: String, quantity: Int)
     def byCaseClass(order: Order): (String, Int) = order match
