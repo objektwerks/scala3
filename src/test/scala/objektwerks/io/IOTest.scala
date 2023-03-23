@@ -56,7 +56,7 @@ class IOTest extends AnyFunSuite with Matchers:
   test("from bytes") {
     Using( Source.fromBytes(quote.getBytes(utf8), utf8) ) {
       source => source.mkString.split("\\W+").length shouldBe 13
-    }
+    }.isSuccess shouldBe true
   }
 
   test("grouped") {
