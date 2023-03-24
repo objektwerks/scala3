@@ -1,6 +1,5 @@
 import scala.annotation.tailrec
 
-// test git
 @tailrec
 final def sum(numbers: List[Int], acc: Int = 0): Int = numbers match
   case Nil => acc
