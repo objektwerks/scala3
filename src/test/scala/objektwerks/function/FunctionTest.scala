@@ -24,16 +24,14 @@ class FunctionTest extends AnyFunSuite with Matchers:
     def isEven(i: Int): Boolean = i % 2 == 0
     isEven(2) shouldBe true
 
-    def isOdd(i: Int): Boolean = {
-      i % 2 != 0
-    }
+    def isOdd(i: Int): Boolean = i % 2 != 0
     isOdd(3) shouldBe true
 
     @tailrec
-    def sum(numbers: List[Int], acc: Int = 0): Int = numbers match {
+    def sum(numbers: List[Int], acc: Int = 0): Int = numbers match
       case Nil => acc
       case head :: tail => sum(tail, acc + head)
-    }
+
     sum(List(1, 2, 3)) shouldBe 6
   }
 
