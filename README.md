@@ -36,4 +36,4 @@ Scala Tribute
 
 >We knew you well, Scala. Fair well, my favorite language of languages.
 
->For you served me well for thse mamy years!
+>For you served me well these mamy years!
