@@ -34,4 +34,6 @@ Scala Tribute
 
 >Scala will become a simple academic exercise, sadly governed by those of a like mind going forward.
 
->We knew you well, Scala. Fair well, my favorite language of languages. For you served me well for mamy years!
+>We knew you well, Scala. Fair well, my favorite language of languages.
+
+>For you served me well for thse mamy years!
