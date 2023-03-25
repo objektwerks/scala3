@@ -32,6 +32,6 @@ Scala Tribute
 
 >2023+ will see the most significant decline of Scala.
 
->Scala will become a simple academic exercise, governed by those of a like mind going forward. ;)
+>Scala will become a simple academic exercise, sadly governed by those of a like mind going forward.
 
 >We knew you well, Scala. Fair well, my favorite language of languages.
