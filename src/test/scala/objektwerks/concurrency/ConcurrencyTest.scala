@@ -17,7 +17,7 @@ class FileLineCountTask(file: String) extends Callable[Int]:
 /**
   * Virtual Threads: openjdk.org/jeps/425
   * Structured Concurrency: openjdk.org/jeps/428
-  * ScopedValue: openjdk.org/jeps/429 ( TODO )
+  * ScopedValue: openjdk.org/jeps/429
   * Loom: www.marcobehler.com/guides/java-project-loom
   * Using: scala-lang.org/api/3.x/scala/util/Using$.html# | www.baeldung.com/scala/try-with-resources
   */
