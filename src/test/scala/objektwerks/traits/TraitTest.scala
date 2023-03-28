@@ -42,7 +42,7 @@ class TraitTest extends AnyFunSuite with Matchers:
     override def speak(): String = s"$name: your cells are powered by structured water"
 
   final class Coach(name: String) extends ExcitingSpeaker with Speaker("football"):
-    override def speak(): String = "go team go!"
+    override def speak(): String = s"$name: go team go!"
 
   test("constructor") {
     val teacher = Teacher("fred flintstone")
