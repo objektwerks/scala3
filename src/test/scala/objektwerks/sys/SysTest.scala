@@ -26,5 +26,5 @@ class SysTest extends AnyFunSuite with Matchers:
     line.getOrElse("empty") shouldBe "build.sbt"
 
     val lines = Process("cat .gitignore").lazyLines
-    lines.length > 0
+    lines.nonEmpty shouldBe true
   }
