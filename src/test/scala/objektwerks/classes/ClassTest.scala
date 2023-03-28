@@ -35,11 +35,14 @@ class ClassTest extends AnyFunSuite with Matchers:
       car.sound.nonEmpty shouldBe true
       car match {
         case porsche: Porsche =>
-          porsche.drive shouldEqual "driving" && porsche.sound shouldEqual "prrrr"
+          porsche.drive shouldEqual "driving"
+          porsche.sound shouldEqual "prrrr"
         case corvette: Corvette =>
-          corvette.drive shouldEqual "driving" && corvette.sound shouldEqual "woosh"
+          corvette.drive shouldEqual "driving"
+          corvette.sound shouldEqual "woosh"
         case maserati: Maserati =>
-          maserati.drive shouldEqual "driving" && maserati.sound shouldEqual "grrrr"
+          maserati.drive shouldEqual "driving"
+          maserati.sound shouldEqual "grrrr"
       }
     }
   }
