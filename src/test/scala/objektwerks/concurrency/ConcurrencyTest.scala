@@ -76,12 +76,7 @@ class ConcurrencyTest extends AnyFunSuite:
     val uuid = UUID.randomUUID().toString()
     val count = ScopedValue
       .where(license, uuid)
-      .call{
-        new Callable[Int] {
-          override def call(): Int =
-            if license.get.nonEmpty then 1 else -1
-        }
-      }
+      .call { () => if license.get.nonEmpty then 1 else -1 }
     assert(count == 1)
     assert(!license.isBound)
   }
