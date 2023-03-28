@@ -47,15 +47,15 @@ class TraitTest extends AnyFunSuite with Matchers:
   test("constructor") {
     val teacher = Teacher("fred flintstone")
     teacher.topic shouldBe "math"
-    teacher.speak() shouldBe "1 + 2 = 3"
+    teacher.speak() shouldBe "fred flintstone: 1 + 2 = 3"
 
     val professor = Professor("wilma flintstone")
     professor.topic shouldBe "biology"
-    professor.speak() shouldBe "your cells are powered by structured water"
+    professor.speak() shouldBe "wilma flintstone: your cells are powered by structured water"
 
     val coach = Coach("barney rebel")
     coach.topic shouldBe "football"
-    coach.speak() shouldBe "go team go!"
+    coach.speak() shouldBe "barney rebel: go team go!"
   }
 
   sealed transparent trait Entity
