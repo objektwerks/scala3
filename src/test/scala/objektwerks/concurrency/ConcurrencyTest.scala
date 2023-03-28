@@ -1,8 +1,9 @@
 package objektwerks.concurrency
 
 import java.time.Instant
+import java.util.UUID
 import java.util.concurrent.{Callable, Executors, Future}
-import jdk.incubator.concurrent.StructuredTaskScope
+import jdk.incubator.concurrent.{ScopedValue, StructuredTaskScope}
 
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -10,6 +11,7 @@ import scala.annotation.tailrec
 import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try, Using}
+import scala.util.Random
 
 class FileLineCountTask(file: String) extends Callable[Int]:
   def call(): Int = Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().length }.get
@@ -67,4 +69,12 @@ class ConcurrencyTest extends AnyFunSuite:
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.result()
     }.fold( error => fail(error.getMessage), lines => assert(lines == 270_562 || lines == 270_397) )
+  }
+
+  test("scoped value") {
+    val license: ScopedValue[String] = ScopedValue.newInstance()
+    val uuid = UUID.randomUUID().toString()
+    val task = FileLineCountTask("./data/data.a.csv")
+    val lines = ScopedValue.where(license, uuid).call(task)
+    assert(lines == 270562)
   }
