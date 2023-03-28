@@ -83,4 +83,5 @@ class ConcurrencyTest extends AnyFunSuite:
         }
       }
     assert(count == 1)
+    assert(!license.isBound)
   }
