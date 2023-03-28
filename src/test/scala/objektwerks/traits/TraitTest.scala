@@ -36,7 +36,7 @@ class TraitTest extends AnyFunSuite with Matchers:
   sealed trait ExcitingSpeaker extends Speaker
 
   final class Teacher(name: String) extends Speaker("math"):
-    override def speak(): String = s"$name: ${}1 + 2 = 3}"
+    override def speak(): String = s"$name: 1 + 2 = 3"
   
   final class Professor(name: String) extends BoringSpeaker with Speaker("biology"):
     override def speak(): String = s"$name: your cells are powered by structured water"
