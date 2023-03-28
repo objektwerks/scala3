@@ -11,8 +11,8 @@ class CaseClassTest extends AnyFunSuite with Matchers:
     final case class Rotate(degrees: Int) extends Command // Product Type, Rotate has degrees
 
     def handle(command: Command): String = command match {
-      case Move(meters)    => s"Moving by ${meters} meter(s)."
-      case Rotate(degrees) => s"Rotating by ${degrees} degree(s)."
+      case Move(meters)    => s"Moving by $meters meter(s)."
+      case Rotate(degrees) => s"Rotating by $degrees degree(s)."
     }
   }
 
