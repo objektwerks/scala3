@@ -73,7 +73,7 @@ class ConcurrencyTest extends AnyFunSuite:
 
   test("scoped value") {
     val license: ScopedValue[String] = ScopedValue.newInstance()
-    val uuid = UUID.randomUUID().toString()
+    val uuid = UUID.randomUUID.toString
     val count = ScopedValue
       .where(license, uuid)
       .call { () => if license.get.nonEmpty then 1 else -1 }
