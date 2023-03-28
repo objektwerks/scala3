@@ -74,7 +74,13 @@ class ConcurrencyTest extends AnyFunSuite:
   test("scoped value") {
     val license: ScopedValue[String] = ScopedValue.newInstance()
     val uuid = UUID.randomUUID().toString()
-    val task = FileLineCountTask("./data/data.a.csv")
-    val lines = ScopedValue.where(license, uuid).call(task)
-    assert(lines == 270562)
+    val count = ScopedValue
+      .where(license, uuid)
+      .call{
+        new Callable[Int] {
+          override def call(): Int =
+            if license.get.nonEmpty then 1 else -1
+        }
+      }
+    assert(count == 1)
   }
