@@ -21,14 +21,14 @@ class CaseClassTest extends AnyFunSuite with Matchers:
     def speak: String
 
   // ADT Product Type Pattern - Has-A, Composition
-  case class Tiger(speach: String) extends Animal: // Tiger is an Animal
-    override def speak: String = speach
+  case class Tiger(speech: String) extends Animal: // Tiger is an Animal, has speech
+    override def speak: String = speech
 
-  case class Panther(speach: String) extends Animal: // Panther is an Animal
-    override def speak: String = speach
+  case class Panther(speech: String) extends Animal: // Panther is an Animal, has speech
+    override def speak: String = speech
 
-  case class Bear(speach: String) extends Animal: // Bear is an Animal
-    override def speak: String = speach
+  case class Bear(speech: String) extends Animal: // Bear is an Animal, has speech
+    override def speak: String = speech
 
   case object ZooKeeper:
     def openCages: Set[Animal] = Set(Tiger("prrrr"), Panther("woosh"), Bear("grrrr"))
@@ -70,7 +70,7 @@ class CaseClassTest extends AnyFunSuite with Matchers:
 
   test("copy") {
     val panther1 = Panther("prrrr")
-    val panther2 = panther1.copy(speach = "arrrgh")
+    val panther2 = panther1.copy(speech = "arrrgh")
     panther1 shouldEqual panther1.copy()
     panther1 should not equal panther2
   }
