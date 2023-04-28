@@ -5,6 +5,9 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.concurrent.{ExecutionContext, Future}
 
+/**
+  * See: https://blog.softwaremill.com/context-is-king-20f533474cb3
+  */
 class ContextFunctionTest extends AnyFunSuite with Matchers:
   type Executable[T] = ExecutionContext ?=> T
 
