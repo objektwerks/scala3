@@ -9,9 +9,9 @@ import scala.concurrent.{ExecutionContext, Future}
   * See: https://blog.softwaremill.com/context-is-king-20f533474cb3
   */
 class ContextFunctionTest extends AnyFunSuite with Matchers:
-  type Executable[T] = ExecutionContext ?=> Future[T]
-
   given ec: ExecutionContext = ExecutionContext.global
+
+  type Executable[T] = ExecutionContext ?=> Future[T]
 
   def square(n: Int): Executable[Int] = Future { n * n }
 
