@@ -2,7 +2,6 @@ package objektwerks.traits
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
-import javax.swing.text.html.parser.Entity
 
 class TraitTest extends AnyFunSuite with Matchers:
   enum Honorific(honorific: String):
