@@ -3,8 +3,6 @@ package objektwerks.option
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.util.Try
-
 class OptionTest extends AnyFunSuite with Matchers:
   def isGreaterThanZero(x: Int): Option[Int] = if (x > 0) Some(x) else None
 
