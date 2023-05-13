@@ -4,7 +4,6 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.tailrec
-import scala.collection.mutable.ArrayBuffer
 import scala.util.matching.Regex
 
 class MatchTest extends AnyFunSuite with Matchers:
