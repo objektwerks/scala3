@@ -4,11 +4,11 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class TraitTest extends AnyFunSuite with Matchers:
-  enum Honorific(honorific: String):
+  enum Honorific(val honorific: String):
     case sir extends Honorific("Sir")
     case madam extends Honorific("Madam")
 
-  enum Greeting(greeting: String):
+  enum Greeting(val greeting: String):
     case goodMorning extends Greeting("I bid you good morning.")
     case goodEvening extends Greeting("I bid you good evening.")
 
