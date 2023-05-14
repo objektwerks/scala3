@@ -4,17 +4,13 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class EnumTest extends AnyFunSuite with Matchers:
-  enum Test:
-    case Fail(val test: String, val score: Int) extends Test
-    case Pass(val test: String, val score: Int) extends Test
+  enum Exam:
+    case Fail(val subjet: String, val score: Int) extends Exam
+    case Pass(val subject: String, val score: Int) extends Exam
 
-    def getTest(failOrPass: Fail | Pass): String = failOrPass match
-      case Fail(test, _) => test
-      case Pass(test, _) => test
-
-    def getScore(failOrPass: Fail | Pass): Int = failOrPass match
-      case Fail(_, score) => score
-      case Pass(_, score) => score
+    def tuple(failOrPass: Fail | Pass): (String, Int) = failOrPass match
+      case Fail(subject, score) => (subject, score)
+      case Pass(subject, score) => (subject, score)
 
   enum Gate(val state: Int):
     case closed extends Gate(0)
@@ -36,12 +32,10 @@ class EnumTest extends AnyFunSuite with Matchers:
     def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
   test("enum") {
-    val fail: Test.Fail = Test.Fail("a", 50)
-    val pass: Test.Pass = Test.Pass("b", 100)
-    fail.getTest(fail) shouldBe "a"
-    fail.getScore(fail) shouldBe 50
-    pass.getTest(pass) shouldBe "b"
-    pass.getScore(pass) shouldBe 100
+    val fail: Exam.Fail = Exam.Fail("algebra", 50)
+    val pass: Exam.Pass = Exam.Pass("chemistry", 100)
+    fail.tuple(fail) shouldBe ("algebra", 50)
+    pass.tuple(pass) shouldBe ("chemistry", 100)
 
     val closedGate = Gate.closed
     closedGate shouldBe Gate.closed
