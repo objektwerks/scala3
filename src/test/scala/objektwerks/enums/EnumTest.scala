@@ -8,7 +8,7 @@ class EnumTest extends AnyFunSuite with Matchers:
     case Fail(val subjet: String, val score: Int) extends Exam
     case Pass(val subject: String, val score: Int) extends Exam
 
-    def tuple(failOrPass: Fail | Pass): (String, Int) = failOrPass match
+    def tuple(exam: Exam): (String, Int) = exam match
       case Fail(subject, score) => (subject, score)
       case Pass(subject, score) => (subject, score)
 
@@ -32,8 +32,8 @@ class EnumTest extends AnyFunSuite with Matchers:
     def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
   test("enum") {
-    val fail: Exam.Fail = Exam.Fail("algebra", 50)
-    val pass: Exam.Pass = Exam.Pass("chemistry", 100)
+    val fail = Exam.Fail("algebra", 50)
+    val pass = Exam.Pass("chemistry", 100)
     fail.tuple(fail) shouldBe ("algebra", 50)
     pass.tuple(pass) shouldBe ("chemistry", 100)
 
