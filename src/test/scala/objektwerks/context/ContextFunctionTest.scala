@@ -22,12 +22,14 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
 
   final case class Pin(value: String)
   final case class Token(value: String = UUID.randomUUID.toString)
-  final case class AuthToken(pin: Pin, token: Token)
+  final case class AuthToken(pin: Pin, token: Token) {
+    def isValid = pin.value.nonEmpty && token.value.nonEmpty
+  }
 
   def login: Pin ?=> AuthToken = AuthToken( summon[Pin], Token() )
 
   def handle(message: String)(using authToken: AuthToken): Boolean =
-    println(summon[AuthToken])
+    require( summon[AuthToken].isValid, "Invalid auth token!")
     message.nonEmpty
 
   test("auth token context") {
