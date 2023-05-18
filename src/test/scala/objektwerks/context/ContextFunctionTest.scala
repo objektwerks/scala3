@@ -30,7 +30,7 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
 
   def handle(message: String)(using authToken: AuthTokenContext[AuthToken]): Boolean = message.nonEmpty
 
-  test("authorization context") {
+  test("auth token context") {
     given AuthTokenContext[AuthToken] = login(pin = "1a2b3c4")
     val result = handle(message = "test")
     result shouldBe true
