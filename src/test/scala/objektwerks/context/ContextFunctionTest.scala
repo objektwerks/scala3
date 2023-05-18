@@ -29,8 +29,7 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
   def login: Pin ?=> AuthToken = AuthToken( summon[Pin] )
 
   def handle(message: String)(using authToken: AuthToken): Boolean =
-    require( summon[AuthToken].isValid, "Invalid auth token!")
-    message.nonEmpty
+    summon[AuthToken].isValid && message.nonEmpty
 
   test("auth token") {
     given Pin = Pin("1a2b3c4")
