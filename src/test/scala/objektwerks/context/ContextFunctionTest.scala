@@ -16,7 +16,7 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
 
   def square(n: Int): Executable[Int] = Future { n * n }
 
-  test("executable context") {
+  test("executable") {
     square(2).foreach( result => result shouldBe 4 )
   }
 
@@ -32,7 +32,7 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
     require( summon[AuthToken].isValid, "Invalid auth token!")
     message.nonEmpty
 
-  test("auth token context") {
+  test("auth token") {
     given Pin = Pin("1a2b3c4")
     given AuthToken = login
     val result = handle(message = "test")
