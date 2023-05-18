@@ -20,18 +20,19 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
     square(2).foreach( result => result shouldBe 4 )
   }
 
-  final case class AuthToken(id: String = UUID.randomUUID.toString) {
-    def isValid = id.nonEmpty
-  }
+  final case class Pin(value: String)
+  final case class Token(value: String = UUID.randomUUID.toString)
+  final case class AuthToken(pin: Pin, token: Token)
 
-  type AuthTokenContext[T] = AuthToken ?=> T
+  def login: Pin ?=> AuthToken = AuthToken( summon[Pin], Token() )
 
-  def login(pin: String): AuthTokenContext[AuthToken] = AuthToken()
-
-  def handle(message: String)(using authToken: AuthTokenContext[AuthToken]): Boolean = message.nonEmpty
+  def handle(message: String)(using authToken: AuthToken): Boolean =
+    println(summon[AuthToken])
+    message.nonEmpty
 
   test("auth token context") {
-    given AuthTokenContext[AuthToken] = login(pin = "1a2b3c4")
+    given Pin = Pin("1a2b3c4")
+    given AuthToken = login
     val result = handle(message = "test")
     result shouldBe true
   }
