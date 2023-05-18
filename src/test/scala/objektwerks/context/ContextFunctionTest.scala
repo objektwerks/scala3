@@ -1,10 +1,12 @@
 package objektwerks.context
 
+import java.util.UUID
+
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.concurrent.{ExecutionContext, Future}
-import java.util.UUID
+import scala.annotation.tailrec
 
 /**
   * See: https://blog.softwaremill.com/context-is-king-20f533474cb3
@@ -14,10 +16,16 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
 
   type Executable[T] = ExecutionContext ?=> Future[T]
 
-  def square(n: Int): Executable[Int] = Future { n * n }
+  def calc(n: Int): Executable[Int] =
+    @tailrec
+    def factorial(n: Int, acc: Int = 1): Int = n match
+      case i if i < 1 => acc
+      case _ => factorial(n - 1, acc * n)
+
+    Future { factorial(n) }
 
   test("executable") {
-    square(2).foreach( result => result shouldBe 4 )
+    calc(3).foreach( result => result shouldBe 6 )
   }
 
   final case class Pin(value: String)
