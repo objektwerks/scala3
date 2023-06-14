@@ -20,3 +20,6 @@ Colors.Blue.toString()
 
 Colors.values.toList
 Colors.toList
+
+val colors = Colors.toList.mkString(",")
+colors.split(",").toList
