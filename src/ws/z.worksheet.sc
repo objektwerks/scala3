@@ -11,8 +11,12 @@ sum(List(1, 2, 3))
 enum Colors:
   case Red, White, Blue
 
+object Colors:
+  def toList: List[String] = Colors.values.map(_.toString).toList
+
 Colors.Red.toString()
 Colors.White.toString()
 Colors.Blue.toString()
 
 Colors.values.toList
+Colors.toList
