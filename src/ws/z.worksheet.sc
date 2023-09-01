@@ -1,4 +1,3 @@
-import javafx.scene.effect.BlurType
 import scala.annotation.tailrec
 
 @tailrec
