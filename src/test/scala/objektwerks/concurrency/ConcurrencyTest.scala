@@ -2,8 +2,7 @@ package objektwerks.concurrency
 
 import java.time.Instant
 import java.util.UUID
-import java.util.concurrent.{Callable, Executors}
-import jdk.incubator.concurrent.{ScopedValue, StructuredTaskScope}
+import java.util.concurrent.{Callable, Executors, StructuredTaskScope}
 
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -45,7 +44,7 @@ class ConcurrencyTest extends AnyFunSuite:
       val blines = scope.fork( () => FileLineCountTask("./data/data.b.csv").call() )
       scope.join()
       scope.throwIfFailed()
-      alines.resultNow() + blines.resultNow()
+      alines.get() + blines.get()
     }
     lines match
       case Success(count) => assert(count == expectedLineCount)
@@ -57,7 +56,7 @@ class ConcurrencyTest extends AnyFunSuite:
       val futures = tasks.map( task => scope.fork( () => task.call() ) )
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.throwIfFailed()
-      futures.map( future => future.resultNow() ).sum
+      futures.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage), lines => assert(lines == expectedLineCount) )
   }
 
