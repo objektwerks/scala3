@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-final class TypesTest extends AnyFunSuite with Matchers:
+final class TypeLiteralTest extends AnyFunSuite with Matchers:
   test("literal") {
     val n = 2
     val two: 2 = 2
