@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class DependentTypeTest extends AnyFunSuite with Matchers:
+final class DependentTypeTest extends AnyFunSuite with Matchers:
   trait Container:
     type Value
     val value: Value
