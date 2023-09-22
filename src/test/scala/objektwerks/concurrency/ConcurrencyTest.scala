@@ -10,7 +10,7 @@ import scala.io.{Codec, Source}
 import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Using}
 
-class FileLineCountTask(file: String) extends Callable[Int]:
+final class FileLineCountTask(file: String) extends Callable[Int]:
   def call(): Int = Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().length }.get
 
 /**
@@ -20,7 +20,7 @@ class FileLineCountTask(file: String) extends Callable[Int]:
   * Loom: www.marcobehler.com/guides/java-project-loom
   * Using: scala-lang.org/api/3.x/scala/util/Using$.html# | www.baeldung.com/scala/try-with-resources
   */
-class ConcurrencyTest extends AnyFunSuite:
+final class ConcurrencyTest extends AnyFunSuite:
   val tasks = List( FileLineCountTask("./data/data.a.csv"), FileLineCountTask("./data/data.b.csv") )
   val expectedLineCount = 540_959
 
