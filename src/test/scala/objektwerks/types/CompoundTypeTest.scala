@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CompoundTypeTest extends AnyFunSuite with Matchers:
+final class CompoundTypeTest extends AnyFunSuite with Matchers:
   sealed trait Boot:
     def boot: Boolean = true
 
