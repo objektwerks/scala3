@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import scala.concurrent.{Future, Promise}
 import scala.util.{Failure, Success, Try}
 
-class FutureTest extends AsyncFunSuite with Matchers:
+final class FutureTest extends AsyncFunSuite with Matchers:
   // Not compatible with AsyncFunSuite,
   // but a useful callback example
   Future("3".toInt).onComplete {
@@ -15,7 +15,7 @@ class FutureTest extends AsyncFunSuite with Matchers:
   }
 
   test("promise") {
-    def send(message: String): Future[String] = {
+    def send(message: String): Future[String] =
       val promise = Promise[String] ()
       val runnable = new Runnable {
         override def run(): Unit = {
@@ -24,35 +24,35 @@ class FutureTest extends AsyncFunSuite with Matchers:
       }
       executionContext.execute(runnable)
       promise.future
-    }
+
     send("Hello world!") map { _ shouldBe "Hello world!" }
   }
 
   test("sequential") {
-    val future = for {
+    val future = for
       one <-  Future(1)
       two <- Future(2)
-    } yield one + two
+    yield one + two
     future map { _ shouldBe 3 }
   }
 
   test("parallel") {
     val futureOne = Future(1)
     val futureTwo = Future(2)
-    val futureThree = for {
+    val futureThree = for
       one <- futureOne
       two <- futureTwo
-    } yield one + two
+    yield one + two
     futureThree map { _ shouldBe 3 }
   }
 
   test("sequential fail fast") {
     recoverToSucceededIf[NumberFormatException] {
-      for {
+      for
         x <- Future { Integer.parseInt("one") }
         y <- Future { Integer.parseInt("2") }
         z <- Future { Integer.parseInt("3") }
-      } yield (x, y, z)
+      yield (x, y, z)
     }
   }
 
@@ -61,11 +61,11 @@ class FutureTest extends AsyncFunSuite with Matchers:
       val futureOne = Future { Integer.parseInt("one") }
       val futureTwo = Future { Integer.parseInt("2") }
       val futureThree = Future { Integer.parseInt("3") }
-      for {
+      for
         x <- futureOne
         y <- futureTwo
         z <- futureThree
-      } yield (x, y, z)
+      yield (x, y, z)
     }
   }
 
@@ -153,9 +153,9 @@ class FutureTest extends AsyncFunSuite with Matchers:
   test("for > recover") {
     val future = Future(Integer.parseInt("three"))
     val result = (
-      for {
+      for
         i <- future
-      } yield i
+      yield i
     ).recover { case _: Throwable => -1 }
     result map { _ shouldBe -1 }
   }
