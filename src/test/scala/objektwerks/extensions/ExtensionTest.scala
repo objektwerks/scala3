@@ -3,7 +3,8 @@ package objektwerks.extensions
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class ExtensionTest extends AnyFunSuite with Matchers:
+final class ExtensionTest extends AnyFunSuite with Matchers:
+  // No compiler error with open, final or nothing / blank!
   open case class Circle(x: Double, y: Double, radius: Double)
 
   extension (circle: Circle)
