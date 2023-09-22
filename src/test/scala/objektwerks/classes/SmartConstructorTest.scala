@@ -6,13 +6,13 @@ import org.scalatest.matchers.should.Matchers
 /**
   * See: https://tuleism.github.io/blog/2020/scala-smart-constructors/
   */
-class SmartConstructorTest extends AnyFunSuite with Matchers:
+final class SmartConstructorTest extends AnyFunSuite with Matchers:
   sealed trait Email:
     def address: String
 
   object Email:
     def validate(newAddress: String): Option[Email] =
-      if (newAddress.contains("@"))
+      if newAddress.contains("@") then
         Some(
           new Email {
             override def address: String = newAddress
@@ -24,14 +24,14 @@ class SmartConstructorTest extends AnyFunSuite with Matchers:
 
   object Xmail:
     def validate(newAddress: String): Option[Xmail] =
-      if (newAddress.contains("@")) Some( new Xmail(newAddress){} )
+      if newAddress.contains("@") then Some( new Xmail(newAddress){} )
       else None
 
   final case class Ymail private (address: String)
   
   object Ymail:
     def validate(newAddress: String): Option[Ymail] =
-      if (newAddress.contains("@")) Some( Ymail(newAddress) )
+      if newAddress.contains("@") then Some( Ymail(newAddress) )
       else None
 
   test("trait") {
