@@ -3,7 +3,7 @@ package objektwerks.traits
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TraitTest extends AnyFunSuite with Matchers:
+final class TraitTest extends AnyFunSuite with Matchers:
   enum Honorific(val honorific: String):
     case sir extends Honorific("Sir")
     case madam extends Honorific("Madam")
