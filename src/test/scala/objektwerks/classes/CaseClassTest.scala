@@ -3,41 +3,39 @@ package objektwerks.classes
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class CaseClassTest extends AnyFunSuite with Matchers:
+final class CaseClassTest extends AnyFunSuite with Matchers:
   // Algebraic Data Types ( ADTs )
   sealed abstract class Command // Sum Type, Move and Rotate is a Command
-  object Command {
+  object Command:
     final case class Move(meters: Int) extends Command // Product Type, Move has meters
     final case class Rotate(degrees: Int) extends Command // Product Type, Rotate has degrees
 
-    def handle(command: Command): String = command match {
+    def handle(command: Command): String = command match
       case Move(meters)    => s"Moving by $meters meter(s)."
       case Rotate(degrees) => s"Rotating by $degrees degree(s)."
-    }
-  }
 
   // ADT Sum Type Pattern - Is-A, Inheritence - Tiger, Panther and Bear is an Animal
   sealed trait Animal:
     def speak: String
 
   // ADT Product Type Pattern - Has-A, Composition
-  case class Tiger(speech: String) extends Animal: // Tiger is an Animal, has speech
+  final case class Tiger(speech: String) extends Animal: // Tiger is an Animal, has speech
     override def speak: String = speech
 
-  case class Panther(speech: String) extends Animal: // Panther is an Animal, has speech
+  final case class Panther(speech: String) extends Animal: // Panther is an Animal, has speech
     override def speak: String = speech
 
-  case class Bear(speech: String) extends Animal: // Bear is an Animal, has speech
+  final case class Bear(speech: String) extends Animal: // Bear is an Animal, has speech
     override def speak: String = speech
 
   case object ZooKeeper:
     def openCages: Set[Animal] = Set(Tiger("prrrr"), Panther("woosh"), Bear("grrrr"))
 
   // Value Classes ( See types.OpaqueTypeTest )
-  case class Meter(value: Double):
+  final case class Meter(value: Double):
     def toFeet: Foot = Foot(value * 0.3048)
 
-  case class Foot(value: Double):
+  final case class Foot(value: Double):
     def toMeter: Meter = Meter(value / 0.3048)
 
   test("adt") {
@@ -49,14 +47,12 @@ class CaseClassTest extends AnyFunSuite with Matchers:
 
   test("case class") {
     val animals = ZooKeeper.openCages
-    for (animal <- animals) {
+    for (animal <- animals)
       animal.speak.nonEmpty shouldBe true
-      animal match {
+      animal match
         case Tiger(speech) => speech shouldEqual "prrrr"
         case Panther(speech) => speech shouldEqual "woosh"
         case Bear(speech) => speech shouldEqual "grrrr"
-      }
-    }
   }
 
   test("equality") {
