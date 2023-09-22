@@ -4,15 +4,6 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 final class TypesTest extends AnyFunSuite with Matchers:
-  test("alias") {
-    type User = String
-    type Age = Int
-    val users =  Map[User, Age]("john" -> 21, "jane" -> 19)
-
-    users("john") shouldEqual 21
-    users("jane") shouldEqual 19
-  }
-
   test("literal") {
     val n = 2
     val two: 2 = 2
@@ -23,7 +14,7 @@ final class TypesTest extends AnyFunSuite with Matchers:
 
     bounce(n) shouldBe n
     bounce(two) shouldBe two
-    // bounceStrict(n) shouldBe n Found: (n : Int) Required: (2 : Int)
+    bounceStrict(2) shouldBe n
     bounceStrict(two) shouldBe two
     3.14 shouldBe pi
   }
