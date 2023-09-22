@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class SelfTypeTest extends AnyFunSuite with Matchers:
+final class SelfTypeTest extends AnyFunSuite with Matchers:
   sealed trait Speaking:
     def speaking: String 
 
