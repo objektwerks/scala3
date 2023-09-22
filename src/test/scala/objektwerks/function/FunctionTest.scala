@@ -5,10 +5,10 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.tailrec
 import scala.language.postfixOps
-import scala.util.chaining.*
 import scala.util.{Random, Try}
+import scala.util.chaining.*
 
-class FunctionTest extends AnyFunSuite with Matchers:
+final class FunctionTest extends AnyFunSuite with Matchers:
   test("literal") {
     val add = (x: Int, y: Int) => x + y
     add(3, 3) shouldBe 6
@@ -181,14 +181,12 @@ class FunctionTest extends AnyFunSuite with Matchers:
   }
 
   test("select by index") {
-    def selectByIndex(source: List[Int], index: Int): Option[Int] = {
+    def selectByIndex(source: List[Int], index: Int): Option[Int] =
       @tailrec
-      def loop(source: List[Int], index: Int, acc: Int = 0): Option[Int] = source match {
+      def loop(source: List[Int], index: Int, acc: Int = 0): Option[Int] = source match
         case Nil => None
         case head :: tail => if (acc == index) Some(head) else loop(tail, index, acc + 1)
-      }
       loop(source, index)
-    }
 
     val xs = 1 to 10 toList
     val ys = List[Int]()
@@ -239,7 +237,7 @@ class FunctionTest extends AnyFunSuite with Matchers:
 
     val (result, time) = timer { factorial(19) }
     result shouldBe 109641728
-    time > 0.0
+    time should be > 0.0
   }
 
   test("diff as percentage") {
