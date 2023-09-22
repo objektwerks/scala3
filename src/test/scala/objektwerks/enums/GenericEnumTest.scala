@@ -18,7 +18,7 @@ enum Box[T](content: T):
 
   def unbox: T = content
 
-class GenericEnumTest extends AnyFunSuite with Matchers:
+final class GenericEnumTest extends AnyFunSuite with Matchers:
   test("trait > case class > gadt") {
     eval( IntExpr(3) ) shouldBe 3
     eval( BoolExpr(true) ) shouldBe true
