@@ -3,7 +3,10 @@ package objektwerks.`given`
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class GivenUsingTest extends AnyFunSuite with Matchers:
+/**
+  * Type Class pattern with given and using.
+  */
+final class GivenUsingTest extends AnyFunSuite with Matchers:
   sealed trait Combiner[T]:
     def combine(list: List[T]): T
 
