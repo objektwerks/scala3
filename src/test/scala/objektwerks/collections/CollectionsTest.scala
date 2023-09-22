@@ -9,7 +9,7 @@ import scala.collection.immutable.*
 import scala.collection.mutable
 import scala.jdk.CollectionConverters.*
 
-class CollectionsTest extends AnyFunSuite with Matchers:
+final class CollectionsTest extends AnyFunSuite with Matchers:
   def toList(i: Int): List[Int] = List(i - 1, i, i + 1)
 
   test("newBuilder") {
