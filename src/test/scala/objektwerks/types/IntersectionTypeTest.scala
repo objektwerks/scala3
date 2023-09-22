@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class IntersectionTypeTest extends AnyFunSuite with Matchers:
+final class IntersectionTypeTest extends AnyFunSuite with Matchers:
   sealed trait Camera:
     def cameraEnabled: Boolean = true
 
