@@ -58,7 +58,7 @@ final class TraitTest extends AnyFunSuite with Matchers:
   }
 
   sealed transparent trait Entity
-  final case class Person(name: String, age: Int)
+  final case class Person(name: String, age: Int) extends Entity
 
   test("transparent") {
     val persons = Set( Person("fred", 25), Person("barney", 28) )
