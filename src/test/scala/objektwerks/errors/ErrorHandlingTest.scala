@@ -8,14 +8,14 @@ import scala.util.control.Exception.*
 import scala.util.control.NonFatal
 import scala.util.{Success, Try, Using}
 
-class ErrorHandlingTest extends AnyFunSuite with Matchers:
+final class ErrorHandlingTest extends AnyFunSuite with Matchers:
   def divide(x: Int, y: Int): Either[Throwable, Int] = Try(x / y).toEither
 
   def divide(x: String, y: String): Option[Int] =
-    for {
+    for
       x <- x.toIntOption
       y <- y.toIntOption
-    } yield x / y
+    yield x / y
 
   def fileToLines(file: String): Try[Seq[String]] = 
     Using( Source.fromFile(file, Codec.UTF8.name) ) { source => source.getLines().toSeq }
@@ -30,17 +30,17 @@ class ErrorHandlingTest extends AnyFunSuite with Matchers:
     divide(9, 3).getOrElse(-1) shouldBe 3
     divide(9, 3).map(_ * 3).getOrElse(-1) shouldBe 9
     divide(9, 3).map(_ * 3).filterOrElse(_ == 9, -1).getOrElse(-1) shouldBe 9
-    divide(3, 0) match {
+    divide(3, 0) match
       case Right(_) => fail("Should throw divide by zero error.")
       case Left(error) => error.isInstanceOf[Throwable] shouldBe true
-    }
   }
   
   test("try catch handler") {
-    val handler: PartialFunction[Throwable, Unit] = {
+    val handler: PartialFunction[Throwable, Unit] =
       case NonFatal(error) => error.getMessage.nonEmpty shouldBe true; ()
-    }
-    try "abc".toInt catch handler
+    
+    try "abc".toInt
+    catch handler
   }
 
   test("try") {
@@ -63,9 +63,9 @@ class ErrorHandlingTest extends AnyFunSuite with Matchers:
   }
 
   test("try recover") {
-    val i = for {
+    val i = for
       i <- Try("one".toInt).recover { case _ => 0 }
-    } yield i
+    yield i
     i shouldBe Success(0)
   }
 
