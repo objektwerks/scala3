@@ -36,7 +36,7 @@ extension (mac: MAC)
     builder.toString
   def number: Long = java.lang.Long.parseLong(address, 16)
 
-class OpaqueTypeTest extends AnyFunSuite with Matchers:
+final class OpaqueTypeTest extends AnyFunSuite with Matchers:
   private val address = "50ed3c45f4ba"
 
   test("valid mac") {
