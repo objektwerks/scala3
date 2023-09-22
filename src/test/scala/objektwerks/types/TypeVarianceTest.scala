@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TypeVarianceTest extends AnyFunSuite with Matchers:
+final class TypeVarianceTest extends AnyFunSuite with Matchers:
   sealed trait Canine
   final class Dog extends Canine
   final class Wolf extends Canine
