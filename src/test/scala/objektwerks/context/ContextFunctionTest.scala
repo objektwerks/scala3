@@ -11,8 +11,8 @@ import scala.annotation.tailrec
 /**
   * See: https://blog.softwaremill.com/context-is-king-20f533474cb3
   */
-class ContextFunctionTest extends AnyFunSuite with Matchers:
-  given ec: ExecutionContext = ExecutionContext.global
+final class ContextFunctionTest extends AnyFunSuite with Matchers:
+  given ExecutionContext = ExecutionContext.global
 
   type Executable[T] = ExecutionContext ?=> Future[T]
 
@@ -30,9 +30,8 @@ class ContextFunctionTest extends AnyFunSuite with Matchers:
 
   final case class Pin(value: String)
   final case class Token(value: String = UUID.randomUUID.toString)
-  final case class AuthToken(pin: Pin, token: Token = Token()) {
-    def isValid = pin.value.nonEmpty && token.value.nonEmpty
-  }
+  final case class AuthToken(pin: Pin, token: Token = Token()):
+    def isValid: Boolean = pin.value.nonEmpty && token.value.nonEmpty
 
   def login: Pin ?=> AuthToken = AuthToken( summon[Pin] )
 
