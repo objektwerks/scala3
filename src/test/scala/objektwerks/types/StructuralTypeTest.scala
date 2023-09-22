@@ -5,19 +5,18 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.Selectable.*
 
-class StructuralTypeTest extends AnyFunSuite with Matchers:
-  class MapStruct(fields: (String, Any)*) extends Selectable:
+final class StructuralTypeTest extends AnyFunSuite with Matchers:
+  class CarBuilder(fields: (String, Any)*) extends Selectable:
     private val columns = fields.toMap
     def selectDynamic(column: String): Any = columns(column)
 
-  type Auto = MapStruct {
+  type Car = CarBuilder:
     val make: String
     val model: String
     val year: Int
-  }
 
   test("structural") {
-    val auto = MapStruct("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Auto]
+    val auto = CarBuilder("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Car]
     val make = auto.selectDynamic("make").asInstanceOf[String]
     val model = auto.selectDynamic("model").asInstanceOf[String]
     val year = auto.selectDynamic("year").asInstanceOf[Int]
