@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.language.strictEquality
 
-class CanEqualTest extends AnyFunSuite with Matchers:
+final class CanEqualTest extends AnyFunSuite with Matchers:
   sealed trait Book:
       def author: String
       def title: String
