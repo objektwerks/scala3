@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.annotation.targetName
 
-class InfixTest extends AnyFunSuite with Matchers:
+final class InfixTest extends AnyFunSuite with Matchers:
   case class Amount(value: Double):
     @targetName("+") def +(other: Amount): Amount = Amount(value + other.value)
     @targetName("-")  def -(other: Amount): Amount = Amount(value - other.value)
