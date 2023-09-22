@@ -10,7 +10,7 @@ final class TypeLambdaTest extends AnyFunSuite with Matchers:
   type MapByStringKey = [T] =>> Map[String, T]
 
   test("type lambda") {
-    var map: MapByStringKey[String] = Map()
-    map = map + ("a" -> "b")
-    map.get("a") shouldBe Some("b")
+    var map: MapByStringKey[Int] = Map()
+    map = map + ("a" -> 1)
+    map.get("a") shouldBe Some(1)
   }
