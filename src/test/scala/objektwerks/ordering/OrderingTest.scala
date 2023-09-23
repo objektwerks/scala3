@@ -9,7 +9,7 @@ final class OrderingTest extends AnyFunSuite with Matchers:
   given lastOrdering: Ordering[Name] = Ordering.by(_.last)
   given firstOrdering: Ordering[Name] = Ordering.by(_.first)
 
-  test("ordering > sorted") {
+  test("ordering > sorted"):
     val aName = Name(last = "a", first = "z")
     val zName = Name(last = "z", first = "a")
     val names = Seq( aName, zName )
@@ -19,4 +19,3 @@ final class OrderingTest extends AnyFunSuite with Matchers:
 
     val firstNameSorted = names.sorted[Name](using firstOrdering)
     firstNameSorted.head shouldBe zName
-  }
