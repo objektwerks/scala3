@@ -6,10 +6,10 @@ import org.scalatest.matchers.should.Matchers
 import util.boundary, boundary.break
 
 class BoundaryBreakTest extends AnyFunSuite with Matchers:
-  def sumOfRoots(ns: List[Long]): Option[Long] =
+  def sumOfRoots(numbers: List[Long]): Option[Long] =
     boundary:
-      val roots = ns.map: n => 
-        if n >= 0 then Math.sqrt(n)
+      val roots = numbers.map: number => 
+        if number >= 0 then Math.sqrt(number)
         else break(None)
       Some(roots.sum.round)
 
