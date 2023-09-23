@@ -24,9 +24,8 @@ final class ContextFunctionTest extends AnyFunSuite with Matchers:
 
     Future { factorial(n) }
 
-  test("executable") {
+  test("executable"):
     calc(3).foreach( result => result shouldBe 6 )
-  }
 
   final case class Pin(value: String)
   final case class Token(value: String = UUID.randomUUID.toString)
@@ -38,9 +37,8 @@ final class ContextFunctionTest extends AnyFunSuite with Matchers:
   def handle(message: String)(using authToken: AuthToken): Boolean =
     summon[AuthToken].isValid && message.nonEmpty
 
-  test("auth token") {
+  test("auth token"):
     given Pin = Pin("1a2b3c4")
     given AuthToken = login
     val message = "test"
     handle(message) shouldBe true
-  }
