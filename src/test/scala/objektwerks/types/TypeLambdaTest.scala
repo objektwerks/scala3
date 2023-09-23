@@ -9,8 +9,7 @@ import org.scalatest.matchers.should.Matchers
 final class TypeLambdaTest extends AnyFunSuite with Matchers:
   type MapByStringKey = [T] =>> Map[String, T]
 
-  test("type lambda") {
+  test("type lambda"):
     var map: MapByStringKey[Int] = Map()
     map = map + ("a" -> 1)
     map.get("a") shouldBe Some(1)
-  }
