@@ -17,7 +17,7 @@ final class UnionTypeTest extends AnyFunSuite with Matchers:
     case lager @ Lager(_) => lager.prost
     case pilsner @ Pilsner(_) => pilsner.cheers
 
-  test("union") {
+  test("union"):
     val lager = Lager("Song of Joy")
     val pilsner = Pilsner("Poetica 2")
 
@@ -26,4 +26,3 @@ final class UnionTypeTest extends AnyFunSuite with Matchers:
 
     drink( pilsner ).isInstanceOf[Pilsner] shouldBe true
     drink( pilsner ).name shouldBe "Poetica 2"
-  }
