@@ -344,28 +344,24 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     age shouldBe 99
 
   test("tuple copy"):
-    final case class KeyValue(key: Int, value: Int) {
+    final case class KeyValue(key: Int, value: Int):
       def tupled: (Int, Int) = (key, value)
-    }
     
     (2, 2) shouldBe KeyValue(1, 1).tupled.copy(2, 2)
 
   test("tupled"):
-    final case class CityStateZip(city: String, state: String, zip: Int) {
+    final case class CityStateZip(city: String, state: String, zip: Int):
       def tupled: (String, String, Int) = (city, state, zip)
-    }
 
     val (city, state, zip) = CityStateZip("placida", "florida", 33946).tupled
     city shouldBe "placida"
     state shouldBe "florida"
     zip shouldBe 33946
-  }
 
   test("untupling"):
     val tuples = List( (1, 1), (2, 2), (3, 3) )
-    val sums = tuples.map {
+    val sums = tuples.map:
       (x, y) => x + y
-    }
     sums shouldBe List(2, 4, 6)
 
   test("asJava"):
