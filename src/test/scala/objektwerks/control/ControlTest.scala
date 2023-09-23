@@ -16,7 +16,7 @@ final class ControlTest extends AnyFunSuite with Matchers:
     else
       positive
 
-  test("if then else") {
+  test("if then else"):
     import NumberType.*
 
     typeOfNumber(-1) shouldBe negative
@@ -26,15 +26,13 @@ final class ControlTest extends AnyFunSuite with Matchers:
     val x = 1
     val result = if x < 0 then -x else x
     result shouldBe x
-  }
 
-  test("for > guard > yield") {
+  test("for > guard > yield"):
     val xs = -1 to 3
     val result = for x <- xs if x > 0 yield x * x
     result.sum shouldBe 14
-  }
 
-  test("for > do") {
+  test("for > do"):
     val xs = 1 to 3
     val ys = 4 to 6
     for
@@ -43,10 +41,8 @@ final class ControlTest extends AnyFunSuite with Matchers:
       z = x + y
     do
       assert( z >= 5 && z <= 9)
-  }
 
-  test("while > do") {
+  test("while > do"):
     var x = 3
     while x > 0 do x = x - 1
     x shouldBe 0
-  }
