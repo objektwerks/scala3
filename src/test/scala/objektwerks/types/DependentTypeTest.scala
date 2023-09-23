@@ -12,17 +12,14 @@ final class DependentTypeTest extends AnyFunSuite with Matchers:
   
   def unboxer(container: Container): container.Value = unbox(container)  // dependent function, on unbox
 
-  def box[T](t: T): Container = new Container {
+  def box[T](t: T): Container = new Container:
     override type Value = T
     val value: T = t
-  }
 
-  test("method") {
+  test("method"):
     unbox( box(1) ) shouldBe 1
     unbox( box("one") ) shouldBe "one"
-  }
 
-  test("function") {
+  test("function"):
     unboxer( box(1) ) shouldBe 1
     unboxer( box("one") ) shouldBe "one"
-}
