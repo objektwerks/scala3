@@ -39,13 +39,13 @@ final class CaseClassTest extends AnyFunSuite with Matchers:
     def toMeter: Meter = Meter(value / 0.3048)
 
   test("adt") {
-    import Command._
+    import Command.*
 
     handle( Move(1) ) shouldBe "Moving by 1 meter(s)."
     handle( Rotate(2)) shouldBe "Rotating by 2 degree(s)."
   }
 
-  test("case class") {
+  test("case class"):
     val animals = ZooKeeper.openCages
     for (animal <- animals)
       animal.speak.nonEmpty shouldBe true
@@ -53,37 +53,31 @@ final class CaseClassTest extends AnyFunSuite with Matchers:
         case Tiger(speech) => speech shouldEqual "prrrr"
         case Panther(speech) => speech shouldEqual "woosh"
         case Bear(speech) => speech shouldEqual "grrrr"
-  }
 
-  test("equality") {
+  test("equality"):
     val tiger1 = Tiger("roar")
     val tiger2 = Tiger("roar")
     val tiger3 = Tiger("prrrr")
     tiger1 shouldEqual tiger2
     tiger1 should not equal tiger3
     tiger2 should not equal tiger3
-  }
 
-  test("copy") {
+  test("copy"):
     val panther1 = Panther("prrrr")
     val panther2 = panther1.copy(speech = "arrrgh")
     panther1 shouldEqual panther1.copy()
     panther1 should not equal panther2
-  }
 
-  test("toString") {
+  test("toString"):
     val bear1 = Bear("grrrr")
     val bear2 = Bear("grrrr")
     bear1.toString shouldEqual bear2.toString
-  }
 
-  test("apply unapply") {
+  test("apply unapply"):
     val tiger1 = Tiger("roar")
     tiger1 shouldEqual Tiger.apply(tiger1.speak)
     Tiger.unapply(tiger1) shouldEqual Tiger("roar")
-  }
 
-  test("value classes") {
+  test("value classes"):
     Meter(3.0).toFeet shouldEqual Foot(0.9144000000000001)
     Foot(3.0).toMeter shouldEqual Meter(9.84251968503937)
-  }
