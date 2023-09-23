@@ -45,7 +45,7 @@ def fibonacci(n: Long): BigInt =
 def isPrime(n: Int): Boolean =
   @tailrec
   def loop(current: Int): Boolean =
-    if (current > Math.sqrt( Math.abs(n.toDouble)) ) true
+    if current > Math.sqrt( Math.abs(n.toDouble) ) then true
     else n % current != 0 && loop(current + 1)
   if (n == -1 || n == 0 || n == 1) false else loop(2)
 
@@ -56,7 +56,7 @@ def intersectLists[A](listA: List[A],
   listA match {
     case Nil => acc
     case head :: tail =>
-      if (listB.contains(head)) intersectLists(tail, listB, acc :+ head)
+      if listB.contains(head) then intersectLists(tail, listB, acc :+ head)
       else intersectLists(tail, listB, acc)
   }
 
