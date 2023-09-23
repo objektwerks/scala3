@@ -27,7 +27,7 @@ final class EnumTest extends AnyFunSuite with Matchers:
     def surfaceGravity: Double = gravity * mass / (radius * radius)
     def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity
 
-  test("enum") {
+  test("enum"):
     val fail: Exam.Fail = Exam.Fail("algebra", 50)
     val pass: Exam.Pass = Exam.Pass("chemistry", 100)
     fail.subject shouldBe "algebra"
@@ -57,4 +57,3 @@ final class EnumTest extends AnyFunSuite with Matchers:
     val mars = Planet.Mars
     mars.surfaceGravity shouldBe 3.7126290961053403
     mars.surfaceWeight(mars.mass) shouldBe 2.383879142609239E24
-  }
