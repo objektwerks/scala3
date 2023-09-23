@@ -43,7 +43,7 @@ final class TraitTest extends AnyFunSuite with Matchers:
   final class Coach(name: String) extends ExcitingSpeaker with Speaker("football"):
     override def speak(): String = s"$name: go team go!"
 
-  test("constructor") {
+  test("constructor"):
     val teacher = Teacher("fred flintstone")
     teacher.topic shouldBe "math"
     teacher.speak() shouldBe "fred flintstone: 1 + 2 = 3"
@@ -55,15 +55,13 @@ final class TraitTest extends AnyFunSuite with Matchers:
     val coach = Coach("barney rebel")
     coach.topic shouldBe "football"
     coach.speak() shouldBe "barney rebel: go team go!"
-  }
 
   sealed transparent trait Marker
   sealed trait Entity
   final case class Person(name: String, age: Int) extends Entity, Marker
 
-  test("transparent") {
+  test("transparent"):
     // See: https://www.baeldung.com/scala/transparent-traits
     
     val persons = Set( Person("fred", 25), Person("barney", 28) )
     persons.size shouldBe 2
-  }
