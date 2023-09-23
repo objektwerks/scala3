@@ -34,20 +34,17 @@ final class SmartConstructorTest extends AnyFunSuite with Matchers:
       if newAddress.contains("@") then Some( Ymail(newAddress) )
       else None
 
-  test("trait") {
+  test("trait"):
     Email.validate("test@test.com").nonEmpty shouldBe true
     Email.validate("").isEmpty shouldBe true
     // no copy method!
-  }
 
-  test("abstract case class private") {
+  test("abstract case class private"):
     Xmail.validate("test@test.com").nonEmpty shouldBe true
     Xmail.validate("").isEmpty shouldBe true
     // no copy method!
-  }
 
-  test("final case class private") {
+  test("final case class private"):
     Ymail.validate("test@test.com").nonEmpty shouldBe true
     Ymail.validate("").isEmpty shouldBe true
     // no copy method!
-  }
