@@ -12,7 +12,7 @@ import scala.jdk.CollectionConverters.*
 final class CollectionsTest extends AnyFunSuite with Matchers:
   def toList(i: Int): List[Int] = List(i - 1, i, i + 1)
 
-  test("newBuilder") {
+  test("newBuilder"):
     Array.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe Array(1, 2, 3)
     Seq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe Seq(1, 2, 3)
     IndexedSeq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe IndexedSeq(1, 2, 3)
@@ -22,9 +22,8 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     View.newBuilder[Int].addOne(1).addOne(2).addOne(3).result.toList shouldBe List(1, 2, 3)
     MapView.newBuilder[Int, Int].addOne(1 -> 1).addOne(2 -> 2).addOne(3 -> 3).result.toMap shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
     LazyList.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe LazyList(1, 2, 3)
- }
 
-  test("list") {
+  test("list"):
     val list = List(1, 2, 3)
 
     list shouldBe 1 :: 2 :: 3 :: Nil
@@ -164,28 +163,24 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     List((1,3), (2,4)) shouldBe (List(1, 2) zip List(3, 4))
     List((1,3), (2,4), (3,5)) shouldBe List(1, 2, 3).zipAll(List(3, 4, 5), 0, 1)
     List((1,0), (2,1), (3,2)) shouldBe list.zipWithIndex
-  }
 
-  test("lazy list") {
+  test("lazy list"):
     val numberOfEvens = (1 to 100).to(LazyList).count(_ % 2 == 0)
     numberOfEvens shouldBe 50
-  }
 
-  test("list buffer") {
+  test("list buffer"):
     val buffer = mutable.ListBuffer(1, 2)
     (buffer += 3) shouldBe mutable.ListBuffer(1, 2, 3)
     (buffer -= 3) shouldBe mutable.ListBuffer(1, 2)
     (buffer -= 2) shouldBe mutable.ListBuffer(1)
     (buffer -= 1) shouldBe mutable.ListBuffer()
-  }
 
-  test("view") {
+  test("view"):
     val vector = Vector(1, 2, 3)
     val view = vector.view
     view.map(_ + 1).map(_ * 2).to(Vector) shouldBe Vector(4, 6, 8)
-  }
 
-  test("vector") {
+  test("vector"):
     val vector = Vector(1, 2)
     vector.length shouldBe 2
     vector(0) shouldBe 1
@@ -196,35 +191,31 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     vector shouldBe Vector(1) ++ Vector(2)
     vector shouldBe Vector(1) ++: Vector(2)
     3 shouldBe (vector foldRight 0)(_ + _)
-  }
 
-  test("array") {
+  test("array"):
     val array = Array(1, 2)
     1 +: Array(2) shouldBe array
     Array(1) :+ 2 shouldBe array
     Array(1) ++ Array(2) shouldBe array
     Array(1) ++: Array(2) shouldBe array
-  }
 
-  test("array buffer") {
+  test("array buffer"):
     val buffer = mutable.ArrayBuffer(1, 2)
     (buffer += 3) shouldBe mutable.ArrayBuffer(1, 2, 3)
     (buffer -= 3) shouldBe mutable.ArrayBuffer(1, 2)
     buffer.update(0, 0)
     buffer.update(1, 1)
     buffer shouldBe mutable.ArrayBuffer(0, 1)
-  }
 
-  test("array deque") {
+  test("array deque"):
     val deque = mutable.ArrayDeque(1, 2)
     (deque += 3) shouldBe mutable.ArrayDeque(1, 2, 3)
     (deque -= 3) shouldBe mutable.ArrayDeque(1, 2)
     deque.update(0, 0)
     deque.update(1, 1)
     deque shouldBe mutable.ArrayDeque(0, 1)
-  }
 
-  test("queue") {
+  test("queue"):
     val queue = mutable.Queue(1, 2)
     queue enqueue 3
     3 shouldBe queue.last
@@ -232,18 +223,16 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     queue.dequeue() shouldBe 2
     queue.dequeue() shouldBe 3
     queue.isEmpty shouldBe true
-  }
 
-  test("stack") {
+  test("stack"):
     val stack = mutable.Stack(2, 1)
     stack push 3
     3 shouldBe stack.pop()
     2 shouldBe stack.pop()
     1 shouldBe stack.pop()
     stack.isEmpty shouldBe true
-  }
 
-  test("string builder") {
+  test("string builder"):
     val builder = new StringBuilder
     builder.append("a")
     builder.append("b")
@@ -251,15 +240,13 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     builder.toString shouldBe "abc"
     builder.result() shouldBe "abc"
     builder.reverse.result() shouldBe "cba"
-  }
 
-  test("range") {
+  test("range"):
     (1 until 10) shouldBe Range(1, 10, 1)
     (10 until 1 by -1) shouldBe Range(10, 1, -1)
     (1 to 10) shouldBe Range.inclusive(1, 10, 1)
-  }
 
-  test("map") {
+  test("map"):
     val map = Map(1 -> 1, 2 -> 2)
     map(1) shouldBe 1
     map(2) shouldBe 2
@@ -273,25 +260,22 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     map.keySet shouldBe Set(1, 2)
     map.values.toSet shouldBe Set(1, 2)
     map.nonEmpty shouldBe true
-  }
 
-  test("seq map") {
+  test("seq map"):
     val map = SeqMap(3 -> 3, 2 -> 2, 1 -> 1)
     val list = map.keys.toIndexedSeq
     list(0) shouldBe 3
     list(1) shouldBe 2
     list(2) shouldBe 1
-  }
 
-  test("sorted map") {
+  test("sorted map"):
     val map = SortedMap(3 -> 3, 2 -> 2, 1 -> 1)
     val list = map.keys.toIndexedSeq
     list(0) shouldBe 1
     list(1) shouldBe 2
     list(2) shouldBe 3
-  }
 
-  test("mutable map") {
+  test("mutable map"):
     val map = mutable.Map(1 -> 1, 2 -> 2)
     (map += 3 -> 3) shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
     (map -= 3) shouldBe Map(1 -> 1, 2 -> 2)
@@ -303,16 +287,14 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     updatedMap.update(1, 0)
     updatedMap.update(2, 1)
     updatedMap shouldBe mutable.Map(1 -> 0, 2 -> 1)
-  }
 
-  test("trie map") {
+  test("trie map"):
     val map = concurrent.TrieMap(1 -> 1, 2 -> 2)
     map.getOrElseUpdate(3, 3) shouldBe 3
     map.remove(3) shouldBe Some(3)
     map.addOne(3 -> 3) shouldBe concurrent.TrieMap(1 -> 1, 2 -> 2, 3 -> 3)
-  }
 
-  test("set") {
+  test("set"):
     val set = Set(1, 2)
     set shouldBe Set(1) + 2
     set shouldBe Set(1, 2, 3) - 3
@@ -332,24 +314,21 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     a.intersect(b) shouldBe Set(3, 4)
     a.union(b) shouldBe Set(5, 10, 1, 6, 9, 2, 7, 3, 8, 4)
     a.diff(b) shouldBe Set(5, 1, 6, 2)
-  }
 
-  test("list set") {
+  test("list set"):
     val set = ListSet(1, 2, 3)
     set.size shouldBe 3
     set.head shouldBe 1
     set.tail shouldBe ListSet(2, 3)
-  }
 
-  test("sorted set") {
+  test("sorted set"):
     val set = SortedSet(3, 2, 1)
     val list = set.toIndexedSeq
     list(0) shouldBe 1
     list(1) shouldBe 2
     list(2) shouldBe 3
-  }
 
-  test("mutable set") {
+  test("mutable set"):
     val set = mutable.Set(1, 2)
     (set += 3) shouldBe Set(1, 2, 3)
     (set -= 3) shouldBe Set(1, 2)
@@ -357,24 +336,21 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     (set -= 1) shouldBe Set()
     (set ++= List(1, 2)) shouldBe Set(1, 2)
     (set --= List(1, 2)) shouldBe Set()
-  }
 
-  test("tuple") {
+  test("tuple"):
     val (first, last, age) = ("fred", "flintstone", 99)
     first shouldBe "fred"
     last shouldBe "flintstone"
     age shouldBe 99
-  }
 
-  test("tuple copy") {
+  test("tuple copy"):
     final case class KeyValue(key: Int, value: Int) {
       def tupled: (Int, Int) = (key, value)
     }
     
     (2, 2) shouldBe KeyValue(1, 1).tupled.copy(2, 2)
-  }
 
-  test("tupled") {
+  test("tupled"):
     final case class CityStateZip(city: String, state: String, zip: Int) {
       def tupled: (String, String, Int) = (city, state, zip)
     }
@@ -385,22 +361,20 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     zip shouldBe 33946
   }
 
-  test("untupling") {
+  test("untupling"):
     val tuples = List( (1, 1), (2, 2), (3, 3) )
     val sums = tuples.map {
       (x, y) => x + y
     }
     sums shouldBe List(2, 4, 6)
-  }
 
-  test("asJava") {
+  test("asJava"):
     val asJavaList = List(1, 2, 3).asJava
     asJavaList.size shouldBe 3
     asJavaList.stream.count shouldBe 3
     asJavaList.stream.reduce((t: Int, u: Int) => t + u).get shouldBe 6
-  }
 
-  test("asScala") {
+  test("asScala"):
     val arrayList = new java.util.ArrayList[Int]()
     arrayList.add(1)
     arrayList.add(2)
@@ -408,4 +382,3 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     val asScalaBuffer = arrayList.asScala
     asScalaBuffer.size shouldBe 3
     asScalaBuffer.sum shouldBe 6
-  }
