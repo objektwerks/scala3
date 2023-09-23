@@ -38,12 +38,11 @@ final class CaseClassTest extends AnyFunSuite with Matchers:
   final case class Foot(value: Double):
     def toMeter: Meter = Meter(value / 0.3048)
 
-  test("adt") {
+  test("adt"):
     import Command.*
 
     handle( Move(1) ) shouldBe "Moving by 1 meter(s)."
     handle( Rotate(2)) shouldBe "Rotating by 2 degree(s)."
-  }
 
   test("case class"):
     val animals = ZooKeeper.openCages
