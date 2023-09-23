@@ -12,7 +12,6 @@ class BoundaryBreakTest extends AnyFunSuite with Matchers:
       else break(None)
     Some(roots.sum.round)
 
-  test("boundary > break") {
+  test("boundary > break"):
     sumOfRoots( List(4, 8) ) shouldBe Some(5)
     sumOfRoots( List(-4, -8) ) shouldBe None
-  }
