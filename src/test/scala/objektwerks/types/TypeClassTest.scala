@@ -26,7 +26,7 @@ final class TypeClassTest extends AnyFunSuite with Matchers:
   given Mimicable[String] with
     extension (a: String) def mimic = a
 
-  test("type class") {
+  test("type class"):
     val strings = Seq("Scala3 ", "is a ", "new language!")
     joinAll(strings) shouldBe "Scala3 is a new language!"
 
@@ -34,4 +34,3 @@ final class TypeClassTest extends AnyFunSuite with Matchers:
     joinAll(ints) shouldBe 6
 
     "test".mimic shouldBe "test"
-  }
