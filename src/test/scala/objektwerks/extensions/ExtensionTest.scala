@@ -10,7 +10,6 @@ final class ExtensionTest extends AnyFunSuite with Matchers:
   extension (circle: Circle)
     def circumference: Double = circle.radius * math.Pi * 2
 
-  test("extension") {
+  test("extension"):
     val circle = Circle(3.0, 3.0, 3.0)
     circle.circumference shouldBe 18.84955592153876
-  }
