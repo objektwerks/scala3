@@ -7,7 +7,7 @@ import scala.sys.SystemProperties
 import scala.sys.process.Process
 
 final class SysTest extends AnyFunSuite with Matchers:
-  test("system properties") {
+  test("system properties"):
     val properties = SystemProperties()
     properties.contains("java.runtime.name") shouldBe true
 
@@ -16,9 +16,8 @@ final class SysTest extends AnyFunSuite with Matchers:
 
     properties -= "objekt"
     properties.getOrElse("objekt", "empty") shouldBe "empty"
-  }
 
-  test("process") {
+  test("process"):
     val file = Process("ls").lazyLines.find(file => file == "build.sbt")
     file.getOrElse("empty") shouldBe "build.sbt"
 
@@ -27,4 +26,3 @@ final class SysTest extends AnyFunSuite with Matchers:
 
     val lines = Process("cat .gitignore").lazyLines
     lines.nonEmpty shouldBe true
-  }
