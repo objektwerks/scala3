@@ -18,7 +18,6 @@ final class GivenUsingTest extends AnyFunSuite with Matchers:
 
   def combineList[T](list: List[T])(using combiner: Combiner[T]): T = combiner.combine(list)
 
-  test("given > using") {
+  test("given > using"):
     combineList( List(1, 2, 3) ) shouldBe 6
     combineList( List("Scala3 ", "is a ", "new language!") ) shouldBe "Scala3 is a new language!"
-  }
