@@ -15,7 +15,7 @@ final class StructuralTypeTest extends AnyFunSuite with Matchers:
     val model: String
     val year: Int
 
-  test("structural") {
+  test("structural"):
     val auto = CarBuilder("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Car]
     val make = auto.selectDynamic("make").asInstanceOf[String]
     val model = auto.selectDynamic("model").asInstanceOf[String]
@@ -24,4 +24,3 @@ final class StructuralTypeTest extends AnyFunSuite with Matchers:
     make shouldBe "Porsche"
     model shouldBe "911"
     year shouldBe 1964
-  }
