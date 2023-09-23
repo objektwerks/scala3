@@ -14,9 +14,8 @@ final class SmartConstructorTest extends AnyFunSuite with Matchers:
     def validate(newAddress: String): Option[Email] =
       if newAddress.contains("@") then
         Some(
-          new Email {
+          new Email:
             override def address: String = newAddress
-          }
         )
       else None
 
