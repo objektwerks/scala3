@@ -3,7 +3,15 @@ package objektwerks.control
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import util.boundary, boundary.break
+
 class BoundaryBreakTest extends AnyFunSuite with Matchers:
+  def sumOfRoots(numbers: List[Double]): Option[Double] = boundary:
+    val roots = numbers.map: n =>
+      println(s" * calculating square root for $n*")
+      if n >= 0 then Math.sqrt(n) else break(None)
+    Some(roots.sum)
+
   test("boundary > break") {
-    
+
   }
