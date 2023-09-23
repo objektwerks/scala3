@@ -16,7 +16,6 @@ final class IntersectionTypeTest extends AnyFunSuite with Matchers:
 
   def verifyMobilePhone(mobilePhone: Camera & Mic): Boolean = mobilePhone.cameraEnabled && mobilePhone.micEnabled
 
-  test("intersection") {
+  test("intersection"):
     verifyMobilePhone( new BasicPhone with Camera with Mic ) shouldBe true
     verifyMobilePhone( new SuperPhone ) shouldBe true
-  }
