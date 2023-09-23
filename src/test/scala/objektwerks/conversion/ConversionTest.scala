@@ -12,6 +12,5 @@ final class ConversionTest extends AnyFunSuite with Matchers:
   given Conversion[String, Person] with
     def apply(name: String): Person = Person(name)
 
-  test("conversion") {
+  test("conversion"):
     "Fred Flintstone".greetings shouldBe "Greetings. My name is Fred Flintstone."
-  }
