@@ -8,7 +8,8 @@ import util.boundary, boundary.break
 class BoundaryBreakTest extends AnyFunSuite with Matchers:
   def sumOfRoots(ns: List[Long]): Option[Long] = boundary:
     val roots = ns.map: n => 
-      if n >= 0 then Math.sqrt(n) else break(None)
+      if n >= 0 then Math.sqrt(n)
+      else break(None)
     Some(roots.sum.round)
 
   test("boundary > break") {
