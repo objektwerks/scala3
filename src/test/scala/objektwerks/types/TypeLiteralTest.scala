@@ -4,7 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 final class TypeLiteralTest extends AnyFunSuite with Matchers:
-  test("literal") {
+  test("literal"):
     val n = 2
     val two: 2 = 2
     val pi: 3.14 = 3.14
@@ -17,4 +17,3 @@ final class TypeLiteralTest extends AnyFunSuite with Matchers:
     bounceStrict(2) shouldBe n
     bounceStrict(two) shouldBe two
     3.14 shouldBe pi
-  }
