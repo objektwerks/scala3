@@ -8,6 +8,5 @@ final class ContextBoundsTest extends AnyFunSuite with Matchers:
     val ordering = summon[Ordering[A]]
     ordering.max(a, b)
 
-  test("context bounds") {
+  test("context bounds"):
     maximum( 1, 2 ) shouldBe 2
-  }
