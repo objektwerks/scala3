@@ -18,50 +18,43 @@ final class IOTest extends AnyFunSuite with Matchers:
       .view
       .mapValues(_.length)
 
-  def fileToLines(file: String): Try[Seq[String]] = 
-    Using( Source.fromFile(file, utf8) ) { 
+  def fileToLines(file: String): Try[Seq[String]] =
+    Using( Source.fromFile(file, utf8) ):
       source => source.getLines().toSeq 
-    }
 
-  test("from url") {
+  test("from url"):
     Using( Source.fromURL("https://api.chucknorris.io/jokes/random", utf8) ) { 
       source => source.mkString.split("\\W+").nonEmpty shouldBe true
     }.isSuccess shouldBe true
-  }
 
-  test("from file") {
+  test("from file"):
     Using( Source.fromFile("./LICENSE", utf8) ) { 
       source => source.mkString.split("\\W+").length shouldBe 1427
     }.isSuccess shouldBe true
-  }
 
-  test("from input stream") {
+  test("from input stream"):
     val words = Using( Source.fromInputStream(getClass.getResourceAsStream("/license.mit"), utf8) ) { 
       source => source.mkString.split("\\W+")
     }.getOrElse( Array.empty[String] )
     words.length shouldEqual 169
     toWordCountMap(words).size shouldEqual 96
-  }
 
-  test("from string") {
+  test("from string"):
     Using( Source.fromString(quote) ) { 
       source => source.mkString.split("\\W+").length shouldBe 13
     }.isSuccess shouldBe true
-  }
 
-  test("from chars") {
+  test("from chars"):
     Using( Source.fromChars(quote.toCharArray) ) {
       source => source.mkString.split("\\W+").length shouldBe 13
     }.isSuccess shouldBe true
-  }
 
-  test("from bytes") {
+  test("from bytes"):
     Using( Source.fromBytes(quote.getBytes(utf8), utf8) ) {
       source => source.mkString.split("\\W+").length shouldBe 13
     }.isSuccess shouldBe true
-  }
 
-  test("grouped") {
+  test("grouped"):
     val array = Using( Source.fromInputStream(getClass.getResourceAsStream("/license.mit"), utf8) ) {
       source => source.mkString.split("\\W+") 
     }.getOrElse( Array.empty[String] )
@@ -69,9 +62,7 @@ final class IOTest extends AnyFunSuite with Matchers:
 
     val words = array.grouped(array.length / 8).toList
     words.length shouldEqual 9
-  }
 
-  test("file to lines") {
+  test("file to lines"):
     fileToLines("build.sbt").isSuccess shouldBe true
     fileToLines("sbt.sbt").isFailure shouldBe true
-  }
