@@ -20,7 +20,7 @@ final class TypeVarianceTest extends AnyFunSuite with Matchers:
   trait Function[-V, +R]:
     def apply(value: V): R
 
-  test("invariant") {
+  test("invariant"):
     val vet = VetInvariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
@@ -30,9 +30,8 @@ final class TypeVarianceTest extends AnyFunSuite with Matchers:
 
     val wolfVet: VetInvariant[Wolf] = VetInvariant[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
-  }
 
-  test("covariant") {
+  test("covariant"):
     val vet = VetCovariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
@@ -42,9 +41,8 @@ final class TypeVarianceTest extends AnyFunSuite with Matchers:
 
     val wolfVet: VetCovariant[Wolf] = VetCovariant[Wolf]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
-  }
 
-  test("contravariant") {
+  test("contravariant"):
     val vet = VetContravariant[Canine]
     vet.heal[Canine]( Dog() ).isInstanceOf[Dog] shouldBe true
     vet.heal[Canine]( Wolf() ).isInstanceOf[Wolf] shouldBe true
@@ -54,13 +52,11 @@ final class TypeVarianceTest extends AnyFunSuite with Matchers:
 
     val wolfVet: VetContravariant[Wolf] = VetContravariant[Canine]
     wolfVet.heal[Wolf]( Wolf() ).isInstanceOf[Wolf] shouldBe true
-  }
 
-  test("contravariant in, covariant out") {
+  test("contravariant in, covariant out"):
     val toIntOption = new Function[String, Option[Int]]:
       def apply(value: String): Option[Int] = value.toIntOption
 
     val values = List("1", "2", "3", "four")
     values.flatMap(value => toIntOption(value)) shouldEqual List(1, 2, 3)
     values.flatMap(value => toIntOption(value)).sum shouldEqual 6
-  }
