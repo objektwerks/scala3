@@ -15,9 +15,8 @@ final class CompoundTypeTest extends AnyFunSuite with Matchers:
 
   final class Robot extends Boot with Greet with Shutdown
 
-  test("compound") {
+  test("compound"):
     val robot = Robot()
     robot.boot shouldBe true
     robot.greet("Barney") shouldBe "Greetings, Barney!"
     robot.shutdown shouldBe true
-  }
