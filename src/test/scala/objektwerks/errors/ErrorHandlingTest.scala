@@ -22,7 +22,7 @@ final class ErrorHandlingTest extends AnyFunSuite with Matchers:
 
   def parseInt(s: String): Option[Int] = Try(s.toInt).toOption
 
-  test("either") {
+  test("either"):
     divide(9, 3).isRight shouldBe true
     divide(9, 0).isLeft shouldBe true
     divide(9, 3).contains(3) shouldBe true
@@ -33,43 +33,36 @@ final class ErrorHandlingTest extends AnyFunSuite with Matchers:
     divide(3, 0) match
       case Right(_) => fail("Should throw divide by zero error.")
       case Left(error) => error.isInstanceOf[Throwable] shouldBe true
-  }
   
-  test("try catch handler") {
+  test("try catch handler"):
     val handler: PartialFunction[Throwable, Unit] =
       case NonFatal(error) => error.getMessage.nonEmpty shouldBe true; ()
     
     try "abc".toInt
     catch handler
-  }
 
-  test("try") {
+  test("try"):
     divide("9", "3").nonEmpty shouldBe true
     divide("9", "3").contains(3) shouldBe true
     divide("9", "3").get shouldBe 3
     divide("a", "b").isEmpty shouldBe true
     divide("a", "b").isEmpty shouldBe true
     divide("a", "b").getOrElse(-1) shouldBe -1
-  }
 
-  test("try option") {
+  test("try option"):
     parseInt("a").isEmpty shouldBe true
     parseInt("1").isDefined shouldBe true
-  }
 
-  test("try using") {
+  test("try using"):
     fileToLines("build.sbt").isSuccess shouldBe true
     fileToLines("sbt.sbt").isFailure shouldBe true
-  }
 
-  test("try recover") {
+  test("try recover"):
     val i = for
       i <- Try("one".toInt).recover { case _ => 0 }
     yield i
     i shouldBe Success(0)
-  }
 
-  test("all catch") {
+  test("all catch"):
     allCatch.opt("1".toInt).nonEmpty shouldBe true
     allCatch.opt("one".toInt).isEmpty shouldBe true
-  }
