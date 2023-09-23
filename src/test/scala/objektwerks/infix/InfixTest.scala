@@ -15,7 +15,7 @@ final class InfixTest extends AnyFunSuite with Matchers:
   extension (amount: Amount)
     def discount(discount: Double): Amount = amount.copy(value = amount.value - (amount.value * discount))
 
-  test("infix") {
+  test("infix"):
     Amount(1.0) + Amount(2.0) shouldBe Amount(3.0)
     Amount(3.0) - Amount(2.0) shouldBe Amount(1.0)
 
@@ -23,4 +23,3 @@ final class InfixTest extends AnyFunSuite with Matchers:
     (Amount(3.0) subtract Amount(2.0)) shouldBe Amount(1.0)
 
     Amount(3.0).discount(0.10) shouldBe Amount(2.7)
-  }
