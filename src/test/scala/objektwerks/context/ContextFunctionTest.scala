@@ -42,5 +42,4 @@ final class ContextFunctionTest extends AnyFunSuite with Matchers:
   test("auth token"):
     given Pin = Pin("1a2b3c4")
     given AuthToken = login()
-    val message = "test"
-    handle(message) shouldBe true
+    handle(message = "test message") shouldBe true
