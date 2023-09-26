@@ -9,8 +9,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.annotation.tailrec
 
 /**
-  * @see [[https://blog.softwaremill.com/context-is-king-20f533474cb3]]
-  * @see [[https://dev.to/markehammons/the-wonder-of-context-functions-2200]]
+  * redirectTo: [[https://blog.softwaremill.com/context-is-king-20f533474cb3]]
+  * redirectTo: [[https://dev.to/markehammons/the-wonder-of-context-functions-2200]]
   */
 final class ContextFunctionTest extends AnyFunSuite with Matchers:
   given ExecutionContext = ExecutionContext.global
