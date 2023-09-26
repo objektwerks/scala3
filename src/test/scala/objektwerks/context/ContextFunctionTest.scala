@@ -34,13 +34,13 @@ final class ContextFunctionTest extends AnyFunSuite with Matchers:
   final case class AuthToken(pin: Pin, token: Token = Token()):
     def isValid: Boolean = pin.value.nonEmpty && token.value.nonEmpty
 
-  def login: Pin ?=> AuthToken = AuthToken( summon[Pin] )
+  def login(): Pin ?=> AuthToken = AuthToken( summon[Pin] )
 
   def handle(message: String)(using authToken: AuthToken): Boolean =
     summon[AuthToken].isValid && message.nonEmpty
 
   test("auth token"):
     given Pin = Pin("1a2b3c4")
-    given AuthToken = login
+    given AuthToken = login()
     val message = "test"
     handle(message) shouldBe true
