@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 /**
  * See: https://www.baeldung.com/scala/macros-scala-3
+ * See section 2.3 Transparent Inline Methods for a WTF over moment. ;)
  */
 final class InlineTest extends AnyFunSuite with Matchers:
   // inline def and parameter
@@ -14,6 +15,6 @@ final class InlineTest extends AnyFunSuite with Matchers:
       case 1 => "odd"
 
   test("inline"):
-    // injected code detailed below
+    // compiler injected code detailed in comments below
     oddOrEven(2) shouldBe "even" // if 2 % 2 == 0 then "even" else "odd"
     oddOrEven(1) shouldBe "odd"  // if 1 % 2 == 0 then "even" else "odd"
