@@ -29,7 +29,7 @@ final class ClassTest extends AnyFunSuite with Matchers:
   object Timestamp:
     def apply(hours: Int, minutes: Int, seconds: Int): Timestamp = Timestamp( (hours * 60 * 60) + (minutes * 60) + seconds )
 
-  test("classes with inheritence"):
+  test("classes with inheritance"):
     val cars = Owner.startEngines
     for (car <- cars)
       car.sound.nonEmpty shouldBe true
