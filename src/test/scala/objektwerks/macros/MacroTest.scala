@@ -8,8 +8,8 @@ import org.scalatest.matchers.should.Matchers
  * See: https://softwaremill.com/scala-3-macros-tips-and-tricks/
  */
 final class MacroTest extends AnyFunSuite with Matchers:
-  import OddOrEvenMacro.*
+  test("macro"):
+    import OddOrEvenMacro.*
 
-  test("macro"): // unreachable case warning
-    oddOrEven(2) shouldBe "even"
+    oddOrEven(2) shouldBe "even" // unreachable case warning
     oddOrEven(1) shouldBe "odd"
