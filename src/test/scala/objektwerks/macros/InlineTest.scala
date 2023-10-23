@@ -11,5 +11,6 @@ final class InlineTest extends AnyFunSuite with Matchers:
   inline def oddOrEven(inline n: Int): String = if n % 2 == 0 then "even" else "odd"
 
   test("inline"):
-    oddOrEven(2) shouldBe "even"
-    oddOrEven(1) shouldBe "odd"
+    // injected code detailed below
+    oddOrEven(2) shouldBe "even" // if 2 % 2 == 0 then "even" else "odd"
+    oddOrEven(1) shouldBe "odd"  // if 1 % 2 == 0 then "even" else "odd"
