@@ -7,6 +7,7 @@ import scala.collection.mutable
 
 final class CacheImpl:
   private val map = mutable.Map.empty[Int, Int]
+  given secret: String = "secret"
 
   def put(key: Int, value: Int): Option[Int] = map.put(key, value)
   def get(key: Int): Option[Int] = map.get(key)
@@ -15,7 +16,8 @@ final class CacheImpl:
 
 final class Cache:
   private val cache = CacheImpl()
-  export cache.* // export all CacheImpl public methods
+  export cache.* // export all CacheImpl methods
+  export cache.given // export all given fields
 
 /**
  * See: https://www.baeldung.com/scala/scala-3-export
@@ -28,3 +30,4 @@ final class ExportTest extends AnyFunSuite with Matchers:
     cache.size shouldBe 1
     cache.clear()
     cache.size shouldBe 0
+    cache.secret shouldBe "secret"
