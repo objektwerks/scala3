@@ -14,8 +14,10 @@ final class CacheImpl:
 
 final class Cache:
   private val cache = CacheImpl()
-  export cache.*
+  export cache.* // export all CacheImpl public methods
 
 final class ExportTest extends AnyFunSuite with Matchers:
   test("export"):
-    println("test export")
+    val cache = Cache()
+    cache.put(1, 1) shouldBe None
+    cache.get(1) shouldBe Some(1)
