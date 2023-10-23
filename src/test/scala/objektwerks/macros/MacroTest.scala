@@ -16,4 +16,6 @@ final class MacroTest extends AnyFunSuite with Matchers:
       case _ => Expr("odd")
 
   test("macro"):
-    println("todo")
+    import Quotes.given
+    oddOrEven(Expr(2))(using Quotes) shouldBe Expr("even")
+    oddOrEven(Expr(1))(using Quotes) shouldBe Expr("odd")
