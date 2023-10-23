@@ -8,3 +8,5 @@ object OddOrEvenMacro:
       case 0 => "even"
       case _ => "odd"
   }
+
+  inline def oddOrEven(inline n: Int): String = ${ OddOrEvenMacro.oddOrEvenQuotes( 'n ) }

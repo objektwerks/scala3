@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
  * See: https://softwaremill.com/scala-3-macros-tips-and-tricks/
  */
 final class MacroTest extends AnyFunSuite with Matchers:
-  inline def oddOrEven(inline n: Int): String = ${ OddOrEvenMacro.oddOrEvenQuotes( 'n ) }
+  import OddOrEvenMacro.*
 
   test("macro"):
     oddOrEven(2) shouldBe "even"
