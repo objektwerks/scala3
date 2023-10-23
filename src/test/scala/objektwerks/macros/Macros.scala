@@ -9,5 +9,5 @@ def oddOrEvenImpl(n: Expr[Int])(using Quotes): Expr[String] = '{
     case _ => "odd"
 }
 
-// Splice - inserts an AST fragment into the program AST
+// Splice - inserts an AST fragment, the macro, into the program AST
 inline def oddOrEven(inline n: Int): String = ${ oddOrEvenImpl( 'n ) }
