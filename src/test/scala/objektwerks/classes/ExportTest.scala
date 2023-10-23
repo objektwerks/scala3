@@ -10,6 +10,7 @@ final class CacheImpl:
 
   def put(key: Int, value: Int): Option[Int] = map.put(key, value)
   def get(key: Int): Option[Int] = map.get(key)
+  def size: Int = map.size
   def clear(): Unit = map.clear()
 
 final class Cache:
@@ -24,3 +25,6 @@ final class ExportTest extends AnyFunSuite with Matchers:
     val cache = Cache()
     cache.put(1, 1) shouldBe None
     cache.get(1) shouldBe Some(1)
+    cache.size shouldBe 1
+    cache.clear()
+    cache.size shouldBe 0
