@@ -11,8 +11,6 @@ import org.scalatest.matchers.should.Matchers
  */
 final class MacroTest extends AnyFunSuite with Matchers:
   test("macro"):
-    import OddOrEvenMacro.*
-
     oddOrEven(2) shouldBe "even" // unreachable case warning
     oddOrEven(1) shouldBe "odd"
 
