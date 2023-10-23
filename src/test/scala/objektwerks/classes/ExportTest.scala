@@ -16,6 +16,9 @@ final class Cache:
   private val cache = CacheImpl()
   export cache.* // export all CacheImpl public methods
 
+/**
+ * See: https://www.baeldung.com/scala/scala-3-export
+ */
 final class ExportTest extends AnyFunSuite with Matchers:
   test("export"):
     val cache = Cache()
