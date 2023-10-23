@@ -8,7 +8,10 @@ import org.scalatest.matchers.should.Matchers
  */
 final class InlineTest extends AnyFunSuite with Matchers:
   // inline def and parameter
-  inline def oddOrEven(inline n: Int): String = if n % 2 == 0 then "even" else "odd"
+  inline def oddOrEven(inline n: Int): String =
+    inline n % 2 match // inline to remove unreachable match error
+      case 0 => "even"
+      case 1 => "odd"
 
   test("inline"):
     // injected code detailed below
