@@ -1,4 +1,4 @@
-package objektwerks.macros
+package objektwerks.`macro`
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
