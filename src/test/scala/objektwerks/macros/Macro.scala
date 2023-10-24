@@ -1,4 +1,4 @@
-package objektwerks.`macro`
+package objektwerks.macros
 
 import scala.quoted.{Expr, Quotes}
 

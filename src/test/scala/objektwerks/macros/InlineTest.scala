@@ -1,11 +1,10 @@
-package objektwerks.`macro`
+package objektwerks.macros
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 /**
  * See: https://www.baeldung.com/scala/macros-scala-3
- * See section 2.3 Transparent Inline Methods for a WTF over moment. ;)
  */
 final class InlineTest extends AnyFunSuite with Matchers:
   // inline def and parameter
