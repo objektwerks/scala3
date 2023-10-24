@@ -2,7 +2,7 @@ package objektwerks.`macro`
 
 import scala.quoted.{Expr, Quotes}
 
-// Quote - builds an AST fragment
+// Quoting - build an AST fragment
 def oddOrEvenImpl(n: Expr[Int])(using Quotes): Expr[String] = '{
   // placing $n % 2 on line 10 results in an unreachable case warning
   // adding line 9 eliminates an unreachable case warning
@@ -12,5 +12,5 @@ def oddOrEvenImpl(n: Expr[Int])(using Quotes): Expr[String] = '{
     case _ => "odd"
 }
 
-// Splice - inserts an AST fragment, the macro, into the program AST
+// Splicing - insert an AST fragment, the macro, into the program AST
 inline def oddOrEven(inline n: Int): String = ${ oddOrEvenImpl( 'n ) }
