@@ -11,25 +11,5 @@ import org.scalatest.matchers.should.Matchers
  */
 final class MacroTest extends AnyFunSuite with Matchers:
   test("macro"):
-    oddOrEven(2) shouldBe "even" // unreachable case warning
+    oddOrEven(2) shouldBe "even"
     oddOrEven(1) shouldBe "odd"
-
-/* Test passes with these warnings:
-[warn] -- [E030] Match case Unreachable Warning: /Users/tripletail/workspace/scala3/src/test/scala/objektwerks/macros/MacroTest.scala:14:13 
-[warn] 14 |    oddOrEven(2) shouldBe "even" // unreachable case warning
-[warn]    |    ^^^^^^^^^^^^
-[warn]    |    Unreachable case
-[warn]    |----------------------------------------------------------------------------
-[warn]    |Inline stack trace
-[warn]    |- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-[warn]    |This location contains code that was inlined from Macros.scala:9
-[warn]  9 |    case _ => "odd"
-[warn]    |         ^
-[warn]    |- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-[warn]    |This location contains code that was inlined from Macros.scala:9
-[warn]  7 |  $n % 2 match
-[warn]    |  ^
-[warn]  8 |    case 0 => "even"
-[warn]  9 |    case _ => "odd"
-[warn]     ----------------------------------------------------------------------------
-*/
