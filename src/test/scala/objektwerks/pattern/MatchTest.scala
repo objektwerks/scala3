@@ -7,6 +7,14 @@ import scala.annotation.tailrec
 import scala.util.matching.Regex
 
 final class MatchTest extends AnyFunSuite with Matchers:
+  test("expression"):
+    def oddOrEven(n: Int): String =
+      n % 2 match
+        case 0 => "even"
+        case _ => "odd"
+    oddOrEven(2) shouldBe "even"
+    oddOrEven(1) shouldBe "odd"
+
   test("case class"):
     final case class Order(product: String, quantity: Int)
     def byCaseClass(order: Order): (String, Int) = order match
