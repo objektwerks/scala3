@@ -4,7 +4,10 @@ import scala.quoted.{Expr, Quotes}
 
 // Quote - builds an AST fragment
 def oddOrEvenImpl(n: Expr[Int])(using Quotes): Expr[String] = '{
-  $n % 2 match
+  // placing $n % 2 on line 10 results in an unreachable case warning
+  // adding line 9 eliminates an unreachable case warning
+  val i = $n % 2
+  i match
     case 0 => "even"
     case _ => "odd"
 }
