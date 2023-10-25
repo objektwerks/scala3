@@ -25,8 +25,10 @@ class PhantomTypeTest extends AnyFunSuite with Matchers:
     val oneCode: Code[Int] = Code.int(1)
     val twoCode: Code[Int] = Code.int(2)
     val threeCode: Code[Int] = Code.int(3)
-    println( oneCode add twoCode add threeCode )
+    val intCode = oneCode add twoCode add threeCode
+    println(intCode)
 
     val falseCode: Code[Boolean] = Code.bool(false)
     val trueCode: Code[Boolean] = Code.bool(true)
-    println( falseCode and trueCode )
+    val booleanCode = falseCode and trueCode
+    println(booleanCode)
