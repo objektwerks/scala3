@@ -3,7 +3,8 @@ package objektwerks.control
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import util.boundary, boundary.break
+import scala.util.boundary
+import scala.util.boundary.break
 
 class BoundaryBreakTest extends AnyFunSuite with Matchers:
   def sumOfRoots(numbers: List[Long]): Option[Long] =
