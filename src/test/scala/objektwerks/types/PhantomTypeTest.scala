@@ -22,15 +22,15 @@ class PhantomTypeTest extends AnyFunSuite with Matchers:
     def bool(value: Boolean): Code[Boolean] = Code(value.toString)
 
   test("phantom"):
-    val oneCode: Code[Int] = Code.int(1)
-    val twoCode: Code[Int] = Code.int(2)
-    val threeCode: Code[Int] = Code.int(3)
+    val oneCode = Code.int(1)
+    val twoCode = Code.int(2)
+    val threeCode = Code.int(3)
     val intCode = oneCode add twoCode add threeCode
     println(intCode)
     intCode.value shouldBe "((1 + 2) + 3)"
 
-    val falseCode: Code[Boolean] = Code.bool(false)
-    val trueCode: Code[Boolean] = Code.bool(true)
+    val falseCode = Code.bool(false)
+    val trueCode = Code.bool(true)
     val booleanCode = falseCode and trueCode
     println(booleanCode)
     booleanCode.value shouldBe "(false && true)"
