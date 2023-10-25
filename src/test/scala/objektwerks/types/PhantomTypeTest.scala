@@ -32,3 +32,4 @@ class PhantomTypeTest extends AnyFunSuite with Matchers:
     val trueCode: Code[Boolean] = Code.bool(true)
     val booleanCode = falseCode and trueCode
     println(booleanCode)
+    booleanCode.value shouldBe "(false && true)"
