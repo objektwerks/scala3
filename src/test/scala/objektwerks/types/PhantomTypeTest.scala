@@ -17,5 +17,16 @@ class PhantomTypeTest extends AnyFunSuite with Matchers:
     def and(that: Code[Boolean]): Code[Boolean] = Code(s"(${boolCode.value} && ${that.value})")
     def or(that: Code[Boolean]): Code[Boolean] = Code(s"(${boolCode.value} || ${that.value})")
 
+  object Code:
+    def int(value: Int): Code[Int] = Code(value.toString)
+    def bool(value: Boolean): Code[Boolean] = Code(value.toString)
+
   test("phantom"):
-    println("todo")
+    val oneCode: Code[Int] = Code.int(1)
+    val twoCode: Code[Int] = Code.int(2)
+    val threeCode: Code[Int] = Code.int(3)
+    println( oneCode add twoCode add threeCode )
+
+    val falseCode: Code[Boolean] = Code.bool(false)
+    val trueCode: Code[Boolean] = Code.bool(true)
+    println( falseCode and trueCode )
