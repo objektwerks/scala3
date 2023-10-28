@@ -4,8 +4,8 @@ Scala 3
 
 JDK
 ---
->To enable preview features and load modules see .jvmopts, configured
->as: ```"--enable-preview --add-modules jdk.incubator.concurrent"```
+>To enable preview features and add modules, create a .jvmopts file, and
+>configure as follows: ```"--enable-preview --add-modules jdk.incubator.concurrent"```
 
 Test
 ----
