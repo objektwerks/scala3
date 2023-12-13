@@ -26,6 +26,14 @@ class TupleTest extends AnyFunSuite with Matchers:
     state shouldBe "florida"
     zip shouldBe 12345
 
+  test("untupling"):
+    val tuples = List( (1, 1), (2, 2), (3, 3) )
+    val sums = tuples.map:
+      (x, y) => x + y
+    sums shouldBe List(2, 4, 6)
+
+  test("product"):
+    val cityStateZip = CityStateZip("sunavabeach", "florida", 12345)
     val productedTupled = Tuple.fromProductTyped(cityStateZip)
     println("Product element names:")
     productedTupled.productElementNames.foreach(println)
@@ -33,9 +41,3 @@ class TupleTest extends AnyFunSuite with Matchers:
     println( productedTupled._1 )
     println( productedTupled._2 )
     println( productedTupled._3 )
-
-  test("untupling"):
-    val tuples = List( (1, 1), (2, 2), (3, 3) )
-    val sums = tuples.map:
-      (x, y) => x + y
-    sums shouldBe List(2, 4, 6)
