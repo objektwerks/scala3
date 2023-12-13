@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 /**
   * See: https://blog.rockthejvm.com/practical-type-level-programming/
   */
-class TupleTest extends AnyFunSuite with Matchers:
+final class TupleTest extends AnyFunSuite with Matchers:
   final case class KeyValue(key: Int, value: Int):
     def tupled: (Int, Int) = (key, value)
 
