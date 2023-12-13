@@ -353,12 +353,17 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     final case class CityStateZip(city: String, state: String, zip: Int):
       def tupled: (String, String, Int) = (city, state, zip)
 
-    val cityStateZip = CityStateZip("placida", "florida", 33946)
+    val cityStateZip = CityStateZip("sunavabeach", "florida", 12345)
     val (city, state, zip) = cityStateZip.tupled
-    city shouldBe "placida"
+    city shouldBe "sunavabeach"
     state shouldBe "florida"
-    zip shouldBe 33946
-    println( Tuple.fromProductTyped(cityStateZip) )
+    zip shouldBe 12345
+
+    val productedTupled = Tuple.fromProductTyped(cityStateZip)
+    productedTupled.productElementNames.foreach(println)
+    println( productedTupled._1 )
+    println( productedTupled._2 )
+    println( productedTupled._3 )
 
   test("untupling"):
     val tuples = List( (1, 1), (2, 2), (3, 3) )
