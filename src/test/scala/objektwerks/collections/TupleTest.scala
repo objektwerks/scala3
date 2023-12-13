@@ -41,6 +41,6 @@ class TupleTest extends AnyFunSuite with Matchers:
     println("Product element names:")
     productedTupled.productElementNames.foreach(println)
     println("Product element values:")
-    println( productedTupled._1 )
-    println( productedTupled._2 )
-    println( productedTupled._3 )
+    productedTupled._1 shouldBe cityStateZip.city
+    productedTupled._2 shouldBe cityStateZip.state
+    productedTupled._3 shouldBe cityStateZip.zip
