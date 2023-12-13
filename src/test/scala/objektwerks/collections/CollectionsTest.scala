@@ -360,7 +360,9 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     zip shouldBe 12345
 
     val productedTupled = Tuple.fromProductTyped(cityStateZip)
+    println("Product element names:")
     productedTupled.productElementNames.foreach(println)
+    println("Product element values:")
     println( productedTupled._1 )
     println( productedTupled._2 )
     println( productedTupled._3 )
