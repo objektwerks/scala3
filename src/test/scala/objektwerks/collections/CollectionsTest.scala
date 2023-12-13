@@ -337,42 +337,6 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     (set ++= List(1, 2)) shouldBe Set(1, 2)
     (set --= List(1, 2)) shouldBe Set()
 
-  test("tuple"):
-    val (first, last, age) = ("fred", "flintstone", 99)
-    first shouldBe "fred"
-    last shouldBe "flintstone"
-    age shouldBe 99
-
-  test("tuple copy"):
-    final case class KeyValue(key: Int, value: Int):
-      def tupled: (Int, Int) = (key, value)
-    
-    (2, 2) shouldBe KeyValue(1, 1).tupled.copy(2, 2)
-
-  test("tupled"):
-    final case class CityStateZip(city: String, state: String, zip: Int):
-      def tupled: (String, String, Int) = (city, state, zip)
-
-    val cityStateZip = CityStateZip("sunavabeach", "florida", 12345)
-    val (city, state, zip) = cityStateZip.tupled
-    city shouldBe "sunavabeach"
-    state shouldBe "florida"
-    zip shouldBe 12345
-
-    val productedTupled = Tuple.fromProductTyped(cityStateZip)
-    println("Product element names:")
-    productedTupled.productElementNames.foreach(println)
-    println("Product element values:")
-    println( productedTupled._1 )
-    println( productedTupled._2 )
-    println( productedTupled._3 )
-
-  test("untupling"):
-    val tuples = List( (1, 1), (2, 2), (3, 3) )
-    val sums = tuples.map:
-      (x, y) => x + y
-    sums shouldBe List(2, 4, 6)
-
   test("asJava"):
     val asJavaList = List(1, 2, 3).asJava
     asJavaList.size shouldBe 3
