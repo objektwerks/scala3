@@ -17,6 +17,6 @@ Run
 
 Docs
 ----
-1. Book - https://docs.scala-lang.org/scala3/book/introduction.html
+1. [Book](https://docs.scala-lang.org/scala3/book/introduction.html)
 2. [Reference](https://docs.scala-lang.org/scala3/reference/overview.htmls)
 3. [Intellij X-Ray](https://blog.jetbrains.com/scala/2023/12/21/the-x-ray-mode/)
