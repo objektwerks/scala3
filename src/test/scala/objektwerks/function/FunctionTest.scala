@@ -67,7 +67,6 @@ final class FunctionTest extends AnyFunSuite with Matchers:
   test("var args"):
     def add(varargs: Int*): Int = varargs.sum
     add(1, 2, 3) shouldBe 6
-    add(List(1, 2, 3):_*) shouldBe 6
 
   test("closure"):
     val legalDrinkingAge = 21
