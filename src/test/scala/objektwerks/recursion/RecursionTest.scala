@@ -53,12 +53,11 @@ def isPrime(n: Int): Boolean =
 def intersectLists[A](listA: List[A],
                       listB: List[A],
                       acc: List[A] = List.empty[A]): List[A] =
-  listA match {
+  listA match
     case Nil => acc
     case head :: tail =>
       if listB.contains(head) then intersectLists(tail, listB, acc :+ head)
       else intersectLists(tail, listB, acc)
-  }
 
 final class RecursionTest extends AnyFunSuite with Matchers:
   test("sum"):
