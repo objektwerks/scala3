@@ -2,12 +2,6 @@ Scala 3
 -------
 >Scala 3 feature tests.
 
-JDK
----
->To enable preview features and add modules, create a .jvmopts file, and configure
->as follows: ```"--enable-preview --add-modules jdk.incubator.concurrent"``` Note
->'jdk.incubator.concurrent' is the name of a module.
-
 Test
 ----
 1. sbt clean test
