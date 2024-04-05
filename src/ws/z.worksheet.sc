@@ -13,9 +13,9 @@ enum Colors:
 object Colors:
   def toList: List[String] = Colors.values.map(_.toString).toList
 
-Colors.Red.toString()
-Colors.White.toString()
-Colors.Blue.toString()
+Colors.Red.toString
+Colors.White.toString
+Colors.Blue.toString
 
 Colors.values.toList
 Colors.toList
