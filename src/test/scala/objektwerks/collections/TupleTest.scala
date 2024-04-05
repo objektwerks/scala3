@@ -38,9 +38,6 @@ final class TupleTest extends AnyFunSuite with Matchers:
   test("product"):
     val cityStateZip = CityStateZip("sunavabeach", "florida", 12345)
     val productedTupled = Tuple.fromProductTyped(cityStateZip)
-    println("Product element names:")
-    productedTupled.productElementNames.foreach(println)
-    println("Product element values:")
     productedTupled._1 shouldBe cityStateZip.city
     productedTupled._2 shouldBe cityStateZip.state
     productedTupled._3 shouldBe cityStateZip.zip
