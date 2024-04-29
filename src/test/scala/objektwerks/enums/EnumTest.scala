@@ -5,8 +5,8 @@ import org.scalatest.matchers.should.Matchers
 
 final class EnumTest extends AnyFunSuite with Matchers:
   enum Exam:
-    case Fail(val subject: String, val score: Int) extends Exam
-    case Pass(val subject: String, val score: Int) extends Exam
+    case Fail(subject: String, score: Int) extends Exam
+    case Pass(subject: String, score: Int) extends Exam
 
   enum Gate(val state: Int):
     case closed extends Gate(0)
