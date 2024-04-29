@@ -10,13 +10,14 @@ final class StructuralTypeTest extends AnyFunSuite with Matchers:
     private val columns = fields.toMap
     def selectDynamic(column: String): Any = columns(column)
 
-  type Car = CarBuilder:
+  type Car = CarBuilder {
     val make: String
     val model: String
     val year: Int
+  }
 
   test("structural"):
-    val auto = CarBuilder("make" -> "Porsche", "model" -> "911", "year" -> 1964).asInstanceOf[Car]
+    val auto = CarBuilder("make" -> "Porsche", "model" -> "911", "year" -> 1964)
     val make = auto.selectDynamic("make").asInstanceOf[String]
     val model = auto.selectDynamic("model").asInstanceOf[String]
     val year = auto.selectDynamic("year").asInstanceOf[Int]
