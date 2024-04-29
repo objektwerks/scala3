@@ -8,5 +8,6 @@ libraryDependencies ++= {
   )
 }
 scalacOptions ++= Seq(
-  "-Wunused:all"
+  "-Wunused:all",
+  "-unchecked", "-deprecation"
 )
