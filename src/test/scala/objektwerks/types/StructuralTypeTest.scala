@@ -3,8 +3,6 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.reflect.Selectable.*
-
 final class StructuralTypeTest extends AnyFunSuite with Matchers:
   class CarBuilder(fields: (String, Any)*) extends Selectable:
     private val columns = fields.toMap
