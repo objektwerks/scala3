@@ -3,6 +3,9 @@ package objektwerks.collections
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+/**
+ * See: https://www.scala-lang.org/api/current/docs/docs/reference/experimental/named-tuples.html
+ */
 final class NamedTupleTest extends AnyFunSuite with Matchers:
   type Person = (name: String, age: Int)
 
