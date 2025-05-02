@@ -7,9 +7,10 @@ import org.scalatest.matchers.should.Matchers
  * See: https://www.scala-lang.org/api/current/docs/docs/reference/experimental/named-tuples.html
  */
 final class NamedTupleTest extends AnyFunSuite with Matchers:
-  type Person = (name: String, age: Int)
-
   test("named"):
-    val fred = (name = "Fred Flintstone", age = 68)
+    type Person = (name: String, age: Int)
+
+    val fred: Person = (name = "Fred Flintstone", age = 68)
+
     fred.name shouldBe "Fred Flintstone"
     fred.age shouldBe 68
