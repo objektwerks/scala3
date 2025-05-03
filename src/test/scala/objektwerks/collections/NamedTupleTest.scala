@@ -37,3 +37,7 @@ final class NamedTupleTest extends AnyFunSuite with Matchers:
     seniors.length shouldBe 1
     seniors.head.toTuple._1 shouldBe ("name", "Fred Flintstone")
     seniors.head.toTuple._2 shouldBe ("age", 69)
+
+    val updatedFred = NamedTuple.apply("name" -> fred.name, "age" -> (fred.age + 1))
+    updatedFred.toTuple._1 shouldBe ("name", "Fred Flintstone")
+    updatedFred.toTuple._2 shouldBe ("age", 69)
