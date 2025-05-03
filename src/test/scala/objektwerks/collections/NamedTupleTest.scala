@@ -4,7 +4,9 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 /**
- * See: https://www.scala-lang.org/api/current/docs/docs/reference/experimental/named-tuples.html
+ * See:
+ * 1. https://www.scala-lang.org/api/current/docs/docs/reference/experimental/named-tuples.html
+ * 2. https://docs.scala-lang.org/sips/named-tuples.html
  */
 final class NamedTupleTest extends AnyFunSuite with Matchers:
   test("named"):
