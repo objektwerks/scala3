@@ -199,6 +199,13 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
     Array(1) ++ Array(2) shouldBe array
     Array(1) ++: Array(2) shouldBe array
 
+  test("array seq"):
+    val array = ArraySeq(1, 2)
+    1 +: ArraySeq(2) shouldBe array
+    ArraySeq(1) :+ 2 shouldBe array
+    ArraySeq(1) ++ Array(2) shouldBe array
+    ArraySeq(1) ++: ArraySeq(2) shouldBe array
+
   test("array buffer"):
     val buffer = mutable.ArrayBuffer(1, 2)
     (buffer += 3) shouldBe mutable.ArrayBuffer(1, 2, 3)
