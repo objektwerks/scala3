@@ -19,3 +19,6 @@ final class NamedTupleTest extends AnyFunSuite with Matchers:
       case (name, age) =>
         name shouldBe "Fred Flintstone"
         age shouldBe 68
+
+    fred.toTuple._1 shouldBe "Fred Flintstone"
+    fred.toTuple._2 shouldBe 68
