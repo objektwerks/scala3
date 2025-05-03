@@ -30,3 +30,6 @@ final class NamedTupleTest extends AnyFunSuite with Matchers:
 
     val minors = flintstones.filter { person => person.age < 18 }
     minors.head shouldBe pebbles
+
+    val seniors = flintstones.filter { person => person.age >= 18 }.map { person => person.age + 1 }
+    seniors.head shouldBe 69
