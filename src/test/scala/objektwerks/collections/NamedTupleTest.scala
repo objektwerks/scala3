@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
  * 2. https://docs.scala-lang.org/sips/named-tuples.html
  */
 final class NamedTupleTest extends AnyFunSuite with Matchers:
-  test("named"):
+  test("named tuple"):
     type Person = (name: String, age: Int)
 
     val fred: Person = (name = "Fred Flintstone", age = 68)
