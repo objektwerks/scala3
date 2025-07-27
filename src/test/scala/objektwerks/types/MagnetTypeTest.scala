@@ -6,6 +6,9 @@ import org.scalatest.matchers.should.Matchers
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration.Duration
 
+/**
+  * See: https://blog.madhukaraphatak.com/scala-magnet-pattern
+  */
 sealed trait FutureMagnet:
   type Result
 
