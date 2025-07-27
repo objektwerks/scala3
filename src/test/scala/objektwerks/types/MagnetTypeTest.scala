@@ -26,4 +26,5 @@ def completeFuture(magnet: FutureMagnet):magnet.Result = magnet()
 
 final class MagnetTypeTest extends AnyFunSuite with Matchers:
   test("pattern"):
-    println("todo")
+    completeFuture( Future { 1 + 2 } ) 
+    completeFuture( Future { "magnet test" } )
