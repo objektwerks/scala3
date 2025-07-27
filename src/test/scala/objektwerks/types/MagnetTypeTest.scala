@@ -25,7 +25,7 @@ object FutureMagnet:
 
     override def apply(): Result = Await.result( future, Duration.Zero )
 
-def completeFuture(magnet: FutureMagnet):magnet.Result = magnet()
+def completeFuture(magnet: FutureMagnet): magnet.Result = magnet()
 
 final class MagnetTypeTest extends AnyFunSuite with Matchers:
   test("pattern"):
