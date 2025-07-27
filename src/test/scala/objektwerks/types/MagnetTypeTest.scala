@@ -3,7 +3,7 @@ package objektwerks.types
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration.Duration
 
 sealed trait FutureMagnet:
@@ -26,5 +26,7 @@ def completeFuture(magnet: FutureMagnet):magnet.Result = magnet()
 
 final class MagnetTypeTest extends AnyFunSuite with Matchers:
   test("pattern"):
-    completeFuture( Future { 1 + 2 } ) 
+    given ExecutionContext = ExecutionContext.global
+
+    completeFuture( Future { 1 + 2 } )
     completeFuture( Future { "magnet test" } )
