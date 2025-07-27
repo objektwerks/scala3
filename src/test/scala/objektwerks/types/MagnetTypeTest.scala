@@ -28,5 +28,5 @@ final class MagnetTypeTest extends AnyFunSuite with Matchers:
   test("pattern"):
     given ExecutionContext = ExecutionContext.global
 
-    completeFuture( Future { 1 + 2 } )
-    completeFuture( Future { "magnet test" } )
+    completeFuture( Future { 1 + 2 } ) shouldBe 3
+    completeFuture( Future { "magnet test" } ) shouldBe "magnet test"
