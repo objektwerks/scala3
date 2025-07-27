@@ -15,12 +15,12 @@ object FutureMagnet:
   implicit def completeIntFuture(future: Future[Int]): FutureMagnet = new FutureMagnet:
     override type Result = Int
 
-    override def apply(): Result = Await.result(future,Duration.Zero)
+    override def apply(): Result = Await.result( future, Duration.Zero )
 
   implicit def completeStringFuture(future: Future[String]): FutureMagnet = new FutureMagnet:
     override type Result = String
 
-    override def apply(): Result = Await.result(future,Duration.Zero)
+    override def apply(): Result = Await.result( future, Duration.Zero )
 
 def completeFuture(magnet: FutureMagnet):magnet.Result = magnet()
 
