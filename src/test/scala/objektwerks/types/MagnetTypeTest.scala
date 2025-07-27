@@ -12,12 +12,12 @@ sealed trait FutureMagnet:
   def apply() : Result
 
 object FutureMagnet:
-  implicit def completeIntFuture(future:Future[Int]) = new FutureMagnet:
+  implicit def completeIntFuture(future: Future[Int]): FutureMagnet = new FutureMagnet:
     override type Result = Int
 
     override def apply(): Result = Await.result(future,Duration.Zero)
 
-  implicit def completeStringFuture(future:Future[String]) = new FutureMagnet:
+  implicit def completeStringFuture(future: Future[String]): FutureMagnet = new FutureMagnet:
     override type Result = String
 
     override def apply(): Result = Await.result(future,Duration.Zero)
