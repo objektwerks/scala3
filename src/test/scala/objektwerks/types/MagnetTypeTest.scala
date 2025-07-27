@@ -8,6 +8,8 @@ sealed trait FutureMagnet:
 
   def apply() : Result
 
+def completeFuture(magnet: FutureMagnet):magnet.Result = magnet()
+
 final class MagnetTypeTest extends AnyFunSuite with Matchers:
   test("pattern"):
     println("todo")
