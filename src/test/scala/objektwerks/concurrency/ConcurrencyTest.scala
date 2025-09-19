@@ -35,7 +35,7 @@ final class ConcurrencyTest extends AnyFunSuite:
       executor.invokeAll( tasks.asJava ).asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage), lines => assert(lines == expectedLineCount) )
 
-  test("structured concurrency join"):
+  test("structured concurrency fork and join"):
     val lines = Using( StructuredTaskScope.open[Int]() ): scope =>
       val alines = scope.fork( () => FileLineCountTask("./data/data.a.csv").call() )
       val blines = scope.fork( () => FileLineCountTask("./data/data.b.csv").call() )
@@ -44,15 +44,6 @@ final class ConcurrencyTest extends AnyFunSuite:
     lines match
       case Success(count) => assert(count == expectedLineCount)
       case Failure(error) => fail(error.getMessage)
-
-  /*
-  test("structured concurrency race"):
-    Using( StructuredTaskScope.ShutdownOnSuccess[Int]() ) { scope =>
-      tasks.foreach( task => scope.fork( () => task.call() ) )
-      scope.joinUntil( Instant.now().plusMillis(3000) )
-      scope.result()
-    }.fold( error => fail(error.getMessage), lines => assert(lines == 270_562 || lines == 270_397) )
-  */
 
   test("scoped value"):
     val license: ScopedValue[String] = ScopedValue.newInstance()
