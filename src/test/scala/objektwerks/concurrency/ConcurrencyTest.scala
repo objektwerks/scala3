@@ -1,6 +1,5 @@
 package objektwerks.concurrency
 
-import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.{Callable, Executors, StructuredTaskScope}
 
@@ -36,12 +35,25 @@ final class ConcurrencyTest extends AnyFunSuite:
       executor.invokeAll( tasks.asJava ).asScala.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage), lines => assert(lines == expectedLineCount) )
 
+  /*
+  try (var scope = StructuredTaskScope.open()) {
+
+      Subtask<String> subtask1 = scope.fork(() -> query(left));
+      Subtask<Integer> subtask2 = scope.fork(() -> query(right));
+
+      // throws if either subtask fails
+      scope.join();
+
+      // both subtasks completed successfully
+      return new MyResult(subtask1.get(), subtask2.get());
+
+  } // close
+  */
   test("structured concurrency join"):
-    val lines = Using( StructuredTaskScope.ShutdownOnFailure() ): scope =>
+    val lines = Using( StructuredTaskScope.open[Int]() ): scope =>
       val alines = scope.fork( () => FileLineCountTask("./data/data.a.csv").call() )
       val blines = scope.fork( () => FileLineCountTask("./data/data.b.csv").call() )
       scope.join()
-      scope.throwIfFailed()
       alines.get() + blines.get()
     lines match
       case Success(count) => assert(count == expectedLineCount)
