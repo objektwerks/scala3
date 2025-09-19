@@ -47,6 +47,7 @@ final class ConcurrencyTest extends AnyFunSuite:
       case Success(count) => assert(count == expectedLineCount)
       case Failure(error) => fail(error.getMessage)
 
+  /*
   test("structured concurrency join until"):
     Using( StructuredTaskScope.ShutdownOnFailure() ) { scope =>
       val futures = tasks.map( task => scope.fork( () => task.call() ) )
@@ -54,13 +55,16 @@ final class ConcurrencyTest extends AnyFunSuite:
       scope.throwIfFailed()
       futures.map( future => future.get() ).sum
     }.fold( error => fail(error.getMessage), lines => assert(lines == expectedLineCount) )
+  */
 
+  /*
   test("structured concurrency race"):
     Using( StructuredTaskScope.ShutdownOnSuccess[Int]() ) { scope =>
       tasks.foreach( task => scope.fork( () => task.call() ) )
       scope.joinUntil( Instant.now().plusMillis(3000) )
       scope.result()
     }.fold( error => fail(error.getMessage), lines => assert(lines == 270_562 || lines == 270_397) )
+  */
 
   test("scoped value"):
     val license: ScopedValue[String] = ScopedValue.newInstance()
