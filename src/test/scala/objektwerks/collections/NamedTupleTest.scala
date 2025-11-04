@@ -22,8 +22,8 @@ final class NamedTupleTest extends AnyFunSuite with Matchers:
         name shouldBe "Fred Flintstone"
         age shouldBe 68
 
-    fred.toTuple._1 shouldBe "Fred Flintstone"
-    fred.toTuple._2 shouldBe 68
+    fred.name shouldBe "Fred Flintstone"
+    fred.age shouldBe 68
 
     val pebbles: Person = (name = "Pebbles Flintstone", age = 16)
     val flintstones = List(fred, pebbles)
