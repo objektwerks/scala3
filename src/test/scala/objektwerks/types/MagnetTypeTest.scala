@@ -18,7 +18,7 @@ object FutureMagnet:
   implicit def completeIntFuture(future: Future[Int]): FutureMagnet = new FutureMagnet:
     override type Result = Int
 
-    override def apply(): Result = Await.result( future, Duration.Zero )
+    override def apply(): Result = Await.result( future, Duration.Inf )
 
   implicit def completeStringFuture(future: Future[String]): FutureMagnet = new FutureMagnet:
     override type Result = String
