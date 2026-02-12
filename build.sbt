@@ -1,7 +1,7 @@
 name := "scala3"
 organization := "objektwerks"
 version := "1.0.0"
-scalaVersion := "3.8.2-RC1"
+scalaVersion := "3.8.2-RC2"
 libraryDependencies ++= {
   Seq(
     "org.scalatest" %% "scalatest" % "3.2.19" % Test
