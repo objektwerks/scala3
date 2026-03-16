@@ -13,14 +13,14 @@ final class CollectionsTest extends AnyFunSuite with Matchers:
   def toList(i: Int): List[Int] = List(i - 1, i, i + 1)
 
   test("newBuilder"):
-    Array.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe Array(1, 2, 3)
-    Seq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe Seq(1, 2, 3)
-    IndexedSeq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe IndexedSeq(1, 2, 3)
-    LinearSeq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe LinearSeq(1, 2, 3)
+    Array.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe Array(1, 2, 3)
+    Seq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe Seq(1, 2, 3)
+    IndexedSeq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe IndexedSeq(1, 2, 3)
+    LinearSeq.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe LinearSeq(1, 2, 3)
     Set.newBuilder[Int].addOne(1).addOne(2).addOne(3).result shouldBe Set(1, 2, 3)
     Map.newBuilder[Int, Int].addOne(1 -> 1).addOne(2 -> 2).addOne(3 -> 3).result shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
     View.newBuilder[Int].addOne(1).addOne(2).addOne(3).result.toList shouldBe List(1, 2, 3)
-    MapView.newBuilder[Int, Int].addOne(1 -> 1).addOne(2 -> 2).addOne(3 -> 3).result.toMap shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
+    MapView.newBuilder[Int, Int].addOne(1 -> 1).addOne(2 -> 2).addOne(3 -> 3).result().toMap shouldBe Map(1 -> 1, 2 -> 2, 3 -> 3)
     LazyList.newBuilder[Int].addOne(1).addOne(2).addOne(3).result() shouldBe LazyList(1, 2, 3)
 
   test("list"):
