@@ -4,7 +4,8 @@ Scala 3
 
 Test
 ----
-1. sbt clean test
+1. sbt clean
+2. sbt testFull
 
 Run
 ---
